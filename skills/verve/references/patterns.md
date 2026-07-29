@@ -116,7 +116,7 @@ this constantly because it lets them avoid naming who did anything.
 | *a bet lives or dies in days* | Someone shipped it or killed it. |
 
 **Fix:** name the human. If no specific person fits, use *you* and put the
-reader in the seat, subject to the tone preset (see `voice.md` — academic and
+reader in the seat, subject to the tone preset (see `voice.md` - academic and
 professional presets restrict second person).
 
 **B6. Narrator from a distance.** Floating above the scene rather than standing
@@ -194,7 +194,7 @@ prose unless a real list is warranted.
 **C4. Title Case Headings.** Use sentence case: *## Strategic negotiations and
 global partnerships*.
 
-**C5. Emojis in headings and bullets.** 🚀 💡 ✅ — remove unless the source
+**C5. Emojis in headings and bullets.** 🚀 💡 ✅ - remove unless the source
 document genuinely uses them.
 
 **C6. Curly quotes.** Replace typographic quotes with straight ones unless the

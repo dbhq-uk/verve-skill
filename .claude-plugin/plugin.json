@@ -1,0 +1,22 @@
+{
+  "name": "verve",
+  "description": "Strip AI tells from prose and put a human voice back, in British English, for Claude Code and Codex - a catalogue of tells across content, language, style, assistant artefacts and filler, four tone presets, three strength levels, and a scored exit gate where fidelity is a veto rather than an average. Runs in the conversation at no cost; an optional Undetectable AI engine is there if you want it.",
+  "version": "1.0.0",
+  "author": {
+    "name": "DBHQ",
+    "email": "dan@dbhq.uk"
+  },
+  "homepage": "https://dbhq.uk",
+  "repository": "https://github.com/dbhq-uk/verve-skill",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "editing",
+    "humanise",
+    "ai-detection",
+    "prose",
+    "british-english",
+    "copywriting",
+    "style"
+  ]
+}

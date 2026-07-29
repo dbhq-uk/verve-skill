@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for verve-api.py — the optional Undetectable AI engine.
+"""Tests for verve-api.py - the optional Undetectable AI engine.
 
 No network and no waiting: requests.post and time.sleep are both patched, so the
 timeout case exercises all MAX_POLLS iterations in microseconds rather than the

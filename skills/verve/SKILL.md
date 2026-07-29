@@ -14,7 +14,7 @@ machine-made too, just blandly rather than floridly.
 ## Prerequisites
 
 - Nothing to set up for the Claude engine (the default).
-- Commercial API engine only: `~/.claude/skills/verve/scripts/setup.sh`.
+- Commercial API engine only: `${CLAUDE_SKILL_DIR}/scripts/setup.sh`.
 
 ## Usage
 
@@ -73,10 +73,10 @@ Work through `references/patterns.md` (structural and content tells, with
 before/after for each) and `references/wordlist.md` (flat lists you can scan for
 directly). Strength dial:
 
-- **Light** — unmistakable tells only: banned words, em dashes, chatbot
+- **Light** - unmistakable tells only: banned words, em dashes, chatbot
   artefacts, curly quotes, sycophancy. Keep sentence structure.
-- **Moderate** (default) — full sweep, plus rhythm and voice work.
-- **Heavy** — restructure freely, reorder paragraphs, rewrite most sentences
+- **Moderate** (default) - full sweep, plus rhythm and voice work.
+- **Heavy** - restructure freely, reorder paragraphs, rewrite most sentences
   from scratch. Constraints 1-6 still apply, without exception.
 
 ### 3. Put the voice back
@@ -142,8 +142,12 @@ avoidance"*).
 When the user asks for *"using undetectable"*:
 
 ```bash
-~/.claude/skills/verve/.venv/bin/python ~/.claude/skills/verve/scripts/verve-api.py --text "THE_TEXT_HERE"
+${CLAUDE_SKILL_DIR}/.venv/bin/python ${CLAUDE_SKILL_DIR}/scripts/verve-api.py --text "THE_TEXT_HERE"
 ```
+
+If that `.venv` does not exist, the engine has never been set up on this
+machine. Say so and point at `${CLAUDE_SKILL_DIR}/scripts/setup.sh` rather than
+falling back to the Claude engine silently - the user asked for this one.
 
 File input uses `--file path/to/file.txt`. The script writes the humanised text
 to stdout; present that to the user.

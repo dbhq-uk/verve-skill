@@ -1,0 +1,185 @@
+name: Validate plugin
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate plugin manifest is valid JSON
+        run: jq empty .claude-plugin/plugin.json
+
+      - name: Check shell scripts parse
+        # Root installers included: a syntax error there breaks every install.
+        run: |
+          fail=0
+          while IFS= read -r s; do
+            bash -n "$s" || { echo "Syntax error: $s"; fail=1; }
+          done < <({ find . -maxdepth 1 -name '*.sh'; find skills -name '*.sh'; })
+          exit $fail
+
+      - name: Check Python scripts parse
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            python3 -c "import ast,sys; ast.parse(open(sys.argv[1]).read())" "$f" \
+              || { echo "Syntax error: $f"; fail=1; }
+          done < <(find skills -name '*.py')
+          exit $fail
+
+      - name: Check SKILL.md frontmatter
+        run: |
+          python3 - <<'PY'
+          import sys, pathlib, re
+          ok = True
+          for skill in sorted(pathlib.Path("skills").glob("*/SKILL.md")):
+              text = skill.read_text(encoding="utf-8")
+              m = re.match(r"^---\n(.*?)\n---", text, re.S)
+              if not m:
+                  print(f"{skill}: missing YAML frontmatter"); ok = False; continue
+              fm = m.group(1)
+              name = re.search(r"^name:\s*(.+)$", fm, re.M)
+              desc = re.search(r"^description:\s*(.+)$", fm, re.M)
+              if not name:
+                  print(f"{skill}: missing 'name'"); ok = False
+              else:
+                  name = name.group(1).strip()
+                  if name != skill.parent.name:
+                      print(f"{skill}: name '{name}' != directory '{skill.parent.name}'"); ok = False
+                  if not re.fullmatch(r"[a-z0-9-]{1,64}", name):
+                      print(f"{skill}: name must be lowercase alphanumeric/hyphen, <=64 chars"); ok = False
+              if not desc:
+                  print(f"{skill}: missing 'description'"); ok = False
+              elif len(desc.group(1).strip()) > 1024:
+                  print(f"{skill}: description exceeds 1024 chars"); ok = False
+          sys.exit(0 if ok else 1)
+          PY
+
+      # The whole install story rests on ${CLAUDE_SKILL_DIR} being substituted.
+      # A hardcoded ~/.claude/skills path works on the author's machine and is
+      # wrong under both a Codex install and a plugin install - which is exactly
+      # the bug that kept this skill Claude-only before it moved here. Asserted
+      # rather than trusted, because it reappears every time someone pastes a
+      # working command out of their own terminal.
+      - name: No hardcoded install paths
+        run: |
+          if grep -rn '~/\.claude/skills\|\$HOME/\.claude/skills' skills/; then
+            echo "::error::Hardcoded install path found. Use \${CLAUDE_SKILL_DIR} instead."
+            exit 1
+          fi
+          echo "No hardcoded install paths."
+
+      # The skill removes em dashes from other people's prose, and lists them as
+      # a tell it strips at every strength level. Shipping them in its own
+      # source is the one style slip that undermines the product itself - and it
+      # had crept into README, SKILL.md, patterns.md and a test docstring before
+      # this check existed.
+      #
+      # Blockquoted lines are exempt, and that exemption is the whole subtlety
+      # here: references/examples.md quotes AI-slop passages verbatim as the
+      # "before" half of a worked example. Those em dashes are specimens. A
+      # check that cannot tell a specimen from a violation would force the
+      # catalogue to stop demonstrating the thing it catalogues.
+      - name: No em dashes in our own prose
+        run: |
+          hits=$(grep -rn $'—' --include='*.md' --include='*.sh' --include='*.py' . \
+                 | grep -v ':[0-9]*:[[:space:]]*>' || true)
+          if [ -n "$hits" ]; then
+            echo "$hits"
+            echo "::error::Em dash found outside a quoted specimen. House style is a plain hyphen."
+            exit 1
+          fi
+          echo "No em dashes outside quoted specimens."
+
+  installers:
+    name: Installers actually install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The installers are how anyone outside the marketplace gets the skill,
+      # so they are exercised rather than assumed. The Codex path is the one
+      # that can silently break: it rewrites SKILL.md, so a rewrite that
+      # resolves to a nonexistent file still "installs" successfully.
+      - name: Claude install
+        run: |
+          ./install.sh
+          test -L "$HOME/.claude/skills/verve" || { echo "not a symlink"; exit 1; }
+          test -f "$HOME/.claude/skills/verve/SKILL.md" || { echo "SKILL.md missing"; exit 1; }
+
+      - name: Codex install, and the rewritten paths resolve
+        run: |
+          ./install-codex.sh
+          target="$HOME/.codex/skills/verve"
+          test -f "$target/SKILL.md" || { echo "SKILL.md missing"; exit 1; }
+          grep -q 'CLAUDE_SKILL_DIR' "$target/SKILL.md" && { echo "variable not substituted"; exit 1; }
+          test -f "$target/scripts/setup.sh" || { echo "scripts/ not linked"; exit 1; }
+          # Every path the rewritten SKILL.md names must exist on disk, except
+          # the .venv, which only appears once someone opts into the paid engine.
+          fail=0
+          while IFS= read -r p; do
+            case "$p" in *.venv*) continue;; esac
+            [ -e "$p" ] || { echo "rewritten path does not exist: $p"; fail=1; }
+          done < <(grep -o "$target[^ \`\"']*" "$target/SKILL.md" | sort -u)
+          exit $fail
+
+      - name: No dangling symlinks after either install
+        run: |
+          found=$(find "$HOME/.claude/skills/verve/" "$HOME/.codex/skills/verve/" -xtype l 2>/dev/null || true)
+          if [ -n "$found" ]; then echo "::error::dangling symlinks:"; echo "$found"; exit 1; fi
+          echo "No dangling symlinks."
+
+  verve:
+    name: verve (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The script has no annotations at all, so 3.9 is comfortable. Worth
+        # keeping: on 3.9 pip resolves an older `requests` than on 3.13 (the
+        # current release needs >=3.10), so the two jobs exercise different
+        # versions of the one dependency.
+        python-version: ['3.9', '3.13']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        working-directory: skills/verve
+        run: |
+          python -m pip install --upgrade pip pytest
+          python -m pip install -r requirements.txt
+
+      - name: Run test suite
+        working-directory: skills/verve
+        # requests and time.sleep are both patched, so the MAX_POLLS timeout case
+        # runs 60 iterations instantly instead of taking five real minutes.
+        run: python -m pytest tests/ -v -p no:cacheprovider
+
+  # Single required check for branch protection. Adding a job above does not mean
+  # remembering to add it to the protection rule - it only needs listing here.
+  ci-ok:
+    name: CI OK
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - validate
+      - installers
+      - verve
+    steps:
+      - name: Fail if any job did not succeed
+        run: |
+          results='${{ join(needs.*.result, ' ') }}'
+          echo "job results: $results"
+          for r in $results; do
+            [ "$r" = "success" ] || { echo "::error::a job did not succeed"; exit 1; }
+          done

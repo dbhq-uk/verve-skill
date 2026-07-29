@@ -30,7 +30,10 @@ def load_config():
     path = config_path()
     if not path.exists():
         print("No config found. Run setup first:", file=sys.stderr)
-        print("  ~/.claude/skills/verve/scripts/setup.sh", file=sys.stderr)
+        # Derived, not hardcoded: the skill installs to a different directory
+        # under a personal install, a Codex install and a plugin install, so any
+        # literal install path would be wrong for two of the three.
+        print(f"  {Path(__file__).resolve().parent / 'setup.sh'}", file=sys.stderr)
         sys.exit(1)
     with open(path) as f:
         return json.load(f)
