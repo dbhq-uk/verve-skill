@@ -8,7 +8,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Validate plugin manifest is valid JSON
         run: jq empty .claude-plugin/plugin.json
@@ -103,7 +103,7 @@ jobs:
     name: Installers actually install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # The installers are how anyone outside the marketplace gets the skill,
       # so they are exercised rather than assumed. The Codex path is the one
