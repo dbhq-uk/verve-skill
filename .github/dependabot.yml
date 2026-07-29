@@ -1,0 +1,41 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+  - package-ecosystem: pip
+    directory: /skills/verve
+    schedule:
+      interval: weekly
+      day: monday
+    labels:
+      - dependencies
+      - python
+    commit-message:
+      prefix: "deps"
+    ignore:
+      # requests 2.33+ declares Requires-Python >=3.10, and this skill's CI
+      # floor is 3.9, so the bump fails at pip install rather than at test time.
+      # It also buys nothing: requirements.txt states a floor, not a pin, so the
+      # 3.13 job already installs the current release under `requests>=2.32.4`.
+      # Carried over from the claude-skills monorepo, where PR #19 set that
+      # floor for this reason and #22 re-proposed the same bump regardless.
+      # Bounded at 2.33 so a 2.32.x security patch still comes through.
+      - dependency-name: requests
+        versions: [">=2.33"]
+    groups:
+      verve:
+        patterns:
+          - "*"
