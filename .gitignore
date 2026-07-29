@@ -7,15 +7,12 @@ Thumbs.db
 .idea/
 *.swp
 
-# Local credentials must never be committed (they live in ~/.verve, not here)
-.verve/
-*.token
-
 # Local agent tooling state
 .serena/
 .superpowers/
 
-# Python venv provisioned by skills/verve/scripts/setup.sh
+# Kept although the skill has no Python: a contributor's editor or a stray
+# tool can still drop these, and they should never reach a commit.
 .venv/
 __pycache__/
 *.pyc

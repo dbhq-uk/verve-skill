@@ -26,7 +26,7 @@ verve cuts the AI tells out of a piece of writing and puts a voice back into it,
 
 **It knows when to do nothing.** Triage comes first. Text that already reads as human-written comes back unchanged with one line saying so. A tool that processes clean prose for the sake of processing it makes writing worse.
 
-**It costs nothing to run.** The default engine is the conversation itself - no API key, no per-word billing, no network round trip. The optional Undetectable AI engine is there if you want a commercial second opinion, and the skill is explicit about when it has not been set up rather than silently falling back.
+**It costs nothing to run, and there is no upsell.** The whole skill is the conversation itself - no API key, no per-word billing, no network round trip, no paid tier holding the good half back. Earlier versions shipped an optional commercial detector-evasion API; it was removed in July 2026, because writing that reads as human should come from a judgement about the writing, not from a service that tunes text to score well against a classifier.
 
 **British English throughout**, which is the point if you write for a UK audience and are tired of drafts drifting into American spelling.
 
@@ -50,7 +50,7 @@ cd verve-skill
 
 [`install.sh`](install.sh) and [`install-codex.sh`](install-codex.sh) are the same install two ways: Claude Code substitutes `${CLAUDE_SKILL_DIR}` so the whole skill directory is symlinked untouched, while Codex does not, so its `SKILL.md` is rewritten at install time.
 
-**Nothing to install beyond that.** The default engine needs no packages, no venv and no credentials.
+**Nothing to install beyond that.** No packages, no virtualenv, no credentials, no network. The skill is instructions and reference material, not tooling.
 
 ## Usage
 
@@ -71,7 +71,6 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 | Tone | neutral, casual, professional, academic | neutral |
 | Strength | light, moderate, heavy | moderate |
 | Explain | on / off | off |
-| Engine | claude, undetectable | claude |
 | Output | conversation, save to file | conversation |
 
 **Strength** is the dial worth knowing. *Light* touches only the unmistakable tells - banned words, em dashes, chatbot artefacts, sycophancy - and leaves sentence structure alone. *Moderate*, the default, adds rhythm and voice work. *Heavy* restructures freely and rewrites most sentences from scratch. The meaning constraints hold at every level, without exception.
@@ -85,23 +84,11 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 5. **Quick checks** - a 14-item pre-flight list run against the draft
 6. **Score** - six dimensions, fidelity as a veto rather than an average
 
-## The optional commercial engine
+## What this will not do
 
-[Undetectable AI](https://undetectable.ai/develop) is a paid API, around $10/month. It is entirely optional and off by default:
+Route your text through a detector-evasion service. Verve shipped with an optional [Undetectable AI](https://undetectable.ai) engine until July 2026, and it was removed rather than kept as a switch nobody had to flip.
 
-```bash
-./skills/verve/scripts/setup.sh
-```
-
-This provisions a virtualenv for `requests` and stores your key in `~/.verve/config.json` (permissions `600`), never in the repo. Then ask for *"verve draft.md using undetectable"*.
-
-## Tests
-
-```bash
-cd skills/verve && python3 -m pytest tests/ -v
-```
-
-Offline - `requests` and `time.sleep` are both patched, so the polling-timeout case runs its 60 iterations instantly instead of taking five real minutes.
+Two reasons, and the second is the real one. It contradicted the free, read-every-line argument the rest of the skill is built on. And it aimed at the wrong target: a classifier score is not the goal, prose a person would be happy to put their name to is. Those come apart the moment you optimise for the score, and when they do, the score wins and the writing loses.
 
 ## Development
 
@@ -113,7 +100,7 @@ Want to hack on the skill or run it from source with live edits? See [`docs/dev-
 
 Several patterns - false agency, vague declaratives, narrator-from-a-distance, meta-commentary, emphasis crutches, telling-instead-of-showing - and the idea of a scored exit gate come from [stop-slop](https://github.com/hardikpandya/stop-slop) by Hardik Pandya (MIT).
 
-Renamed from `humanize` in July 2026. The skill still triggers on *"humanise this"* and *"make this sound human"*; only the name, the directory and the credentials path changed.
+Renamed from `humanize` in July 2026. The skill still triggers on *"humanise this"* and *"make this sound human"*; only the name and the directory changed.
 
 ## License
 

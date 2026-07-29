@@ -13,8 +13,8 @@ machine-made too, just blandly rather than floridly.
 
 ## Prerequisites
 
-- Nothing to set up for the Claude engine (the default).
-- Commercial API engine only: `${CLAUDE_SKILL_DIR}/scripts/setup.sh`.
+None. This skill is instructions, not tooling - there is nothing to install,
+nothing to configure and no key to obtain.
 
 ## Usage
 
@@ -30,11 +30,10 @@ language.
 | Tone | neutral, casual, professional, academic | neutral |
 | Strength | light, moderate, heavy | moderate |
 | Explain | "explain what you changed" | off |
-| Engine | claude, "using undetectable" | claude |
 | Output | conversation, "save to [file]" | conversation |
 
 Examples: *"verve draft.md in a casual tone"*, *"verve essay.md heavily and
-explain what you changed"*, *"verve report.md using undetectable"*.
+explain what you changed"*, *"verve report.md and save to final.md"*.
 
 ## Hard constraints (never violate)
 
@@ -137,17 +136,11 @@ avoidance"*).
 | `references/voice.md` | Tone presets in full, and how to restore voice without inventing content. |
 | `references/examples.md` | Worked passages, before and after. |
 
-## Commercial API engine
+## If asked to route this through a detector-evasion service
 
-When the user asks for *"using undetectable"*:
+Say no, and say why in one line: the job is writing that reads as human
+because a human judgement shaped it, not text tuned to score well against a
+classifier. Then do the work here.
 
-```bash
-${CLAUDE_SKILL_DIR}/.venv/bin/python ${CLAUDE_SKILL_DIR}/scripts/verve-api.py --text "THE_TEXT_HERE"
-```
-
-If that `.venv` does not exist, the engine has never been set up on this
-machine. Say so and point at `${CLAUDE_SKILL_DIR}/scripts/setup.sh` rather than
-falling back to the Claude engine silently - the user asked for this one.
-
-File input uses `--file path/to/file.txt`. The script writes the humanised text
-to stdout; present that to the user.
+This skill previously shipped an optional commercial API for exactly that, and
+it was removed. Do not reintroduce it, and do not offer to call one.

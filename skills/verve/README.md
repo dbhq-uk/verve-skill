@@ -4,8 +4,8 @@ Strip AI tells from prose and put a human voice back, in **British English**,
 without changing what the text says.
 
 > Renamed from `humanize` in July 2026. The skill still triggers on
-> "humanise this" and "make this sound human"; only the directory, the
-> credentials path and the script name changed.
+> "humanise this" and "make this sound human"; only the name and the
+> directory changed.
 
 ## Why two halves
 
@@ -18,11 +18,9 @@ The constraint that governs everything: meaning does not change. No invented
 statistics, no dropped claims, no compressing three points into one punchy
 line.
 
-## Engines
+## How it works
 
-### Claude engine (default)
-
-Runs in the conversation. No extra API calls, no cost.
+Entirely in the conversation. No extra API calls, no cost, nothing to install.
 
 1. **Triage** - returns already-human text unchanged rather than mangling it.
 2. **Tone** - neutral / casual / professional / academic, held throughout.
@@ -32,23 +30,9 @@ Runs in the conversation. No extra API calls, no cost.
 5. **Quick checks** - a 14-item pre-flight list.
 6. **Score** - six dimensions, with Fidelity as a veto rather than an average.
 
-### Undetectable AI engine (optional)
-
-Commercial API, around $10/month. Submit text, get a humanised version back.
-
 ## Setup
 
-Nothing to do for the Claude engine.
-
-For the commercial API:
-
-```bash
-${CLAUDE_SKILL_DIR}/scripts/setup.sh
-```
-
-You'll need a key from [Undetectable AI](https://undetectable.ai/develop). If
-you set the skill up under its old name, setup offers to copy your existing key
-across, and the script reads the old path either way.
+None. The skill is instructions, not tooling.
 
 ## Usage
 
@@ -59,7 +43,6 @@ across, and the script reads the old path either way.
 "verve draft.md in a casual tone"
 "verve draft.md with heavy rewriting"
 "verve essay.md and explain what you changed"
-"verve draft.md using undetectable"
 "verve draft.md and save to output.md"
 ```
 
@@ -70,7 +53,6 @@ across, and the script reads the old path either way.
 | Tone | neutral, casual, professional, academic | neutral |
 | Strength | light, moderate, heavy | moderate |
 | Explain | on / off | off |
-| Engine | claude, undetectable | claude |
 | Output | conversation, save to file | conversation |
 
 ## Structure
@@ -78,27 +60,24 @@ across, and the script reads the old path either way.
 ```
 verve/
 ├── SKILL.md                    # Workflow, constraints, quick checks, scoring
-├── references/
-│   ├── patterns.md             # The tell catalogue, before/after for each
-│   ├── wordlist.md             # Flat scannable word and phrase lists
-│   ├── voice.md                # Tone presets and restoring voice
-│   └── examples.md             # Worked passages
-├── scripts/
-│   ├── setup.sh
-│   └── verve-api.py            # Optional Undetectable AI engine
-└── tests/
+└── references/
+    ├── patterns.md             # The tell catalogue, before/after for each
+    ├── wordlist.md             # Flat scannable word and phrase lists
+    ├── voice.md                # Tone presets and restoring voice
+    └── examples.md             # Worked passages
 ```
-
-## Credentials
-
-| Item | Location |
-|------|----------|
-| Undetectable AI key | `~/.verve/config.json` (falls back to `~/.humanize/config.json`) |
 
 ## Requirements
 
-- Claude Code subscription (for the Claude engine)
-- python3, requests (commercial API engine only)
+A Claude Code or Codex session. Nothing else - no packages, no virtualenv, no
+credentials, no network.
+
+## What this will not do
+
+Route your text through a detector-evasion service. An optional commercial API
+for that shipped with earlier versions and was removed in July 2026: the point
+is prose a human judgement shaped, not text tuned to score well against a
+classifier.
 
 ## Acknowledgements
 

@@ -19,11 +19,12 @@ The whole skill directory is symlinked, so edits - including to `SKILL.md` and `
 
 ## Before opening a PR
 
-- `cd skills/verve && python3 -m pytest tests/ -v` - the suite passes, no network needed
-- `bash -n install.sh install-codex.sh skills/verve/scripts/*.sh` - shell scripts parse
+- `bash -n install.sh install-codex.sh` - the installers parse
 - `claude plugin validate .` - the plugin validates
-- Keep credentials out of the repo and out of commits
+- Verify the prose by hand: a plainly human passage comes back **unchanged**, and a passage full of figures and names keeps **every one**. Nothing automated asserts either, and they are the two things that matter
 - British English, plain hyphens, no trailing full stops on headings
+
+There is no test suite, because there is no code. Please keep it that way - see below.
 
 ## The bar for a new tell
 
@@ -34,6 +35,14 @@ Two related rules, and they are the ones that matter:
 **A tell may never cost meaning.** If removing it plausibly drops a claim, a figure or a qualifier, it is not a tell - it is content you find stylistically annoying. The hard constraints in `SKILL.md` outrank everything in `references/`, and a pattern that fights them is a bug in the pattern.
 
 **Subtraction is not the whole job.** Anything added to the catalogue should leave the prose more human, not merely less florid. A change that makes writing blander has moved it from one kind of machine-made to another.
+
+## What we will not accept
+
+**Code.** Verve is instructions and reference material - no scripts, no packages, no interpreter, no network call. Anyone can verify that in one glance at the tree, and that is worth more than any feature a script would buy. CI enforces it. If you are convinced something genuinely cannot be done in prose, open an issue first.
+
+**A paid path.** An optional commercial detector-evasion API shipped until July 2026 and was removed. Please do not propose reinstating it, adding a hosted service, or gating anything behind a key or a tier.
+
+The second is not really about money. Verve aims at prose a person would put their name to; a detector aims at a classifier score. Those two come apart the moment you optimise for the score, and when they do the score wins and the writing loses. A pull request that helps text evade detection rather than deserve to pass will be declined.
 
 ## Licence
 

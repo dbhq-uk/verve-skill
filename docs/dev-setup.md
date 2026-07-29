@@ -5,8 +5,8 @@ Set the skill up from source with a **live symlink install**, so your edits are 
 ## Prerequisites
 
 - `git` (and the GitHub CLI `gh` if you'll push changes)
-- Nothing else for the default Claude engine - it runs in the conversation, with no scripts, no packages and no credentials
-- `python3` and `pytest` only if you'll work on the optional Undetectable AI engine or run its test suite
+
+That is the whole list. The skill runs in the conversation and is instructions rather than tooling: no scripts, no packages, no interpreter, no credentials, no network.
 
 ## 1. Clone
 
@@ -22,32 +22,20 @@ cd ~/dbhq-verve
 ./install-codex.sh    # Codex: installs into ~/.codex/skills
 ```
 
-The committed skill references its scripts via `${CLAUDE_SKILL_DIR}` (the skill's own directory), which Claude Code substitutes for personal, project and plugin installs alike. So `install.sh` symlinks the **whole skill directory** into `~/.claude/skills/` - `SKILL.md`, `scripts/`, `references/` and `tests/` are all live, and every edit takes effect with no re-run. Codex does not substitute `${CLAUDE_SKILL_DIR}`, so `install-codex.sh` rewrites it to the install path - **re-run `./install-codex.sh` after editing a `SKILL.md`** for Codex.
+Any path the skill names uses `${CLAUDE_SKILL_DIR}` (the skill's own directory), which Claude Code substitutes for personal, project and plugin installs alike. So `install.sh` symlinks the **whole skill directory** into `~/.claude/skills/` - `SKILL.md` and `references/` are both live, and every edit takes effect with no re-run. Codex does not substitute `${CLAUDE_SKILL_DIR}`, so `install-codex.sh` rewrites it to the install path - **re-run `./install-codex.sh` after editing a `SKILL.md`** for Codex.
 
-Neither installer runs `setup.sh`. That is deliberate: setup prompts for a paid API key, and the engine most people use needs no setup at all, so running it on every install would ask for a credit card to enable something optional.
+There is no setup step to run afterwards, and nothing to authenticate.
 
 ## 3. Verify
 
-```bash
-cd skills/verve && python3 -m pytest tests/ -v
-```
+In Claude Code, try *"verve this: The implications of this paradigm shift cannot be overstated."* - a passage with enough tells that a working install is obvious from the output.
 
-Then, in Claude Code, try *"verve this: The implications of this paradigm shift cannot be overstated."* - a passage with enough tells that a working install is obvious from the output.
-
-Most of the skill is prose rather than code, so the real verification is behavioural. Two things worth checking by hand after editing `references/`:
+There is no test suite to run, because there is no code to test. The behaviour lives in prose, so verification is behavioural, and these two are the ones that matter after editing `references/`:
 
 - **Triage still refuses to work.** Hand it something plainly human-written and confirm it comes back unchanged. A skill that always rewrites has lost the property that makes it safe to run on anything.
 - **Fidelity still vetoes.** Hand it a passage dense with figures and names, and confirm every one survives. This is the failure mode that matters, and it is the one a wordlist edit can quietly introduce.
 
-## 4. Optional - the commercial engine
-
-```bash
-skills/verve/scripts/setup.sh
-```
-
-Provisions a virtualenv for `requests` and stores an [Undetectable AI](https://undetectable.ai/develop) key in `~/.verve/config.json` (permissions `600`), never in the repo. If you set the skill up under its old `humanize` name, setup offers to copy the existing key across, and `verve-api.py` reads the old path either way.
-
-For Codex, re-run `./install-codex.sh` afterwards - the venv link into `~/.codex/skills/verve/` is only created once the venv exists.
+Nothing automated asserts either. Treating a green CI run as evidence the skill still works is the mistake this section exists to prevent - CI checks that the installers parse and that no code has crept in, and that is all it can check.
 
 ## Where the content lives
 
@@ -65,4 +53,4 @@ Adding a tell means adding it to `patterns.md` with a before/after, and to `word
 
 ## Working across machines
 
-Editing anything under `~/dbhq-verve` (scripts, `SKILL.md` or `references/`) is live immediately in Claude Code - the skill directory is symlinked whole. For Codex, re-run `./install-codex.sh` after a `SKILL.md` edit. If you develop on more than one machine, `git pull` before you start and `git push` when done to keep them in sync.
+Editing anything under `~/dbhq-verve` (`SKILL.md` or `references/`) is live immediately in Claude Code - the skill directory is symlinked whole. For Codex, re-run `./install-codex.sh` after a `SKILL.md` edit. If you develop on more than one machine, `git pull` before you start and `git push` when done to keep them in sync.

@@ -12,10 +12,13 @@ The **verve** skill for AI coding agents - strip AI tells from prose and put a h
 .claude-plugin/plugin.json      # plugin manifest
 skills/verve/SKILL.md           # the skill (agent-facing instructions)
 skills/verve/references/        # the tell catalogue, wordlists, tone presets, worked examples
-skills/verve/scripts/           # optional Undetectable AI engine + its setup
-skills/verve/tests/             # offline unit tests for the API script
 install.sh / install-codex.sh   # local symlink installers (Claude / Codex)
 ```
+
+There is no `scripts/` and no `tests/`. This skill is prose: instructions and
+reference material, with no executable code at all. If you are about to add a
+script, be certain the job genuinely cannot be done by instructions - the
+absence of a runtime is a feature people can verify at a glance.
 
 ## The three constraints that must not be broken
 
@@ -25,22 +28,26 @@ Everything else here is a preference. These are not.
 
 **2. Triage stays.** The skill must be able to decide to do nothing. Text that already reads as human-written is returned unchanged. Removing or weakening that step turns a tool you can safely run on anything into one that degrades good writing, and the damage is invisible because the output still looks like work.
 
-**3. The default engine stays free and dependency-free.** The Claude engine runs in the conversation - no packages, no venv, no credentials, no network. The Undetectable AI engine is optional, commercial, and must remain so. Never move a required step behind the paid path, and never let the installers demand a key.
+**3. It stays free, dependency-free and offline.** The skill runs in the conversation - no packages, no venv, no credentials, no network call. An optional commercial detector-evasion API shipped until July 2026 and was **removed**, not merely defaulted off. Do not reintroduce it or anything like it, and do not add a paid tier, a hosted service or a "pro" path. If a user asks to route their text through such a service, decline and do the work here: the target is prose a person would put their name to, not a classifier score, and those two come apart the moment you optimise for the score.
 
 ## Conventions
 
-- `SKILL.md` references scripts via `${CLAUDE_SKILL_DIR}` (the skill's own directory), which Claude Code substitutes for personal, project and plugin installs alike. `install.sh` therefore symlinks the whole skill directory into `~/.claude/skills/` with no rewrite. `install-codex.sh` rewrites the variable, since Codex does not substitute it. **Never hardcode a `~/.claude/skills/verve` path** - it is wrong under a Codex install and wrong under a plugin install.
+- Any path a `SKILL.md` names must use `${CLAUDE_SKILL_DIR}` (the skill's own directory), which Claude Code substitutes for personal, project and plugin installs alike. `install.sh` therefore symlinks the whole skill directory into `~/.claude/skills/` with no rewrite. `install-codex.sh` rewrites the variable, since Codex does not substitute it. **Never hardcode a `~/.claude/skills/verve` path** - it is wrong under a Codex install and wrong under a plugin install.
 - `SKILL.md` is the short half on purpose. Workflow, constraints, checks and scoring live there; the catalogue, wordlists, tone presets and worked examples live in `references/` and are read on demand.
 - Shell scripts use `set -e`; errors go to stderr, output to stdout.
-- No secrets in the repo - the API key lives at `~/.verve/config.json`.
+- No secrets in the repo, and nothing that would need one.
 - House style: British English, plain hyphens, no em dashes. The skill removes em dashes from other people's writing; shipping them in its own source is not a good look.
 
 ## Validating a change
 
 ```bash
-cd skills/verve && python3 -m pytest tests/ -v   # offline; requests and sleep are patched
-bash -n install.sh install-codex.sh skills/verve/scripts/*.sh
+bash -n install.sh install-codex.sh
 claude plugin validate .
 ```
 
-The tests only cover `verve-api.py`, which is the optional engine - so a green suite says nothing about the part of the skill that does the actual work. After editing `references/` or `SKILL.md`, verify by hand: give it a plainly human passage and confirm triage returns it unchanged, then give it a passage dense with figures and names and confirm every one survives. Those two behaviours are what the constraints above are protecting, and no test asserts them.
+That is the whole automated surface, and it is worth being honest about what it does not cover: there is no test suite, because there is no code to test. The behaviour that matters lives in prose, so after editing `references/` or `SKILL.md`, verify it by hand:
+
+- Give it a plainly human passage and confirm triage returns it **unchanged**. A skill that always rewrites has lost the property that makes it safe to run on anything.
+- Give it a passage dense with figures, names and dates and confirm **every one survives**. This is the failure that matters, and a wordlist edit can introduce it quietly.
+
+Neither is asserted anywhere. Skipping them because the checks above are green is how the constraints get broken.

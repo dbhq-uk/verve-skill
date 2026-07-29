@@ -22,14 +22,18 @@ jobs:
           done < <({ find . -maxdepth 1 -name '*.sh'; find skills -name '*.sh'; })
           exit $fail
 
-      - name: Check Python scripts parse
+      # This skill is prose: no scripts, no packages, no interpreter. That is a
+      # claim people can check at a glance, so CI checks it too - a script
+      # appearing here should be a deliberate decision, not a drift.
+      - name: The skill stays code-free
         run: |
-          fail=0
-          while IFS= read -r f; do
-            python3 -c "import ast,sys; ast.parse(open(sys.argv[1]).read())" "$f" \
-              || { echo "Syntax error: $f"; fail=1; }
-          done < <(find skills -name '*.py')
-          exit $fail
+          found=$(find skills -name '*.py' -o -name '*.sh' -o -name 'requirements*.txt')
+          if [ -n "$found" ]; then
+            echo "$found"
+            echo "::error::Executable code found. This skill is instructions, not tooling."
+            exit 1
+          fi
+          echo "No code under skills/ - instructions only."
 
       - name: Check SKILL.md frontmatter
         run: |
@@ -117,12 +121,12 @@ jobs:
           target="$HOME/.codex/skills/verve"
           test -f "$target/SKILL.md" || { echo "SKILL.md missing"; exit 1; }
           grep -q 'CLAUDE_SKILL_DIR' "$target/SKILL.md" && { echo "variable not substituted"; exit 1; }
-          test -f "$target/scripts/setup.sh" || { echo "scripts/ not linked"; exit 1; }
-          # Every path the rewritten SKILL.md names must exist on disk, except
-          # the .venv, which only appears once someone opts into the paid engine.
+          test -d "$target/references" || { echo "references/ not linked"; exit 1; }
+          # Every path the rewritten SKILL.md names must exist on disk. No
+          # exemptions: with the optional engine gone there is nothing this
+          # skill can name that is legitimately absent.
           fail=0
           while IFS= read -r p; do
-            case "$p" in *.venv*) continue;; esac
             [ -e "$p" ] || { echo "rewritten path does not exist: $p"; fail=1; }
           done < <(grep -o "$target[^ \`\"']*" "$target/SKILL.md" | sort -u)
           exit $fail
@@ -133,38 +137,6 @@ jobs:
           if [ -n "$found" ]; then echo "::error::dangling symlinks:"; echo "$found"; exit 1; fi
           echo "No dangling symlinks."
 
-  verve:
-    name: verve (py${{ matrix.python-version }})
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        # The script has no annotations at all, so 3.9 is comfortable. Worth
-        # keeping: on 3.9 pip resolves an older `requests` than on 3.13 (the
-        # current release needs >=3.10), so the two jobs exercise different
-        # versions of the one dependency.
-        python-version: ['3.9', '3.13']
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        working-directory: skills/verve
-        run: |
-          python -m pip install --upgrade pip pytest
-          python -m pip install -r requirements.txt
-
-      - name: Run test suite
-        working-directory: skills/verve
-        # requests and time.sleep are both patched, so the MAX_POLLS timeout case
-        # runs 60 iterations instantly instead of taking five real minutes.
-        run: python -m pytest tests/ -v -p no:cacheprovider
-
   # Single required check for branch protection. Adding a job above does not mean
   # remembering to add it to the protection rule - it only needs listing here.
   ci-ok:
@@ -174,7 +146,6 @@ jobs:
     needs:
       - validate
       - installers
-      - verve
     steps:
       - name: Fail if any job did not succeed
         run: |
