@@ -30,6 +30,12 @@ for src in "$SCRIPT_DIR"/skills/*/; do
   target="$SKILLS_ROOT/$name"
   echo "Installing '$name' -> $target"
   mkdir -p "$target"
+  # Clear what a previous install left before linking what this one needs.
+  # Without this, an entry that has since been renamed or deleted upstream
+  # survives as a symlink to a path that no longer exists - and a dangling
+  # link fails more confusingly than a missing file, because it looks
+  # installed. Only symlinks are removed, so a real SKILL.md is never at risk.
+  find "$target" -mindepth 1 -maxdepth 1 -type l -exec rm -f {} +
   # Every directory SKILL.md can reference, so each one exists under the
   # rewritten path too.
   for sub in scripts references tests; do
@@ -41,11 +47,7 @@ for src in "$SCRIPT_DIR"/skills/*/; do
   # only when it exists: a symlink to a venv nobody has created yet is a
   # dangling link, which fails in a far more confusing way than an absent one.
   # Re-run this installer after setup.sh to pick it up.
-  if [ -d "$src/.venv" ]; then
-    ln -sfn "$src/.venv" "$target/.venv"
-  else
-    rm -f "$target/.venv"
-  fi
+  [ -d "$src/.venv" ] && ln -sfn "$src/.venv" "$target/.venv"
   [ -f "$src/requirements.txt" ] && ln -sfn "$src/requirements.txt" "$target/requirements.txt"
   chmod +x "$src"/scripts/*.sh "$src"/scripts/*.py 2>/dev/null || true
   sed "s#\${CLAUDE_SKILL_DIR}#$target#g" "$src/SKILL.md" > "$target/SKILL.md"
