@@ -1,6 +1,6 @@
 ---
 name: verve
-description: Strip AI tells from prose and put a human voice back (British English). Use for humanising AI-generated text, removing AI writing patterns, making drafts sound like a person wrote them. Trigger on phrases like "verve", "give this verve", "humanise", "humanize", "make this sound human", "rewrite naturally", "remove AI tells", "deslop this", "sound more natural", "pass AI detection".
+description: Strip AI tells from prose and put a human voice back (British English). Use for humanising AI-generated text, removing AI writing patterns, making drafts sound like a person wrote them. Trigger on phrases like "verve", "give this verve", "humanise", "humanize", "make this sound human", "rewrite naturally", "remove AI tells", "deslop this", "sound more natural". Not a detector-evasion tool - it does not tune text to score against an AI classifier, and says so if asked.
 ---
 
 # Verve
