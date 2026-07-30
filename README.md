@@ -39,6 +39,14 @@ verve cuts the AI tells out of a piece of writing and puts a voice back into it,
 /plugin install verve@dbhq
 ```
 
+### Any agent (Cursor, Copilot, Windsurf, Gemini, Cline and more)
+
+```bash
+npx skills add dbhq-uk/verve-skill
+```
+
+The [skills.sh](https://skills.sh) CLI installs into whichever agent directories it finds, so this works outside Claude Code and Codex too.
+
 ### Local install (Claude Code or Codex)
 
 ```bash
