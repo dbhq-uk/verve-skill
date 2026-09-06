@@ -58,6 +58,10 @@ cd verve-skill
 
 [`install.sh`](install.sh) and [`install-codex.sh`](install-codex.sh) are the same install two ways: Claude Code substitutes `${CLAUDE_SKILL_DIR}` so the whole skill directory is symlinked untouched, while Codex does not, so its `SKILL.md` is rewritten at install time.
 
+### Let the agent do it
+
+For an agent none of the above covers, paste [`prompts/install.md`](prompts/install.md) into a session. It finds the skills directory, fetches the five files, puts them in the right layout and asks before overwriting anything already there.
+
 **Nothing to install beyond that.** No packages, no virtualenv, no credentials, no network. The skill is instructions and reference material, not tooling.
 
 ## Usage
@@ -91,6 +95,12 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 4. **Voice pass** - put opinions, rhythm and specificity back, inside the tone
 5. **Quick checks** - a 14-item pre-flight list run against the draft
 6. **Score** - six dimensions, fidelity as a veto rather than an average
+
+## Audit a whole repository
+
+The skill rewrites one piece at a time. To find out which pieces are worth rewriting, paste [`prompts/audit.md`](prompts/audit.md) into a session sitting in any repository.
+
+It is read-only by design. It works out which files are actually prose, sets aside the licences and generated references and the specimens quoted as evidence, scores what is left by tells per hundred words, and hands back a table ordered worst first, plus the files it thinks you should leave alone. Nothing is rewritten. You decide what gets a run.
 
 ## What this will not do
 
