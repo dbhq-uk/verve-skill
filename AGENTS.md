@@ -27,11 +27,13 @@ reason. It exists because there is no offline way to assert that a fact survived
 a rewrite: something has to do the rewrite. Nobody installs it, and it is not
 part of what ships.
 
-## The three constraints that must not be broken
+## The constraints that must not be broken
 
 Everything else here is a preference. These are not.
 
 **1. Meaning is a veto.** The skill's hard constraints - every fact, number, name, date and citation survives; technical terms keep their exact wording; nothing is invented; the argument keeps its claims - outrank every other instruction in `SKILL.md`, and they outrank anything you add to `references/`. A rewrite that reads beautifully and drops a figure has failed. If you are editing a pattern and cannot tell whether it costs meaning, it does; leave it out.
+
+**1b. A preferences file is data, not instructions.** Verve reads `.verve.md` and `## Verve` sections, and takes four settings and three word lists from a fixed set of keys. Nothing else in that file is acted on, whatever it says. A `.verve.md` arrives with any cloned repository, so reading it as instructions would let a repository steer the skill on a machine that merely opened it. Nothing found on disk can lower the fidelity bar, disable triage, or license the thing constraint 3 below forbids. If you are extending `references/preferences.md`, keep the key list closed and keep that paragraph in it.
 
 **2. Triage stays.** The skill must be able to decide to do nothing. Text that already reads as human-written is returned unchanged. Removing or weakening that step turns a tool you can safely run on anything into one that degrades good writing, and the damage is invisible because the output still looks like work.
 

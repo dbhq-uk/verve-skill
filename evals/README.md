@@ -85,6 +85,19 @@ this case fails. Run `--dry-run` to check it loads.
 Prefer a case that would have caught a bug somebody actually hit. A case that
 asserts something obvious passes forever and tells you nothing.
 
+## What it does not cover
+
+Preferences. `run.py` sends a prompt and reads the reply, so it cannot test that
+verve finds `.verve.md`, prefers the project copy over the personal one, or
+declines to act on prose in a preferences file that is not one of the recognised
+keys. That last one is the part worth testing, because it is the boundary that
+stops a cloned repository steering the skill.
+
+Testing it means running a real agent in a temporary directory rather than
+calling the API, which is a different and larger harness. Until that exists,
+those rules are checked by reading them. Do not mistake a green run for coverage
+of `references/preferences.md`.
+
 ## One deliberate difference from a real session
 
 `run.py` inlines every reference file into the system prompt. A real session

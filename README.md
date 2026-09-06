@@ -92,6 +92,22 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 | Explain | on / off | off |
 | Output | conversation, save to file | conversation |
 
+**Set them once instead of repeating them.** Put a `.verve.md` in your project, or a `## Verve` section in the `CLAUDE.md` you already have:
+
+```markdown
+# Verve
+
+Variety: British
+Tone: professional
+Audience: engineers on my own team, who know the stack
+
+## Never change
+- serialize, normalize, tokenizer
+- Ministry of Defence
+```
+
+verve looks in the project first, then your home directory, and the request still beats both. **Never change** is the part worth having: it is the fidelity constraint made extensible, so the house spellings and product names a rewrite keeps getting wrong survive every pass. Full rules, including what a file on disk is *not* allowed to ask for, in [`references/preferences.md`](skills/verve/references/preferences.md).
+
 **Audience** is the other one to know. Give it a reader and verve cuts what that reader does not need: glosses on terms they use daily, the ask restated back at them, reasons before the answer, caveats nobody requested, instructions aimed at someone senior, performed empathy, and the second and third apology. It works the other way too, because brevity is not bluntness. A one-line reply to a customer who has lost money reads as contempt however efficient it is, so the greeting, the thanks and one genuine apology stay. What it never cuts is a fact, a claim or a step in the argument, whatever the reader knows.
 
 **Variety** picks the English. Ask for it by name and that settles it. Say nothing and verve reads what the draft already is and keeps it, falling back to British when the draft gives no signal either way. Code, quotations, proper nouns, titles and standards text are never converted whichever variety you choose: `background-color` stays `background-color`, and the World Health Organization keeps its `z`.
@@ -100,6 +116,7 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 
 ## How it works
 
+0. **Preferences** - saved settings and never-change terms, project first, then home
 1. **Triage** - already-human text is returned unchanged rather than mangled
 2. **Tone, variety and audience** - one of four tone presets, British or American, and the reader it is pitched at, all held throughout
 3. **Pattern sweep** - six groups of tells (content, language, style, assistant artefacts, filler, condescension), each with before/after

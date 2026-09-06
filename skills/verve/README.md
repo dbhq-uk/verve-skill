@@ -23,6 +23,8 @@ line.
 
 Entirely in the conversation. No extra API calls, no cost, nothing to install.
 
+0. **Preferences** - saved settings from `.verve.md` or a `## Verve` section in
+   `CLAUDE.md`, project first, then home. The request beats both.
 1. **Triage** - returns already-human text unchanged rather than mangling it.
 2. **Tone, variety and audience** - neutral / casual / professional / academic,
    British or American, and the reader it is pitched at, all held throughout.
@@ -70,6 +72,7 @@ verve/
     ├── voice.md                # Tone presets and restoring voice
     ├── varieties.md            # British and American conventions, and what never converts
     ├── audience.md             # Who the text is for, and the register that follows
+    ├── preferences.md          # Saved settings, and what a file on disk may not ask for
     └── examples.md             # Worked passages
 ```
 
