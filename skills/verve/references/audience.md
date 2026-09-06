@@ -11,10 +11,26 @@ so only the reader can settle it.
 
 ## The principle
 
-**Assume competence.** Where you know nothing else about the reader, write for
-somebody who is capable, busy, and does not need the ground prepared for them.
-It is the setting least likely to insult anybody, and the one a reader is most
-likely to forgive when it is wrong.
+**Assume competence, not knowledge.** Where you know nothing else about the
+reader, write for somebody capable and busy. That is the setting least likely to
+insult anybody, and the one a reader is most likely to forgive when it is wrong.
+
+Competence and subject knowledge are different things, and only the second
+licenses cutting an explanation. A reader can be entirely capable and still not
+know your system. So an unknown reader means:
+
+- **Cut** F2, F6, F7, F8 and F10. None of those depend on what the reader knows.
+  Restating their question, feeding their own words back, performing empathy,
+  grovelling and padding are rude to everybody.
+- **Keep** F1. You cannot tell whether a gloss is redundant without knowing
+  whether they already have the term, and a definition somebody did not need
+  costs them a sentence, where one they did need and did not get costs them the
+  point.
+- **Soften rather than cut** F5 and F9. Offer instead of directing, and do not
+  commit on anyone's behalf. Both are right whoever is reading.
+
+Once you do know the reader, F1 comes back into scope and the axes below decide
+the rest.
 
 ## Reading the audience
 
@@ -80,12 +96,17 @@ answer with better manners.
 Two tests before cutting on audience grounds:
 
 1. Would this reader already know it? If you cannot say yes with confidence,
-   keep it.
+   keep it. This is why an unknown reader does not license cutting an
+   explanation: no reader, no confidence, no cut.
 2. Does removing it change what the reader would do next? If yes, keep it,
    however obvious it looks.
 
 A caveat that names a real risk is content. A caveat that protects the writer is
-F4. The difference is whether the reader could act on it.
+F4. The test is whether it gives the reader something to act on: a condition
+they could meet, a consequence they could avoid, or a limit they could work
+inside. *"Results may vary depending on your configuration"* names no condition
+and no consequence, so it is F4. *"This drops the table, so take a dump first"*
+names both, so it stays.
 
 ## Politeness fails in two directions
 

@@ -48,7 +48,10 @@ that table apply when nothing is saved. See `references/preferences.md`.
 These outrank every other instruction in this skill. A rewrite that breaks one
 of them has failed, however good it reads.
 
-1. Every fact, number, name, date and citation survives unchanged.
+1. Every fact, number, name, date and citation survives unchanged. For a date
+   that means its value, the day and month and year; the written format may
+   follow the variety, but never becomes all-numeric, which is ambiguous.
+   Nothing else in this list has a format exception.
 2. Technical terms keep their exact wording. No synonym swaps.
 3. Never invent statistics, examples, quotes, sources or credentials.
 4. The argument keeps its logical structure and its claims. Cutting filler is
@@ -72,8 +75,9 @@ manners.
 
 Read it first. If it already reads as human-written (varied rhythm, opinions,
 specifics, no stock tells), return it unchanged with one line: *"This already
-reads as human-written; only minor refinements applied."* Do not process clean
-text for the sake of processing it.
+reads as human-written; returned unchanged."* Do not process clean text for the
+sake of processing it, and do not claim refinements you did not make: saying
+work happened when none did is a small fidelity failure of its own.
 
 ### 1. Set the tone, the variety and the audience
 

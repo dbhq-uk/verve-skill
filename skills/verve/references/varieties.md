@@ -74,8 +74,17 @@ Irregulars that follow no family rule:
 
 ## Vocabulary
 
-Convert only where the other variety would read as foreign. Most words are
-shared, and swapping one for the sake of it costs precision for nothing.
+**Vocabulary conversion is off unless the user asks for it by name.** Spelling
+and punctuation are conventions. A word is a choice, and swapping one is the
+synonym substitution constraint 2 forbids, wearing a spelling conversion's
+clothes. *CV* and *résumé* are not the same document. A *flat* and an
+*apartment* are not the same thing in every market. Setting the variety to
+American does not license either swap.
+
+When the user does ask for vocabulary conversion, convert only where the other
+variety would genuinely read as foreign, and never a word that names something
+specific. Most words are shared, and swapping one for the sake of it costs
+precision for nothing.
 
 | British | American |
 |---|---|
@@ -109,13 +118,13 @@ shared, and swapping one for the sake of it costs precision for nothing.
 The serial comma row is a preference, not a rule, in either variety. Where
 dropping it creates ambiguity, keep it, whichever variety you are writing.
 
-**On dates and constraint 1.** Constraint 1 says every date survives unchanged.
-It means the date, not the format: *March 14, 2026* and *14 March 2026* are the
-same day, and reformatting one is a convention change. Reformatting is allowed.
-Changing which day it is, or dropping the year, is not. The one format never to
-produce is all-numeric, because `03/14/2026` and `14/03/2026` look identical and
-mean different days, so a reader cannot recover the original. If the source is
-all-numeric and you cannot tell which order it uses, leave it exactly as it is.
+**On dates.** Constraint 1 itself carries the exception: a date's value survives,
+its written format may follow the variety, and it never becomes all-numeric.
+This file does not get to widen that. Two notes on applying it. `03/14/2026` and
+`14/03/2026` look identical and mean different days, which is why all-numeric
+output is barred: a reader cannot recover the original from it. And if the
+source is already all-numeric and you cannot tell which order it uses, leave it
+exactly as it is rather than guessing.
 
 ## What the variety does not change
 
