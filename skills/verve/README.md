@@ -1,7 +1,8 @@
 # Verve
 
-Strip AI tells from prose and put a human voice back, in **British English**,
-without changing what the text says.
+Strip AI tells from prose and put a human voice back without changing what the
+text says. **British English by default, American on request** or when the
+source is already American.
 
 > Renamed from `humanize` in July 2026. The skill still triggers on
 > "humanise this" and "make this sound human"; only the name and the
@@ -23,7 +24,8 @@ line.
 Entirely in the conversation. No extra API calls, no cost, nothing to install.
 
 1. **Triage** - returns already-human text unchanged rather than mangling it.
-2. **Tone** - neutral / casual / professional / academic, held throughout.
+2. **Tone and variety** - neutral / casual / professional / academic, and
+   British or American, both held throughout.
 3. **Pattern sweep** - five groups of tells (content, language, style,
    assistant artefacts, filler) with before/after for each.
 4. **Voice pass** - opinions, rhythm variance, specificity, within the tone.
@@ -52,6 +54,7 @@ None. The skill is instructions, not tooling.
 |--------|--------|---------|
 | Tone | neutral, casual, professional, academic | neutral |
 | Strength | light, moderate, heavy | moderate |
+| Variety | British, American | match the source, else British |
 | Explain | on / off | off |
 | Output | conversation, save to file | conversation |
 
@@ -64,6 +67,7 @@ verve/
     ├── patterns.md             # The tell catalogue, before/after for each
     ├── wordlist.md             # Flat scannable word and phrase lists
     ├── voice.md                # Tone presets and restoring voice
+    ├── varieties.md            # British and American conventions, and what never converts
     └── examples.md             # Worked passages
 ```
 

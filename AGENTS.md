@@ -4,14 +4,14 @@ Guidance for AI agents (and people) working in this repository.
 
 ## What this is
 
-The **verve** skill for AI coding agents - strip AI tells from prose and put a human voice back, in British English. It follows the [Agent Skills](https://agentskills.io) layout (`skills/<name>/SKILL.md`) and ships as a [Claude Code plugin](https://code.claude.com/docs/en/plugins).
+The **verve** skill for AI coding agents - strip AI tells from prose and put a human voice back, in British or American English. It follows the [Agent Skills](https://agentskills.io) layout (`skills/<name>/SKILL.md`) and ships as a [Claude Code plugin](https://code.claude.com/docs/en/plugins).
 
 ## Layout
 
 ```
 .claude-plugin/plugin.json      # plugin manifest
 skills/verve/SKILL.md           # the skill (agent-facing instructions)
-skills/verve/references/        # the tell catalogue, wordlists, tone presets, worked examples
+skills/verve/references/        # the tell catalogue, wordlists, tone presets, varieties, worked examples
 install.sh / install-codex.sh   # local symlink installers (Claude / Codex)
 ```
 
@@ -36,7 +36,8 @@ Everything else here is a preference. These are not.
 - `SKILL.md` is the short half on purpose. Workflow, constraints, checks and scoring live there; the catalogue, wordlists, tone presets and worked examples live in `references/` and are read on demand.
 - Shell scripts use `set -e`; errors go to stderr, output to stdout.
 - No secrets in the repo, and nothing that would need one.
-- House style: British English, plain hyphens, no em dashes. The skill removes em dashes from other people's writing; shipping them in its own source is not a good look.
+- House style for this repository: British English, plain hyphens, no em dashes. The skill removes em dashes from other people's writing; shipping them in its own source is not a good look. Note the distinction: the *skill* writes British or American depending on the source and the request, but the *repository's own prose* is British throughout, and that is not up for negotiation on a variety argument.
+- A variety conversion must never touch code, quoted material, proper nouns, titles, citations or standards text. `background-color` is an identifier, not a spelling, and the World Health Organization keeps its `z` in British prose. This is hard constraint 2 applied to spelling, and it is the way this feature can do real damage. See `references/varieties.md`.
 
 ## Validating a change
 

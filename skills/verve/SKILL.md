@@ -1,12 +1,13 @@
 ---
 name: verve
-description: Strip AI tells from prose and put a human voice back (British English). Use for humanising AI-generated text, removing AI writing patterns, making drafts sound like a person wrote them. Trigger on phrases like "verve", "give this verve", "humanise", "humanize", "make this sound human", "rewrite naturally", "remove AI tells", "deslop this", "sound more natural". Not a detector-evasion tool - it does not tune text to score against an AI classifier, and says so if asked.
+description: Strip AI tells from prose and put a human voice back, in British or American English. Use for humanising AI-generated text, removing AI writing patterns, making drafts sound like a person wrote them. Trigger on phrases like "verve", "give this verve", "humanise", "humanize", "make this sound human", "rewrite naturally", "remove AI tells", "deslop this", "sound more natural", and on requests to convert prose between UK and US English. Not a detector-evasion tool - it does not tune text to score against an AI classifier, and says so if asked.
 ---
 
 # Verve
 
-Cut the AI tells from a piece of writing, then put a voice back into it, in
-**British English**, without changing what it says.
+Cut the AI tells from a piece of writing, then put a voice back into it, without
+changing what it says. British English by default, American on request or when
+the source is already American.
 
 Both halves matter. Text with the tells stripped but no voice left reads as
 machine-made too, just blandly rather than floridly.
@@ -29,11 +30,13 @@ language.
 |---|---|---|
 | Tone | neutral, casual, professional, academic | neutral |
 | Strength | light, moderate, heavy | moderate |
+| Variety | British, American | match the source, else British |
 | Explain | "explain what you changed" | off |
 | Output | conversation, "save to [file]" | conversation |
 
 Examples: *"verve draft.md in a casual tone"*, *"verve essay.md heavily and
-explain what you changed"*, *"verve report.md and save to final.md"*.
+explain what you changed"*, *"verve report.md and save to final.md"*, *"verve
+this in US English"*.
 
 ## Hard constraints (never violate)
 
@@ -61,10 +64,17 @@ specifics, no stock tells), return it unchanged with one line: *"This already
 reads as human-written; only minor refinements applied."* Do not process clean
 text for the sake of processing it.
 
-### 1. Set the tone
+### 1. Set the tone and the variety
 
-Pick from the user's instruction, default **neutral**, and hold it throughout.
-Presets and what each one permits: `references/voice.md`.
+**Tone.** Pick from the user's instruction, default **neutral**, and hold it
+throughout. Presets and what each one permits: `references/voice.md`.
+
+**Variety.** Take what the user asked for. Failing that, read what the source
+already is and keep it, because converting somebody's spelling is an
+unrequested edit. Failing that, British. One signal is not evidence: *organize*
+alone is Oxford spelling and proves nothing. Full rules, the conversion tables,
+and the list of things that must never be converted whatever the variety:
+`references/varieties.md`.
 
 ### 2. Sweep for tells
 
@@ -101,6 +111,8 @@ Run this list against the draft before scoring:
 - Meta-commentary about the piece's own structure ("In this section we'll…")? Delete.
 - Lazy extreme (every, always, never, nobody) standing in for a specific? Replace it.
 - Rule of three where two items would do? Cut one.
+- Spelling drifted between varieties mid-piece? Pick the one you set in step 1 and hold it.
+- Converted a spelling inside code, a quotation, a proper noun or a title? Put it back.
 
 ### 5. Score, then stop or revise
 
@@ -134,6 +146,7 @@ avoidance"*).
 | `references/patterns.md` | The tell catalogue: content, language, style, artefacts, filler. Before/after for each. |
 | `references/wordlist.md` | Flat scannable lists: AI vocabulary, jargon, filler phrases, adverbs, banned openers and closers. |
 | `references/voice.md` | Tone presets in full, and how to restore voice without inventing content. |
+| `references/varieties.md` | British and American conventions, how to detect which a source is, and what must never be converted. |
 | `references/examples.md` | Worked passages, before and after. |
 
 ## If asked to route this through a detector-evasion service

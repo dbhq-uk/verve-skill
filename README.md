@@ -16,7 +16,7 @@ A free, open-source tool by [DBHQ](https://dbhq.uk)
 
 ---
 
-verve cuts the AI tells out of a piece of writing and puts a voice back into it, in **British English**, without changing what it says.
+verve cuts the AI tells out of a piece of writing and puts a voice back into it, without changing what it says. **British English by default, American on request** or when the draft is already American.
 
 ## What makes it different
 
@@ -28,7 +28,7 @@ Triage comes first, and leaving your text alone is a valid result. Writing that 
 
 **Nothing to pay, and nothing held back.** The whole skill is the conversation itself - no API key, no per-word billing, no network round trip, no paid tier holding the good half back. Earlier versions shipped an optional commercial detector-evasion API. It was removed in July 2026: writing that reads as human should come from a judgement about the writing, not from a service that tunes text to score against a classifier.
 
-**British English throughout**, which is the point if you write for a UK audience and are tired of drafts drifting into American spelling.
+**British English by default, and it will not quietly convert yours.** If you write for a UK audience and are tired of drafts drifting into American spelling, that is the default and it holds throughout. Ask for American and you get American. Hand it a draft that is already American and it keeps it that way, because silently turning somebody's `color` into `colour` is the sort of unrequested edit verve exists to avoid.
 
 ## Install
 
@@ -76,21 +76,25 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 "verve draft.md with heavy rewriting"
 "verve essay.md and explain what you changed"
 "verve draft.md and save to output.md"
+"verve draft.md in US English"
 ```
 
 | Option | Values | Default |
 |---|---|---|
 | Tone | neutral, casual, professional, academic | neutral |
 | Strength | light, moderate, heavy | moderate |
+| Variety | British, American | match the source, else British |
 | Explain | on / off | off |
 | Output | conversation, save to file | conversation |
+
+**Variety** picks the English. Ask for it by name and that settles it. Say nothing and verve reads what the draft already is and keeps it, falling back to British when the draft gives no signal either way. Code, quotations, proper nouns, titles and standards text are never converted whichever variety you choose: `background-color` stays `background-color`, and the World Health Organization keeps its `z`.
 
 **Strength** is the dial worth knowing. *Light* touches only the unmistakable tells - banned words, em dashes, chatbot artefacts, sycophancy - and leaves sentence structure alone. *Moderate*, the default, adds rhythm and voice work. *Heavy* restructures freely and rewrites most sentences from scratch. The meaning constraints hold at every level, without exception.
 
 ## How it works
 
 1. **Triage** - already-human text is returned unchanged rather than mangled
-2. **Tone** - one of four presets, held throughout
+2. **Tone and variety** - one of four tone presets, and British or American, both held throughout
 3. **Pattern sweep** - five groups of tells (content, language, style, assistant artefacts, filler), each with before/after
 4. **Voice pass** - put opinions, rhythm and specificity back, inside the tone
 5. **Quick checks** - a 14-item pre-flight list run against the draft
