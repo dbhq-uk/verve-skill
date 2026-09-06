@@ -11,8 +11,7 @@ Thumbs.db
 .serena/
 .superpowers/
 
-# Kept although the skill has no Python: a contributor's editor or a stray
-# tool can still drop these, and they should never reach a commit.
+# The skill has no Python. evals/ does, and it is the only place that may.
 .venv/
 __pycache__/
 *.pyc

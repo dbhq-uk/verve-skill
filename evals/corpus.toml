@@ -1,0 +1,187 @@
+# The fixed corpus.
+#
+# Every case states what must be true of the output, never what the output
+# should be. There is no single correct rewrite, so asserting one would make
+# the harness a style opinion rather than a check.
+#
+# Fields:
+#   id              unique, kebab-case
+#   kind            triage | fidelity | variety | audience
+#   request         what the user asks, minus the text itself
+#   text            the input passage
+#   unchanged       true if the output must match the input
+#   must_survive    substrings that must appear in the output, verbatim
+#   must_go         substrings that must not appear in the output
+#   why             what this case is protecting, for whoever reads a failure
+
+# ---------------------------------------------------------------------------
+# Triage. The skill must be able to decide to do nothing.
+# ---------------------------------------------------------------------------
+
+[[case]]
+id = "triage-human-blog"
+kind = "triage"
+request = "verve this:"
+unchanged = true
+why = "Plainly human prose: opinions, uneven rhythm, a specific number, an aside. Rewriting it is the failure that is invisible because the output still looks like work."
+text = """
+I gave up on the migration script after the third attempt. Not because it \
+didn't work, exactly, but because it worked differently every time I ran it, \
+and I could not tell you now which of the four things I changed was the one \
+that mattered. Somewhere around 2am I started keeping a text file of what I'd \
+tried. That file is 340 lines long. It is the only artefact of that night I \
+would defend.
+"""
+
+[[case]]
+id = "triage-human-terse"
+kind = "triage"
+request = "verve this:"
+unchanged = true
+why = "Short, blunt, no tells. Terseness is not a tell, and a skill that pads this has misread doing nothing as doing nothing useful."
+text = """
+The build broke because someone bumped the base image. Pinned it back to \
+3.19. It will break again the next time anyone runs the update job, and I have \
+not fixed that.
+"""
+
+# ---------------------------------------------------------------------------
+# Fidelity. Facts, figures, names and dates survive a rewrite.
+# ---------------------------------------------------------------------------
+
+[[case]]
+id = "fidelity-figures-and-names"
+kind = "fidelity"
+request = "verve this:"
+must_survive = [
+  "1989",
+  "Instituto Vasco de Estadística",
+  "2.19 million",
+  "1,438",
+  "Eustat",
+]
+why = "The failure that matters. A wordlist edit can introduce it quietly, and a rewrite that drops a figure has failed however well it reads."
+text = """
+Founded in 1989, the Instituto Vasco de Estadística stands as a testament to \
+the Basque Country's commitment to independent data. Known as Eustat, it \
+serves a population of 2.19 million and employs 1,438 people across three \
+offices. Its work underscores the vital role that regional statistical bodies \
+play in today's evolving policy landscape.
+"""
+
+[[case]]
+id = "fidelity-dense-technical"
+kind = "fidelity"
+request = "verve this:"
+must_survive = [
+  "gateway.pool.perRequest",
+  "dep-4471",
+  "02:14",
+  "83%",
+  "20",
+]
+why = "Constraint 2. Identifiers and config keys are terms, not wording, and a synonym swap here breaks the thing the reader has to act on."
+text = """
+It is important to note that the root cause was ultimately traced to the \
+configuration flag gateway.pool.perRequest, which had been toggled to true. \
+This meant that each and every request would acquire its own connection from \
+a pool with a ceiling of 20. Beginning at 02:14, the pool was exhausted, and \
+83% of requests subsequently failed. The deployment in question was dep-4471.
+"""
+
+# ---------------------------------------------------------------------------
+# Variety. Convert conventions, never terms.
+# ---------------------------------------------------------------------------
+
+[[case]]
+id = "variety-keeps-american-source"
+kind = "variety"
+request = "verve this:"
+must_survive = ["color", "behavior", "organize"]
+must_go = ["colour", "behaviour"]
+why = "The default changed in the varieties PR: an American source stays American. Silently Britishising somebody's finished prose is the unrequested edit constraint 1 exists to stop."
+text = """
+The color system was designed to organize our tokens in a way that reflects \
+how the product actually behaves. Delving into the behavior of each component, \
+it becomes clear that a more holistic approach is needed going forward.
+"""
+
+[[case]]
+id = "variety-never-converts-code"
+kind = "variety"
+request = "verve this in British English:"
+must_survive = ["background-color", "initialize(", "--optimize"]
+must_go = ["background-colour", "initialise(", "--optimise"]
+why = "The worst thing this feature could do. A CSS property is an identifier, not a spelling, and converting one breaks the code."
+text = """
+In order to leverage the theming system, you must first call initialize() and \
+then pass the --optimize flag. The background-color property is set at build \
+time, which is a key part of what makes the pipeline so robust.
+"""
+
+[[case]]
+id = "variety-never-converts-proper-nouns"
+kind = "variety"
+request = "verve this in British English:"
+must_survive = ["World Health Organization", "Department of Labor"]
+must_go = ["World Health Organisation", "Department of Labour"]
+why = "Names are names in every variety. Constraint 1 protects them and the conversion tables must not reach them."
+text = """
+The World Health Organization published its findings, which underscore the \
+pivotal role of occupational data. The Department of Labor subsequently \
+navigated a series of challenges in reconciling the two datasets.
+"""
+
+# ---------------------------------------------------------------------------
+# Audience. Cut what this reader does not need, keep what they must act on.
+# ---------------------------------------------------------------------------
+
+[[case]]
+id = "audience-drops-the-gloss-keeps-the-facts"
+kind = "audience"
+request = "verve this for our VP of Engineering, who ran the platform team for six years:"
+must_survive = ["87%", "Redis", "Friday"]
+must_go = [
+  "in-memory data store",
+  "Basically",
+  "I hope this makes sense",
+  "You need to approve",
+]
+why = "Group F. The gloss and the upward instruction go; the numbers and the deadline stay, because they are what she acts on."
+text = """
+Thanks so much for your question! I completely understand that budget \
+decisions like this can be difficult.
+
+By way of background, Redis is an in-memory data store, which means it keeps \
+data in RAM rather than on disk. This makes it very fast, but capacity is \
+limited by available memory.
+
+Basically, we're running out. We are at 87% memory on the primary cluster. \
+You need to approve the three additional nodes by Friday so Infrastructure can \
+provision them next week.
+
+I hope this makes sense! Let me know if you have any questions.
+"""
+
+[[case]]
+id = "audience-keeps-the-warmth"
+kind = "audience"
+request = "verve this for a customer whose invoice we got wrong:"
+must_survive = ["£240", "Thursday"]
+must_go = ["I completely understand how frustrating", "at this point in time"]
+why = "The other direction. Brevity is not bluntness: an apology is owed here and cutting it entirely is a register failure, not concision."
+text = """
+Dear Ms Achebe,
+
+I completely understand how frustrating this must be, and I want you to assure \
+you that we hear you and that your feedback is incredibly valuable to us.
+
+I am writing to inform you that at this point in time we have identified an \
+error in your most recent invoice. We have processed a refund in the amount of \
+£240, which should reach your account by Thursday.
+
+Please do not hesitate to reach out if you have any further questions.
+
+Kind regards,
+Billing
+"""

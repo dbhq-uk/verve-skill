@@ -21,10 +21,11 @@ The whole skill directory is symlinked, so edits - including to `SKILL.md` and `
 
 - `bash -n install.sh install-codex.sh` - the installers parse
 - `claude plugin validate .` - the plugin validates
-- Verify the prose by hand: a plainly human passage comes back **unchanged**, and a passage full of figures and names keeps **every one**. Nothing automated asserts either, and they are the two things that matter
+- `python3 evals/run.py --dry-run` - the corpus loads and every reference resolves
+- `python3 evals/run.py` - the corpus actually passes. This one needs an `ANTHROPIC_API_KEY` and costs a few pence, and it is the only check that tests the skill rather than describing it. If you changed anything under `skills/`, run it
 - British English, plain hyphens, no trailing full stops on headings
 
-There is no test suite, because there is no code. Please keep it that way - see below.
+Nothing under `skills/` is executable, and CI asserts it. Please keep it that way - see below. `evals/` is the one place code is allowed, because there is no offline way to check that a fact survived a rewrite.
 
 ## The bar for a new tell
 
@@ -40,7 +41,9 @@ Two related rules, and they are the ones that matter:
 
 ## What we will not accept
 
-**Code.** Verve is instructions and reference material - no scripts, no packages, no interpreter, no network call. Anyone can verify that in one glance at the tree, and that is worth more than any feature a script would buy. CI enforces it. If you are convinced something genuinely cannot be done in prose, open an issue first.
+**Code under `skills/`.** What ships is instructions and reference material - no scripts, no packages, no interpreter, no network call. Anyone can verify that in one glance at the tree, and that is worth more than any feature a script would buy. CI enforces it. If you are convinced something genuinely cannot be done in prose, open an issue first.
+
+`evals/` is outside `skills/` and is the exception, because checking that a fact survived a rewrite requires doing the rewrite, and no amount of prose does that. It is not installed, not shipped, and not part of the skill. Adding code there is fine; adding it anywhere else is not.
 
 **A paid path.** An optional commercial detector-evasion API shipped until July 2026 and was removed. Please do not propose reinstating it, adding a hosted service, or gating anything behind a key or a tier.
 

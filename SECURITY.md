@@ -35,6 +35,12 @@ None. The skill has no concept of an account.
 No packages are installed and no dependencies are pulled at runtime. The skill
 is instructions and reference material - markdown, not executable tooling.
 
+The repository contains one directory of code, `evals/`, which is the test
+corpus and its runner. It is not installed, not shipped with the plugin, and
+never executed by the skill. It is the only thing here that uses an API key, it
+uses one you supply yourself when you choose to run it, and nothing in the skill
+can reach it.
+
 ## What it deliberately is not
 
 Verve is not a detector-evasion tool. It does not tune text to score against an

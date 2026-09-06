@@ -13,12 +13,19 @@ The **verve** skill for AI coding agents - strip AI tells from prose and put a h
 skills/verve/SKILL.md           # the skill (agent-facing instructions)
 skills/verve/references/        # the tell catalogue, wordlists, tone presets, varieties, audience, worked examples
 install.sh / install-codex.sh   # local symlink installers (Claude / Codex)
+prompts/                        # paste-in messages: install, and a repo prose audit
+evals/                          # the corpus and its runner - not shipped, not installed
 ```
 
-There is no `scripts/` and no `tests/`. This skill is prose: instructions and
-reference material, with no executable code at all. If you are about to add a
-script, be certain the job genuinely cannot be done by instructions - the
-absence of a runtime is a feature people can verify at a glance.
+**Nothing under `skills/` is executable.** The skill is prose: instructions and
+reference material, with no code at all, and CI asserts it. The absence of a
+runtime is a feature people can verify at a glance, so if you are about to add a
+script there, be certain the job genuinely cannot be done by instructions.
+
+`evals/` is the one exception, and it sits outside `skills/` for exactly that
+reason. It exists because there is no offline way to assert that a fact survived
+a rewrite: something has to do the rewrite. Nobody installs it, and it is not
+part of what ships.
 
 ## The three constraints that must not be broken
 
@@ -47,9 +54,13 @@ bash -n install.sh install-codex.sh
 claude plugin validate .
 ```
 
-That is the whole automated surface, and it is worth being honest about what it does not cover: there is no test suite, because there is no code to test. The behaviour that matters lives in prose, so after editing `references/` or `SKILL.md`, verify it by hand:
+Those are static checks. The behaviour that matters lives in prose, and `evals/` is where it is asserted:
 
-- Give it a plainly human passage and confirm triage returns it **unchanged**. A skill that always rewrites has lost the property that makes it safe to run on anything.
-- Give it a passage dense with figures, names and dates and confirm **every one survives**. This is the failure that matters, and a wordlist edit can introduce it quietly.
+```bash
+python3 evals/run.py --dry-run    # corpus loads, references resolve, no spend
+python3 evals/run.py              # the real thing, needs ANTHROPIC_API_KEY
+```
 
-Neither is asserted anywhere. Skipping them because the checks above are green is how the constraints get broken.
+The dry run is in CI. The real run is not, because it costs money and needs a credential, so **after editing `references/` or `SKILL.md`, run it yourself**. Four kinds of case: triage returns human text unchanged, fidelity keeps every figure and identifier, variety never converts code or proper nouns, and audience cuts the gloss while keeping both the facts and the warmth that is owed.
+
+Nine cases is a floor, not a benchmark. Passing does not mean an edit was good; failing means it was wrong. Skipping the run because the static checks are green is how the constraints get broken.

@@ -1,0 +1,108 @@
+# Evals
+
+Verve makes claims about what it will and will not do. This measures two of
+them, and it is the first thing in the repository that checks the skill rather
+than describing it.
+
+`AGENTS.md` has named the two checks that matter for a while, and then admitted:
+*"Neither is asserted anywhere."* This is that assertion.
+
+## What it does not do yet
+
+**It ships unrun.** No numbers from it appear in the README, and none should
+until somebody has run it and can say when, on what model, and how many times.
+`CONTRIBUTING.md` makes that a rule.
+
+**It is not wired into CI**, beyond a dry run that costs nothing. Measuring for
+real needs an API key, and `SECURITY.md` makes a point of this project having no
+credentials. That claim is about the skill rather than about the repository's
+own CI, so it would survive a secret being added, but that is a decision to take
+deliberately rather than in passing.
+
+## Why it needs a model
+
+There is no offline way to assert that a fact survived a rewrite. Something has
+to do the rewrite. That is the whole reason verve had no tests before now, and
+the reason this directory exists rather than a unit test somewhere.
+
+## Running it
+
+```bash
+python3 evals/run.py --dry-run          # validates the corpus, calls nothing
+pip install anthropic
+export ANTHROPIC_API_KEY=...
+python3 evals/run.py                    # 9 cases, one call each
+python3 evals/run.py --runs 3           # repeat, report the worst result
+python3 evals/run.py --only audience    # one kind
+python3 evals/run.py --verbose          # print every rewrite
+```
+
+Python 3.11 or newer, for `tomllib`.
+
+Nine cases is not a benchmark. It is a floor: the things that must not break.
+
+## The four kinds
+
+**triage** gives it prose that already reads as human and asserts it comes back
+unchanged. A skill that always rewrites has lost the property that makes it safe
+to point at anything, and the damage is invisible because the output still looks
+like work.
+
+**fidelity** gives it a passage thick with figures, names, dates and identifiers
+and asserts every one survives. This is the failure that matters most, and a
+wordlist edit can introduce it quietly.
+
+**variety** asserts that an American source stays American, and that conversion
+never reaches code, identifiers or proper nouns. `background-color` is not a
+spelling and the World Health Organization keeps its `z`.
+
+**audience** asserts that a gloss aimed at an expert goes and the numbers stay,
+and separately that an apology owed to a customer is not cut in the name of
+brevity. Both directions, because a guard built only against condescension
+produces curtness.
+
+## How a case is written
+
+Every case says what must be true of the output, never what the output should
+be. There is no single correct rewrite, so asserting one would turn this into a
+style opinion with a test runner attached.
+
+That means the assertions are substring checks: this survived, that did not. It
+is a blunt instrument, and deliberately so. A check that tried to judge whether
+the prose got *better* would be a second opinion about writing, which is exactly
+what verve already is.
+
+Each case carries a `why`. It is printed on failure, because six months from now
+the useful thing is not that `fidelity-dense-technical` failed, it is what that
+case was put there to protect.
+
+## Adding one
+
+Add a `[[case]]` to `corpus.toml`. Give it an id, a kind, the request, the text,
+at least one assertion, and a `why` that says what breaks in the real world if
+this case fails. Run `--dry-run` to check it loads.
+
+Prefer a case that would have caught a bug somebody actually hit. A case that
+asserts something obvious passes forever and tells you nothing.
+
+## One deliberate difference from a real session
+
+`run.py` inlines every reference file into the system prompt. A real session
+reads them on demand.
+
+That removes retrieval as a variable, so a failure here is the instructions
+failing rather than the model choosing not to open a file. It makes this a floor
+rather than a simulation: passing does not prove a real session behaves the
+same way, but failing proves something is wrong with the instructions
+themselves.
+
+## The question waiting on this
+
+The current `SKILL.md` and its references come to roughly 59,000 characters. It
+is not known whether that helps or dilutes, and nobody has tested it.
+
+Once this has a baseline, that becomes a run rather than an argument: cut the
+references down, run the corpus again, compare. Related prior art is flint's
+[DEPRECATED.md](https://github.com/V-Songbird/flint/blob/main/DEPRECATED.md),
+which found newer models followed a 58-line style file more closely than the
+148-line one it replaced.

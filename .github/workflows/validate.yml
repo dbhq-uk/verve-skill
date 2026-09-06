@@ -63,6 +63,15 @@ jobs:
           sys.exit(0 if ok else 1)
           PY
 
+      # The corpus is the only thing in the repository that checks the skill
+      # rather than describing it, so it is worth knowing it still loads. This
+      # is the dry run: it parses corpus.toml, asserts every case actually
+      # asserts something, and resolves every reference file SKILL.md names.
+      # No API key and no spend - measuring for real is a manual run, and
+      # evals/README.md says why.
+      - name: The eval corpus loads
+        run: python3 evals/run.py --dry-run
+
       # The whole install story rests on ${CLAUDE_SKILL_DIR} being substituted.
       # A hardcoded ~/.claude/skills path works on the author's machine and is
       # wrong under both a Codex install and a plugin install - which is exactly

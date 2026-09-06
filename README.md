@@ -125,6 +125,8 @@ Want to hack on the skill or run it from source with live edits? See [`docs/dev-
 
 [`CONTRIBUTING.md`](CONTRIBUTING.md) covers working on it, and [`AGENTS.md`](AGENTS.md) is for an AI agent doing so. The skill itself is [`skills/verve/SKILL.md`](skills/verve/SKILL.md).
 
+[`evals/`](evals/) holds a fixed corpus that checks the skill rather than describing it: triage leaves human prose alone, every figure and identifier survives a rewrite, a variety conversion never reaches code or proper nouns, and the audience guard cuts the gloss without cutting the apology. Run it after changing anything under `skills/`. No numbers from it appear above, and none will until a run has happened that can say when, on what model, and how many times.
+
 ## Acknowledgements
 
 Several patterns - false agency, vague declaratives, narrator-from-a-distance, meta-commentary, emphasis crutches, telling-instead-of-showing - and the idea of a scored exit gate come from [stop-slop](https://github.com/hardikpandya/stop-slop) by Hardik Pandya (MIT).
