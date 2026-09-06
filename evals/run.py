@@ -82,7 +82,9 @@ class Case:
     why: str
     unchanged: bool = False
     must_survive: list[str] = field(default_factory=list)
+    must_survive_any_case: list[str] = field(default_factory=list)
     must_go: list[str] = field(default_factory=list)
+    max_loss: float | None = None
 
     def prompt(self) -> str:
         return f"{self.request}\n\n{self.text.strip()}"
@@ -99,8 +101,12 @@ def load_cases() -> list[Case]:
         if case.id in seen:
             sys.exit(f"Duplicate case id: {case.id}")
         seen.add(case.id)
-        if not (case.unchanged or case.must_survive or case.must_go):
+        asserts = (case.unchanged or case.must_survive
+                   or case.must_survive_any_case or case.must_go)
+        if not asserts:
             sys.exit(f"Case {case.id} asserts nothing")
+        if case.max_loss is not None and not 0 < case.max_loss < 1:
+            sys.exit(f"Case {case.id}: max_loss must be between 0 and 1")
         cases.append(case)
 
     if not cases:
@@ -118,23 +124,58 @@ def normalise(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip().lower()
 
 
+def words(text: str) -> int:
+    return len(text.split())
+
+
 def check(case: Case, output: str) -> list[str]:
-    """Return the reasons this case failed. Empty means it held."""
+    """Return the reasons this case failed. Empty means it held.
+
+    Two asymmetries here are deliberate.
+
+    must_survive is case-sensitive, because constraint 2 protects exact
+    wording: gateway.pool.perrequest is not gateway.pool.perRequest, and a
+    check that accepted it would be asserting the opposite of the rule. Use
+    must_survive_any_case for ordinary vocabulary, which legitimately changes
+    case when a rewrite moves it to the front of a sentence.
+
+    must_go is case-insensitive, because a banned phrase is banned in any
+    casing. Both directions therefore err towards failing.
+    """
     failures: list[str] = []
+    echoed = normalise(case.text) in normalise(output)
 
     if case.unchanged:
-        want = normalise(case.text)
-        got = normalise(output)
-        if want not in got:
+        if not echoed:
             failures.append("triage rewrote text that already reads as human")
+    elif echoed:
+        # A rewrite case that returns its own input, with or without a
+        # preamble wrapped round it, has done nothing. Without this, a case
+        # asserting only must_survive passes on a verbatim no-op, because
+        # every fact trivially survives text that was never touched.
+        failures.append("no-op: the input came back whole, nothing was rewritten")
 
     for fact in case.must_survive:
+        if fact not in output:
+            hint = " (present in another casing)" if fact.lower() in output.lower() else ""
+            failures.append(f"lost: {fact!r}{hint}")
+
+    for fact in case.must_survive_any_case:
         if fact.lower() not in output.lower():
             failures.append(f"lost: {fact!r}")
 
     for banned in case.must_go:
         if banned.lower() in output.lower():
             failures.append(f"kept: {banned!r}")
+
+    if case.max_loss is not None:
+        before, after = words(case.text), words(output)
+        if before and after < before * (1 - case.max_loss):
+            lost = 1 - (after / before)
+            failures.append(
+                f"cut {lost:.0%} of the words, over the {case.max_loss:.0%} "
+                f"this case allows ({before} -> {after})"
+            )
 
     return failures
 
@@ -163,6 +204,11 @@ def main() -> int:
     parser.add_argument("--verbose", action="store_true", help="print every output")
     args = parser.parse_args()
 
+    # Without this, --runs 0 makes no calls and reports every case as passing,
+    # which is the most dangerous possible output from a test harness.
+    if args.runs < 1:
+        parser.error("--runs must be at least 1")
+
     system = build_system_prompt()
     cases = load_cases()
     if args.only:
@@ -176,8 +222,10 @@ def main() -> int:
     if args.dry_run:
         for case in cases:
             print(f"  {case.kind:9} {case.id}")
-            print(f"            asserts: {len(case.must_survive)} survive, "
-                  f"{len(case.must_go)} go, unchanged={case.unchanged}")
+            survive = len(case.must_survive) + len(case.must_survive_any_case)
+            loss = "" if case.max_loss is None else f", max_loss={case.max_loss:.0%}"
+            print(f"            asserts: {survive} survive, {len(case.must_go)} go, "
+                  f"unchanged={case.unchanged}{loss}")
         print("\nDry run. Nothing was sent anywhere and nothing was measured.")
         return 0
 
@@ -193,18 +241,22 @@ def main() -> int:
     results: list[tuple[Case, list[str]]] = []
 
     for case in cases:
-        worst: list[str] = []
+        # Union the failures across runs rather than keeping whichever run
+        # failed most. Two runs that each break one different rule are two
+        # separate problems, and picking one by count hides the other.
+        seen: list[str] = []
         for run in range(args.runs):
             output = call_model(client, args.model, system, case.prompt())
             if args.verbose:
                 print(f"--- {case.id} run {run + 1} ---\n{output}\n")
-            failures = check(case, output)
-            if len(failures) > len(worst):
-                worst = failures
-        results.append((case, worst))
-        mark = "pass" if not worst else "FAIL"
+            for reason in check(case, output):
+                label = reason if args.runs == 1 else f"{reason}  [run {run + 1}]"
+                if label not in seen:
+                    seen.append(label)
+        results.append((case, seen))
+        mark = "pass" if not seen else "FAIL"
         print(f"  {mark}  {case.kind:9} {case.id}")
-        for reason in worst:
+        for reason in seen:
             print(f"          {reason}")
 
     failed = [c for c, f in results if f]

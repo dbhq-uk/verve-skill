@@ -5,14 +5,22 @@
 # the harness a style opinion rather than a check.
 #
 # Fields:
-#   id              unique, kebab-case
-#   kind            triage | fidelity | variety | audience
-#   request         what the user asks, minus the text itself
-#   text            the input passage
-#   unchanged       true if the output must match the input
-#   must_survive    substrings that must appear in the output, verbatim
-#   must_go         substrings that must not appear in the output
-#   why             what this case is protecting, for whoever reads a failure
+#   id                     unique, kebab-case
+#   kind                   triage | fidelity | variety | audience
+#   request                what the user asks, minus the text itself
+#   text                   the input passage
+#   unchanged              true if the output must match the input
+#   must_survive           must appear verbatim, CASE-SENSITIVE. Identifiers,
+#                          proper nouns, figures: anything constraint 2 covers
+#   must_survive_any_case  must appear, case ignored. Ordinary vocabulary that
+#                          legitimately changes case when a sentence is recast
+#   must_go                must not appear, case ignored
+#   max_loss               largest share of the words a rewrite may cut, 0 to 1
+#   why                    what this case protects, printed on failure
+#
+# Every case that is not a triage case also fails automatically if the input
+# comes back whole. Without that, a case asserting only must_survive passes on
+# a verbatim no-op, since every fact trivially survives text nobody touched.
 
 # ---------------------------------------------------------------------------
 # Triage. The skill must be able to decide to do nothing.
@@ -60,7 +68,9 @@ must_survive = [
   "1,438",
   "Eustat",
 ]
-why = "The failure that matters. A wordlist edit can introduce it quietly, and a rewrite that drops a figure has failed however well it reads."
+must_go = ["testament to", "underscores", "evolving"]
+max_loss = 0.5
+why = "The failure that matters. A wordlist edit can introduce it quietly, and a rewrite that drops a figure has failed however well it reads. The tells are listed too, because a case asserting only survival passes on a rewrite that changed nothing."
 text = """
 Founded in 1989, the Instituto Vasco de Estadística stands as a testament to \
 the Basque Country's commitment to independent data. Known as Eustat, it \
@@ -80,7 +90,9 @@ must_survive = [
   "83%",
   "20",
 ]
-why = "Constraint 2. Identifiers and config keys are terms, not wording, and a synonym swap here breaks the thing the reader has to act on."
+must_go = ["It is important to note", "each and every", "subsequently"]
+max_loss = 0.5
+why = "Constraint 2. Identifiers and config keys are terms, not wording, and a synonym swap here breaks the thing the reader has to act on. Case-sensitive on purpose: gateway.pool.perrequest is a different key, and a check that accepted it would assert the opposite of the rule."
 text = """
 It is important to note that the root cause was ultimately traced to the \
 configuration flag gateway.pool.perRequest, which had been toggled to true. \
@@ -97,9 +109,9 @@ a pool with a ceiling of 20. Beginning at 02:14, the pool was exhausted, and \
 id = "variety-keeps-american-source"
 kind = "variety"
 request = "verve this:"
-must_survive = ["color", "behavior", "organize"]
-must_go = ["colour", "behaviour"]
-why = "The default changed in the varieties PR: an American source stays American. Silently Britishising somebody's finished prose is the unrequested edit constraint 1 exists to stop."
+must_survive_any_case = ["color", "behavior", "organize"]
+must_go = ["colour", "behaviour", "Delving", "holistic", "going forward"]
+why = "The default changed in the varieties PR: an American source stays American. Silently Britishising somebody's finished prose is the unrequested edit constraint 1 exists to stop. These three are ordinary vocabulary rather than identifiers, so casing may legitimately change when a sentence is recast."
 text = """
 The color system was designed to organize our tokens in a way that reflects \
 how the product actually behaves. Delving into the behavior of each component, \
@@ -111,7 +123,7 @@ id = "variety-never-converts-code"
 kind = "variety"
 request = "verve this in British English:"
 must_survive = ["background-color", "initialize(", "--optimize"]
-must_go = ["background-colour", "initialise(", "--optimise"]
+must_go = ["background-colour", "initialise(", "--optimise", "In order to", "leverage"]
 why = "The worst thing this feature could do. A CSS property is an identifier, not a spelling, and converting one breaks the code."
 text = """
 In order to leverage the theming system, you must first call initialize() and \

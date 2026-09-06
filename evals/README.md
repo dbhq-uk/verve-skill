@@ -72,6 +72,40 @@ is a blunt instrument, and deliberately so. A check that tried to judge whether
 the prose got *better* would be a second opinion about writing, which is exactly
 what verve already is.
 
+Four things stop a blunt check being a useless one.
+
+`must_survive` is **case-sensitive**, because constraint 2 protects exact
+wording. `gateway.pool.perrequest` is a different key from
+`gateway.pool.perRequest`, and a check that accepted it would assert the
+opposite of the rule it exists to defend. Ordinary vocabulary goes in
+`must_survive_any_case` instead, since a word legitimately changes case when a
+rewrite moves it to the front of a sentence.
+
+`must_go` is case-insensitive, because a banned phrase is banned in any casing.
+Both directions err towards failing.
+
+Any case that is not a triage case **fails automatically if the input comes back
+whole**. Without that, a case asserting only `must_survive` passes on a verbatim
+no-op: every fact trivially survives text nobody touched. That hole was real and
+both fidelity cases sat in it.
+
+`max_loss` puts a floor under how much a rewrite may cut. `must_survive` is a
+whitelist, so it cannot notice content that was never listed going missing.
+A case with `max_loss = 0.5` fails a rewrite that drops more than half the
+words, whatever survived from the list.
+
+### Known limits of substring checking
+
+Negation and attribution are invisible to it. *"It is false that 83% of requests
+failed"* contains `83%` and passes a case asserting that figure survived, even
+though the meaning is inverted. So does a sentence that moves a number onto the
+wrong subject.
+
+Nothing in a substring harness fixes that. Catching it needs a judge reading for
+meaning, which is a different tool. Treat the fidelity cases as protection
+against *deletion*, not against *distortion*, and do not let a green run stand in
+for reading the output.
+
 Each case carries a `why`. It is printed on failure, because six months from now
 the useful thing is not that `fidelity-dense-technical` failed, it is what that
 case was put there to protect.
