@@ -22,11 +22,11 @@ verve cuts the AI tells out of a piece of writing and puts a voice back into it,
 
 **It does both halves.** Most de-slopping tools only subtract. Strip the tells and stop, and you get clean prose that still reads as machine-made - just blandly rather than floridly, because nothing is behind it. So the pattern sweep is followed by a voice pass: opinions, rhythm variance, specificity, acknowledged complexity, a bit of mess.
 
-**Meaning is a veto, not a trade-off.** Every fact, number, name, date and citation survives unchanged; technical terms keep their exact wording; no invented statistics or examples. The result is scored on six dimensions, and fidelity below 9 forces a revision regardless of the total - because that failure is a changed meaning rather than a stylistic one. Aggressive rewriting tempts a model to compress three real points into one punchy line, and that is the failure this guards against.
+Meaning holds the veto. Every fact, number, name, date and citation survives unchanged; technical terms keep their exact wording; nothing is invented. The result is scored on six dimensions, and fidelity below 9 forces a revision whatever the total says, because that failure has changed what the text means rather than how it reads. Aggressive rewriting tempts a model to compress three real points into one punchy line. That is the failure this guards against.
 
-**It knows when to do nothing.** Triage comes first. Text that already reads as human-written comes back unchanged with one line saying so. A tool that processes clean prose for the sake of processing it makes writing worse.
+Triage comes first, and leaving your text alone is a valid result. Writing that already reads as human comes back unchanged, with one line saying so. A tool that processes clean prose for the sake of processing it makes writing worse.
 
-**It costs nothing to run, and there is no upsell.** The whole skill is the conversation itself - no API key, no per-word billing, no network round trip, no paid tier holding the good half back. Earlier versions shipped an optional commercial detector-evasion API; it was removed in July 2026, because writing that reads as human should come from a judgement about the writing, not from a service that tunes text to score well against a classifier.
+**Nothing to pay, and nothing held back.** The whole skill is the conversation itself - no API key, no per-word billing, no network round trip, no paid tier holding the good half back. Earlier versions shipped an optional commercial detector-evasion API. It was removed in July 2026: writing that reads as human should come from a judgement about the writing, not from a service that tunes text to score against a classifier.
 
 **British English throughout**, which is the point if you write for a UK audience and are tired of drafts drifting into American spelling.
 
@@ -96,7 +96,7 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 
 Route your text through a detector-evasion service. Verve shipped with an optional [Undetectable AI](https://undetectable.ai) engine until July 2026, and it was removed rather than kept as a switch nobody had to flip.
 
-Two reasons, and the second is the real one. It contradicted the free, read-every-line argument the rest of the skill is built on. And it aimed at the wrong target: a classifier score is not the goal, prose a person would be happy to put their name to is. Those come apart the moment you optimise for the score, and when they do, the score wins and the writing loses.
+It contradicted the free, read-every-line argument the rest of the skill is built on. It also aimed at the wrong target. A classifier score is not the goal; prose a person would be happy to put their name to is. Those two come apart the moment you optimise for the score, and when they do the score wins and the writing loses.
 
 ## Development
 

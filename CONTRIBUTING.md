@@ -42,7 +42,13 @@ Two related rules, and they are the ones that matter:
 
 **A paid path.** An optional commercial detector-evasion API shipped until July 2026 and was removed. Please do not propose reinstating it, adding a hosted service, or gating anything behind a key or a tier.
 
+**A number that did not come from a measured run.** If a claim in the README or the skill carries a figure - a word count, a percentage, a score, a comparison against anything else - it has to come from a run somebody actually did, with the method stated next to it. An estimate that reads as a measurement is worse than no figure at all, because a reader cannot tell the two apart.
+
 The second is not really about money. Verve aims at prose a person would put their name to; a detector aims at a classifier score. Those two come apart the moment you optimise for the score, and when they do the score wins and the writing loses. A pull request that helps text evade detection rather than deserve to pass will be declined.
+
+## Code of conduct
+
+By taking part you agree to the [code of conduct](CODE_OF_CONDUCT.md).
 
 ## Licence
 
