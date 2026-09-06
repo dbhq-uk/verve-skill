@@ -5,8 +5,12 @@ and a *Before → After* to match in spirit. Flat word and phrase lists live in
 `wordlist.md`; this file covers patterns you have to recognise rather than
 grep for.
 
-Five groups: **A** content, **B** language and structure, **C** style and
-formatting, **D** assistant artefacts, **E** filler and hedging.
+Six groups: **A** content, **B** language and structure, **C** style and
+formatting, **D** assistant artefacts, **E** filler and hedging, **F**
+condescension and overreach.
+
+Groups A to E judge the writing on its own. Group F judges it against its
+reader, so it needs `audience.md` alongside it.
 
 ---
 
@@ -277,6 +281,86 @@ Cut them by default, with one exception: the casual tone preset allows
 *honestly*, *look* and similar as genuine discourse markers, where they mark a
 shift in stance rather than decorate an adjective. *Honestly, I'd skip it* is a
 person talking. *This is genuinely important* is padding.
+
+---
+
+## F. Condescension and overreach
+
+These are tells about the reader rather than about the writing. They only
+resolve once you know who is going to read the result, so `audience.md` carries
+the register model and this group carries the patterns. Where no audience is
+known, assume competence.
+
+**F1. Explaining a term the reader uses daily.** A gloss on a word the recipient
+works with every day. The gloss is not wrong; it is the assumption behind it
+that gives offence.
+
+> Before: *We should look at the CAC, or customer acquisition cost, which is what it costs to win one new customer.* (to the head of growth)
+> After: *CAC is up 40% since the channel mix changed.*
+
+**F2. Restating the ask.** Opening by repeating what the reader just asked for,
+which tells them only that you can read.
+
+> Before: *You asked whether we should move the deploy to Thursday. To answer your question about moving the deploy to Thursday: yes.*
+> After: *Yes, move it to Thursday.*
+
+**F3. Reasons before the answer.** Making somebody read the working before they
+get the result. In a reply to a question, the answer is the first thing.
+
+> Before: *Because the pool never refills and every request holds its own connection, and given the 20-connection ceiling, the gateway will fail again under the same load.*
+> After: *It will fail again under the same load. The pool never refills, and each request holds its own connection against a ceiling of 20.*
+
+**F4. Unrequested caveats.** Qualifications nobody asked for, added to protect
+the writer rather than to inform the reader.
+
+> Before: *Roll back `dep-4471`. Of course, every environment differs, and you should verify this in staging first, and results may vary depending on your configuration.*
+> After: *Roll back `dep-4471`.*
+
+Distinct from E2: hedging weakens a claim, F4 keeps the claim and bolts a
+disclaimer to it.
+
+**F5. Instructing upwards.** Directing somebody who has more standing on the
+subject than the writer does. Offer, and leave the decision where it belongs.
+
+> Before: *You need to escalate this to the board before Friday.*
+> After: *This looks like a board matter, and Friday is the last meeting before quarter end.*
+
+**F6. Telling them what they told you.** Feeding a person's own information back
+as though it were news.
+
+> Before: *As you mentioned, the outage started at 02:14. Given that it started at 02:14, the window is just under two hours.*
+> After: *That puts the window at 1h 45m.*
+
+**F7. Performed empathy.** Stated feeling standing in for action. The reader
+wanted the problem dealt with, not acknowledged.
+
+> Before: *I completely understand how frustrating this must be, and I want you to know we hear you.*
+> After: *Your invoice was wrong. We have refunded the £240 and it should reach you by Thursday.*
+
+**F8. Grovelling.** Apology stacked past the point of usefulness, which leaves
+the reader managing the writer's feelings on top of their own problem.
+
+> Before: *I'm so sorry, this is entirely my fault, I should have caught it much earlier and I completely understand if you've lost confidence in us.*
+> After: *Sorry, I missed this. It is fixed, and the check that would have caught it now runs on every deploy.*
+
+One apology, then the fix. The second apology is for the writer.
+
+**F9. Overreach.** Committing on somebody's behalf, assuming authority the
+writer does not have, or setting deadlines for people who do not report to them.
+
+> Before: *Design will have the mocks to you by Wednesday and Legal will sign off the same week.*
+> After: *I have asked Design for mocks by Wednesday. Legal has not been approached yet.*
+
+**F10. Length as an imposition.** A long message where a short one would do,
+sent to somebody with no time to read it. Every word is a cost the writer has
+chosen to pass to the reader.
+
+This one is measured against the audience rather than against a word count. Two
+thousand words to a reviewer who asked for detail is right; two hundred to a
+director who asked one question is not.
+
+> Before: eleven paragraphs and three headings, in reply to *"which deploy do I roll back?"*
+> After: *`dep-4471`, gateway, deployed 01:52 by `a.novak`. Full timeline in `INCIDENT-2026-03-14.md`.*
 
 ---
 

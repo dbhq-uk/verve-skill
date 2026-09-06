@@ -36,6 +36,8 @@ Two related rules, and they are the ones that matter:
 
 **Subtraction is not the whole job.** Anything added to the catalogue should leave the prose more human, not merely less florid. A change that makes writing blander has moved it from one kind of machine-made to another.
 
+**A group F tell has to name its reader.** Group F covers condescension and overreach, and nothing in it is a tell in the abstract: a gloss on a term is helpful for one reader and insulting to another. So a group F before-and-after states who the text is addressed to, the way the existing entries do. Without that the example cannot be judged, and the rule will be applied to readers it was never meant for.
+
 ## What we will not accept
 
 **Code.** Verve is instructions and reference material - no scripts, no packages, no interpreter, no network call. Anyone can verify that in one glance at the tree, and that is worth more than any feature a script would buy. CI enforces it. If you are convinced something genuinely cannot be done in prose, open an issue first.

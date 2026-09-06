@@ -11,7 +11,7 @@ The **verve** skill for AI coding agents - strip AI tells from prose and put a h
 ```
 .claude-plugin/plugin.json      # plugin manifest
 skills/verve/SKILL.md           # the skill (agent-facing instructions)
-skills/verve/references/        # the tell catalogue, wordlists, tone presets, varieties, worked examples
+skills/verve/references/        # the tell catalogue, wordlists, tone presets, varieties, audience, worked examples
 install.sh / install-codex.sh   # local symlink installers (Claude / Codex)
 ```
 
@@ -37,6 +37,7 @@ Everything else here is a preference. These are not.
 - Shell scripts use `set -e`; errors go to stderr, output to stdout.
 - No secrets in the repo, and nothing that would need one.
 - House style for this repository: British English, plain hyphens, no em dashes. The skill removes em dashes from other people's writing; shipping them in its own source is not a good look. Note the distinction: the *skill* writes British or American depending on the source and the request, but the *repository's own prose* is British throughout, and that is not up for negotiation on a variety argument.
+- The audience guard (`patterns.md` group F, `references/audience.md`) removes explanation a given reader does not need. It never removes a fact, a claim or a step in the argument, and hard constraint 4 outranks it in every case. Watch for the failure that looks like success: a rewrite that drops a load-bearing caveat and reads as respectful. A short answer that leaves the reader unable to act is incomplete, not polite. Note also that the guard is two-sided - cutting a greeting, the thanks, or the one apology that is owed is a register failure in the other direction, not concision.
 - A variety conversion must never touch code, quoted material, proper nouns, titles, citations or standards text. `background-color` is an identifier, not a spelling, and the World Health Organization keeps its `z` in British prose. This is hard constraint 2 applied to spelling, and it is the way this feature can do real damage. See `references/varieties.md`.
 
 ## Validating a change

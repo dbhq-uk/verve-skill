@@ -138,3 +138,52 @@ invention. If the source really is that vague, the honest after-text is
 *"The migration was a mess, and the team got there in the end. Having ops
 involved early was what made the difference."* Shorter, still specific about
 what it does know, and silent about what it doesn't.
+
+---
+
+## 6. Audience guard, moderate strength
+
+**Audience:** the VP of Engineering, who ran the platform team for six years.
+She asked one question: whether to approve the extra Redis nodes.
+
+**Before** (118 words)
+
+> Thanks so much for your question about the Redis scaling request! I completely
+> understand that budget decisions like this can be difficult, and I want you to
+> know your caution here is very reasonable.
+>
+> By way of background, Redis is an in-memory data store, which means it keeps
+> data in RAM rather than on disk. This makes it very fast, but it also means
+> capacity is limited by available memory.
+>
+> Basically, we're running out of memory. You need to approve the three
+> additional nodes by Friday so that Infrastructure can provision them next
+> week, and I'll get Finance to sign off the spend at the same time.
+>
+> I hope this makes sense! Let me know if you have any questions.
+
+**After** (44 words)
+
+> Yes, worth approving. We are at 87% memory on the primary cluster and hit
+> evictions twice last week.
+>
+> Three nodes covers us to roughly 2x current volume. Infrastructure can
+> provision next week if the decision lands by Friday. Finance has not been
+> asked yet.
+
+**Removed:** sycophancy (D3), performed empathy (F7), a definition of Redis for
+somebody who ran the platform team (F1), *basically* and *I hope this makes
+sense* (condescension list), *you need to approve* aimed upwards (F5), the
+commitment made on Finance's behalf (F9), chatbot closer (D1).
+
+**Note:** the before-text is 118 words and contains one fact. The after-text is
+44 and contains five, three of which were never in the original and could only
+be added because the writer knew them. If you do not have the numbers, do not
+invent them: constraint 3 has no exceptions, and the honest version is *"Yes,
+worth approving. We are close to the memory ceiling and saw evictions last
+week."*
+
+Two things deliberately kept. *Yes, worth approving* leads, because she asked a
+question and the answer is the first thing she should read (F3). *Finance has
+not been asked yet* stays, because it changes what she does next, and cutting it
+for brevity would be constraint 4 broken in the guard's name.

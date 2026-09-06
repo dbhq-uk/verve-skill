@@ -24,10 +24,10 @@ line.
 Entirely in the conversation. No extra API calls, no cost, nothing to install.
 
 1. **Triage** - returns already-human text unchanged rather than mangling it.
-2. **Tone and variety** - neutral / casual / professional / academic, and
-   British or American, both held throughout.
-3. **Pattern sweep** - five groups of tells (content, language, style,
-   assistant artefacts, filler) with before/after for each.
+2. **Tone, variety and audience** - neutral / casual / professional / academic,
+   British or American, and the reader it is pitched at, all held throughout.
+3. **Pattern sweep** - six groups of tells (content, language, style,
+   assistant artefacts, filler, condescension) with before/after for each.
 4. **Voice pass** - opinions, rhythm variance, specificity, within the tone.
 5. **Quick checks** - a 14-item pre-flight list.
 6. **Score** - six dimensions, with Fidelity as a veto rather than an average.
@@ -55,6 +55,7 @@ None. The skill is instructions, not tooling.
 | Tone | neutral, casual, professional, academic | neutral |
 | Strength | light, moderate, heavy | moderate |
 | Variety | British, American | match the source, else British |
+| Audience | who it is for, in plain words | infer from the text, else assume competence |
 | Explain | on / off | off |
 | Output | conversation, save to file | conversation |
 
@@ -68,6 +69,7 @@ verve/
     ├── wordlist.md             # Flat scannable word and phrase lists
     ├── voice.md                # Tone presets and restoring voice
     ├── varieties.md            # British and American conventions, and what never converts
+    ├── audience.md             # Who the text is for, and the register that follows
     └── examples.md             # Worked passages
 ```
 

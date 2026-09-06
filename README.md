@@ -24,6 +24,8 @@ verve cuts the AI tells out of a piece of writing and puts a voice back into it,
 
 Meaning holds the veto. Every fact, number, name, date and citation survives unchanged; technical terms keep their exact wording; nothing is invented. The result is scored on six dimensions, and fidelity below 9 forces a revision whatever the total says, because that failure has changed what the text means rather than how it reads. Aggressive rewriting tempts a model to compress three real points into one punchy line. That is the failure this guards against.
 
+**It knows who the writing is for.** Explaining a term to someone who uses it daily is rude, because it says you did not think they would know. Leaving it unexplained for a newcomer is unhelpful. Same sentence, different reader, and nothing but the reader can settle it. So verve takes an audience in plain words (*"for our CTO"*, *"for a customer who has just complained"*) and reads three things off it: how much explanation survives, how far you may direct rather than offer, and how long the thing should be. Say nothing and it infers the reader from the text, then falls back to assuming competence.
+
 Triage comes first, and leaving your text alone is a valid result. Writing that already reads as human comes back unchanged, with one line saying so. A tool that processes clean prose for the sake of processing it makes writing worse.
 
 **Nothing to pay, and nothing held back.** The whole skill is the conversation itself - no API key, no per-word billing, no network round trip, no paid tier holding the good half back. Earlier versions shipped an optional commercial detector-evasion API. It was removed in July 2026: writing that reads as human should come from a judgement about the writing, not from a service that tunes text to score against a classifier.
@@ -77,6 +79,8 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 "verve essay.md and explain what you changed"
 "verve draft.md and save to output.md"
 "verve draft.md in US English"
+"verve this for our CTO, she has two minutes"
+"verve reply.md for a customer who has just complained"
 ```
 
 | Option | Values | Default |
@@ -84,8 +88,11 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 | Tone | neutral, casual, professional, academic | neutral |
 | Strength | light, moderate, heavy | moderate |
 | Variety | British, American | match the source, else British |
+| Audience | who it is for, in plain words | infer from the text, else assume competence |
 | Explain | on / off | off |
 | Output | conversation, save to file | conversation |
+
+**Audience** is the other one to know. Give it a reader and verve cuts what that reader does not need: glosses on terms they use daily, the ask restated back at them, reasons before the answer, caveats nobody requested, instructions aimed at someone senior, performed empathy, and the second and third apology. It works the other way too, because brevity is not bluntness. A one-line reply to a customer who has lost money reads as contempt however efficient it is, so the greeting, the thanks and one genuine apology stay. What it never cuts is a fact, a claim or a step in the argument, whatever the reader knows.
 
 **Variety** picks the English. Ask for it by name and that settles it. Say nothing and verve reads what the draft already is and keeps it, falling back to British when the draft gives no signal either way. Code, quotations, proper nouns, titles and standards text are never converted whichever variety you choose: `background-color` stays `background-color`, and the World Health Organization keeps its `z`.
 
@@ -94,11 +101,11 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 ## How it works
 
 1. **Triage** - already-human text is returned unchanged rather than mangled
-2. **Tone and variety** - one of four tone presets, and British or American, both held throughout
-3. **Pattern sweep** - five groups of tells (content, language, style, assistant artefacts, filler), each with before/after
+2. **Tone, variety and audience** - one of four tone presets, British or American, and the reader it is pitched at, all held throughout
+3. **Pattern sweep** - six groups of tells (content, language, style, assistant artefacts, filler, condescension), each with before/after
 4. **Voice pass** - put opinions, rhythm and specificity back, inside the tone
 5. **Quick checks** - a 14-item pre-flight list run against the draft
-6. **Score** - six dimensions, fidelity as a veto rather than an average
+6. **Score** - six dimensions, fidelity as a veto rather than an average, Trust scored against the condescension group rather than on feel
 
 ## Audit a whole repository
 
