@@ -1,6 +1,6 @@
 {
   "name": "verve",
-  "description": "Strip AI tells from prose and put a human voice back, in British or American English, pitched at the reader it is for - for Claude Code and Codex. A catalogue of tells across content, language, style, assistant artefacts, filler and condescension, four tone presets, three strength levels, and a scored exit gate where fidelity is a veto rather than an average. Runs entirely in the conversation: no packages, no API key, no network call and no paid tier.",
+  "description": "Strip AI tells from prose and put a human voice back, in British or American English, pitched at the reader it is for. A catalogue of tells across content, language, style, assistant artefacts, filler and condescension, four tone presets, three strength levels, and a scored exit gate where fidelity is a veto rather than an average. Runs entirely in the conversation: no packages, no API key, no network call and no paid tier.",
   "version": "2.2.0",
   "author": {
     "name": "DBHQ",
@@ -20,6 +20,10 @@
     "tone-of-voice",
     "plain-english",
     "copywriting",
-    "style"
+    "style",
+    "humanizer",
+    "ai-writing",
+    "deslop",
+    "writing-tools"
   ]
 }

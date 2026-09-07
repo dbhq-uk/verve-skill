@@ -18,6 +18,22 @@ A free, open-source tool by [DBHQ](https://dbhq.uk)
 
 verve cuts the AI tells out of a piece of writing and puts a voice back into it, without changing what it says. **British English by default, American on request** or when the draft is already American.
 
+## What it looks like
+
+A model writes the most likely next sentence, which is the one that suits the widest range of readers and subjects at once. A person writes for one reader and one subject. Every tell verve hunts is a version of that difference, and the voice pass is what puts the one reader back.
+
+**Before** (86 words)
+
+> Here's the thing: in today's fast-paced engineering landscape, code review isn't just a quality gate — it's a cultural artefact. What makes it hard is that the feedback becomes a signal about the team itself. Let that sink in. Teams that delve into review culture find that it fosters trust, improves velocity and builds shared ownership. The implications are significant. Not because the tooling is complex. Because people are complex.
+
+**After** (84 words)
+
+> Code review is a quality gate, but it also tells you what a team is like. The difficulty is that people read feedback on their code as feedback on them, so the tone of a review carries further than its content. Teams that take review culture seriously tend to trust each other more and ship faster, partly because ownership stops being one person's problem. That is mostly a people problem rather than a tooling one.
+
+Two words shorter, and all seven of the original's claims survive. Out came the throat-clearing opener, *in today's*, *landscape*, *delve*, *fosters*, the em dash, *let that sink in*, the rule of three, and the not-X-but-Y contrast at both ends.
+
+Five more, including the failure mode where a rewrite cuts content along with the filler, are in [`references/examples.md`](skills/verve/references/examples.md).
+
 ## What makes it different
 
 **It does both halves.** Most de-slopping tools only subtract. Strip the tells and stop, and you get clean prose that still reads as machine-made - just blandly rather than floridly, because nothing is behind it. So the pattern sweep is followed by a voice pass: opinions, rhythm variance, specificity, acknowledged complexity, a bit of mess.
