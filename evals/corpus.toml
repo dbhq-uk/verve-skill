@@ -70,6 +70,7 @@ must_survive = [
 ]
 must_go = ["testament to", "underscores", "evolving"]
 max_loss = 0.5
+max_gain = 0.5
 why = "The failure that matters. A wordlist edit can introduce it quietly, and a rewrite that drops a figure has failed however well it reads. The tells are listed too, because a case asserting only survival passes on a rewrite that changed nothing."
 text = """
 Founded in 1989, the Instituto Vasco de Estadística stands as a testament to \
@@ -92,6 +93,7 @@ must_survive = [
 ]
 must_go = ["It is important to note", "each and every", "subsequently"]
 max_loss = 0.5
+max_gain = 0.5
 why = "Constraint 2. Identifiers and config keys are terms, not wording, and a synonym swap here breaks the thing the reader has to act on. Case-sensitive on purpose: gateway.pool.perrequest is a different key, and a check that accepted it would assert the opposite of the rule."
 text = """
 It is important to note that the root cause was ultimately traced to the \

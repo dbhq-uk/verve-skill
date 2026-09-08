@@ -1,9 +1,11 @@
 #!/bin/bash
 # Install the verve skill into ~/.codex/skills/ for Codex.
 #
-# Codex does not substitute ${CLAUDE_SKILL_DIR}, so this script rewrites that
-# variable to each skill's installed Codex path and symlinks the supporting
-# directories (edits stay live). Re-run after editing a SKILL.md.
+# SKILL.md names its references by relative path, so nothing in it needs
+# rewriting. This script copies SKILL.md into ~/.codex/skills/<name>/ and
+# symlinks references/ beside it, so reference edits stay live and SKILL.md
+# edits need a re-run. Copying rather than symlinking the whole directory is
+# deliberate: it gives Codex a real file at the path it discovers.
 
 set -e
 
@@ -36,13 +38,23 @@ for src in "$SCRIPT_DIR"/skills/*/; do
   # is kept in the list deliberately, so that if one is ever added it is linked
   # rather than silently missing from the Codex install.
   for sub in references scripts; do
-    [ -d "$src/$sub" ] && ln -sfn "$src/$sub" "$target/$sub"
+    [ -d "$src/$sub" ] || continue
+    # ln -sfn into an existing real directory creates a link *inside* it and
+    # leaves the stale directory in place, so a user who once had a copied
+    # install would keep running old reference files while this script
+    # reported success. Refuse instead.
+    if [ -e "$target/$sub" ] && [ ! -L "$target/$sub" ]; then
+      echo "error: $target/$sub is a real directory, not a symlink, so it was not created by this script." >&2
+      echo "       Move or remove it first, then re-run. Nothing was changed." >&2
+      exit 1
+    fi
+    ln -sfn "$src/$sub" "$target/$sub"
   done
-  sed "s#\${CLAUDE_SKILL_DIR}#$target#g" "$src/SKILL.md" > "$target/SKILL.md"
+  cp "$src/SKILL.md" "$target/SKILL.md"
 done
 
 echo
 echo "Installed for Codex. Re-run after editing a SKILL.md - that file is
-rewritten at install time rather than symlinked, so its edits are not live."
+copied at install time rather than symlinked, so its edits are not live."
 echo
 echo "Done. Try: 'verve draft.md' or 'verve this: <text>'"

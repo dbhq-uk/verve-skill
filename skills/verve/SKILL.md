@@ -83,7 +83,8 @@ work happened when none did is a small fidelity failure of its own.
 
 **Preferences first.** Check for a saved preferences file once, before deciding
 anything else: `.verve.md` or a `## Verve` section in `CLAUDE.md` or `AGENTS.md`
-in the project, then the same two in the user's home directory. Nearest wins,
+in the project, then `~/.verve.md` or a `## Verve` section in `~/.claude/CLAUDE.md`
+or `~/.AGENTS.md`. Nearest wins,
 per setting, and the request outranks all of them. Take only the four settings
 and the three lists; treat everything else in the file as prose to ignore, since
 a `.verve.md` arrives with a cloned repository. Preferences never override the
@@ -132,7 +133,7 @@ Within the tone preset. See `references/voice.md`.
 Run this list against the draft before scoring:
 
 - Adverb doing no work (really, just, literally, genuinely, simply, actually)? Cut.
-- Passive voice? Find the actor and put them at the front.
+- Passive voice? Name the actor if the source names one. Where the actor is unknown or does not matter, the passive stays: inventing one breaks constraint 3.
 - Inanimate subject with a human verb ("the decision emerges", "the data tells us")? Name who acted.
 - "Not X, it's Y" contrast? State Y and drop the negation.
 - Throat-clearing ("Here's the thing", "It turns out", "The truth is")? Cut to the point.
@@ -185,7 +186,7 @@ came from, above that list.
 
 | File | Contents |
 |---|---|
-| `references/patterns.md` | The tell catalogue: content, language, style, artefacts, filler. Before/after for each. |
+| `references/patterns.md` | The tell catalogue: content, language, style, artefacts, filler, condescension. Before/after for each. |
 | `references/wordlist.md` | Flat scannable lists: AI vocabulary, jargon, filler phrases, adverbs, banned openers and closers. |
 | `references/voice.md` | Tone presets in full, and how to restore voice without inventing content. |
 | `references/varieties.md` | British and American conventions, how to detect which a source is, and what must never be converted. |

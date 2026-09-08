@@ -31,7 +31,7 @@ Entirely in the conversation. No extra API calls, no cost, nothing to install.
 3. **Pattern sweep** - six groups of tells (content, language, style,
    assistant artefacts, filler, condescension) with before/after for each.
 4. **Voice pass** - opinions, rhythm variance, specificity, within the tone.
-5. **Quick checks** - a 14-item pre-flight list.
+5. **Quick checks** - a pre-flight list run against the draft.
 6. **Score** - six dimensions, with Fidelity as a veto rather than an average.
 
 ## Setup
@@ -78,8 +78,9 @@ verve/
 
 ## Requirements
 
-A Claude Code or Codex session. Nothing else - no packages, no virtualenv, no
-credentials, no network.
+An agent that loads Agent Skills: Claude Code, Codex, or anything the Skills
+CLI installs into. Nothing else - no packages, no virtualenv, no credentials,
+no network.
 
 ## What this will not do
 

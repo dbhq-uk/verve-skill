@@ -14,7 +14,9 @@ skills/verve/SKILL.md           # the skill (agent-facing instructions)
 skills/verve/references/        # the tell catalogue, wordlists, tone presets, varieties, audience, worked examples
 install.sh / install-codex.sh   # local symlink installers (Claude / Codex)
 prompts/                        # paste-in messages: install, and a repo prose audit
-evals/                          # the corpus and its runner - not shipped, not installed
+evals/                          # the corpus, its runner, and committed runs - not shipped, not installed
+docs/design/                    # dated design records: what was decided and why
+docs/research/                  # decision research, one folder per run; index.md is the dispatcher
 ```
 
 **Nothing under `skills/` is executable.** The skill is prose: instructions and
@@ -41,7 +43,7 @@ Everything else here is a preference. These are not.
 
 ## Conventions
 
-- Any path a `SKILL.md` names must use `${CLAUDE_SKILL_DIR}` (the skill's own directory), which Claude Code substitutes for personal, project and plugin installs alike. `install.sh` therefore symlinks the whole skill directory into `~/.claude/skills/` with no rewrite. `install-codex.sh` rewrites the variable, since Codex does not substitute it. **Never hardcode a `~/.claude/skills/verve` path** - it is wrong under a Codex install and wrong under a plugin install.
+- Any path a `SKILL.md` names is relative to the skill's own directory (`references/patterns.md`), which every host resolves for personal, project and plugin installs alike. `install.sh` symlinks the whole skill directory into `~/.claude/skills/`; `install-codex.sh` copies `SKILL.md` and symlinks `references/`. **Never hardcode a `~/.claude/skills/verve` path or an absolute path of any kind** - it is wrong under a Codex install, wrong under a plugin install, and CI rejects it. `${CLAUDE_SKILL_DIR}` was only ever used by the commercial engine removed in July 2026 and appears nowhere in the skill now.
 - `SKILL.md` is the short half on purpose. Workflow, constraints, checks and scoring live there; the catalogue, wordlists, tone presets and worked examples live in `references/` and are read on demand.
 - Shell scripts use `set -e`; errors go to stderr, output to stdout.
 - No secrets in the repo, and nothing that would need one.
@@ -63,6 +65,6 @@ python3 evals/run.py --dry-run    # corpus loads, references resolve, no spend
 python3 evals/run.py              # the real thing, needs ANTHROPIC_API_KEY
 ```
 
-The dry run is in CI. The real run is not, because it costs money and needs a credential, so **after editing `references/` or `SKILL.md`, run it yourself**. Four kinds of case: triage returns human text unchanged, fidelity keeps every figure and identifier, variety never converts code or proper nouns, and audience cuts the gloss while keeping both the facts and the warmth that is owed.
+The dry run is in CI. The real run is not, because it costs money and needs a credential, so **after editing `references/` or `SKILL.md`, run it yourself**. What each case asserts, what the substring checks cannot see, and how to grade a run done without an API key are in [`evals/README.md`](evals/README.md). Four kinds of case: triage returns human text unchanged, fidelity keeps every figure and identifier, variety never converts code or proper nouns, and audience cuts the gloss while keeping both the facts and the warmth that is owed.
 
 Nine cases is a floor, not a benchmark. Passing does not mean an edit was good; failing means it was wrong. Skipping the run because the static checks are green is how the constraints get broken.

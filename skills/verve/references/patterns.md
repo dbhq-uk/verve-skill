@@ -12,6 +12,13 @@ condescension and overreach.
 Groups A to E judge the writing on its own. Group F judges it against its
 reader, so it needs `audience.md` alongside it.
 
+Several *After* lines below add a date, a source or a named detail to show what
+the fix looks like when the writer has one. Every one of those is legitimate
+only where the source already contains it. Where it does not, cut the tell and
+keep the bare claim: *"Experts believe it plays a crucial role"* becomes *"It
+supports several endemic fish species"* and nothing more. Hard constraint 3 has
+no exceptions, and `examples.md` shows the same rule worked through.
+
 ---
 
 ## A. Content patterns

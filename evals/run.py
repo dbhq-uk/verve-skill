@@ -85,6 +85,7 @@ class Case:
     must_survive_any_case: list[str] = field(default_factory=list)
     must_go: list[str] = field(default_factory=list)
     max_loss: float | None = None
+    max_gain: float | None = None
 
     def prompt(self) -> str:
         return f"{self.request}\n\n{self.text.strip()}"
@@ -107,6 +108,10 @@ def load_cases() -> list[Case]:
             sys.exit(f"Case {case.id} asserts nothing")
         if case.max_loss is not None and not 0 < case.max_loss < 1:
             sys.exit(f"Case {case.id}: max_loss must be between 0 and 1")
+        if case.max_gain is not None and case.max_gain <= 0:
+            sys.exit(f"Case {case.id}: max_gain must be above 0")
+        if case.unchanged and (case.max_loss is not None or case.max_gain is not None):
+            sys.exit(f"Case {case.id}: a triage case cannot set max_loss or max_gain")
         cases.append(case)
 
     if not cases:
@@ -126,6 +131,16 @@ def normalise(text: str) -> str:
 
 def words(text: str) -> int:
     return len(text.split())
+
+
+# The one line SKILL.md permits a triage case to add. Compared after
+# normalise(), so casing and whitespace do not matter, and with any italic or
+# bold markers around it stripped, since the skill shows the line in italics.
+TRIAGE_LINE = "this already reads as human-written; returned unchanged."
+
+
+def strip_triage_line(text: str) -> str:
+    return re.sub(r"[*_]*" + re.escape(TRIAGE_LINE) + r"[*_]*", "", text).strip()
 
 
 def check(case: Case, output: str) -> list[str]:
@@ -148,6 +163,12 @@ def check(case: Case, output: str) -> list[str]:
     if case.unchanged:
         if not echoed:
             failures.append("triage rewrote text that already reads as human")
+        elif strip_triage_line(normalise(output)) != normalise(case.text):
+            # The input is in there, but so is something else: a second
+            # version, a critique, a list of what it would have changed. The
+            # skill permits exactly one line, and an output that keeps the
+            # text while adding commentary has not returned it unchanged.
+            failures.append("triage returned the text but added more than the one permitted line")
     elif echoed:
         # A rewrite case that returns its own input, with or without a
         # preamble wrapped round it, has done nothing. Without this, a case
@@ -174,6 +195,19 @@ def check(case: Case, output: str) -> list[str]:
             lost = 1 - (after / before)
             failures.append(
                 f"cut {lost:.0%} of the words, over the {case.max_loss:.0%} "
+                f"this case allows ({before} -> {after})"
+            )
+
+    if case.max_gain is not None:
+        # max_loss alone can be gamed: drop the unlisted claims, keep the
+        # listed substrings, and pad the result back over the line. A ceiling
+        # on growth closes that, and a faithful rewrite has no reason to be
+        # half as long again as its source.
+        before, after = words(case.text), words(output)
+        if before and after > before * (1 + case.max_gain):
+            gained = (after / before) - 1
+            failures.append(
+                f"grew by {gained:.0%}, over the {case.max_gain:.0%} "
                 f"this case allows ({before} -> {after})"
             )
 
@@ -224,8 +258,9 @@ def main() -> int:
             print(f"  {case.kind:9} {case.id}")
             survive = len(case.must_survive) + len(case.must_survive_any_case)
             loss = "" if case.max_loss is None else f", max_loss={case.max_loss:.0%}"
+            gain = "" if case.max_gain is None else f", max_gain={case.max_gain:.0%}"
             print(f"            asserts: {survive} survive, {len(case.must_go)} go, "
-                  f"unchanged={case.unchanged}{loss}")
+                  f"unchanged={case.unchanged}{loss}{gain}")
         print("\nDry run. Nothing was sent anywhere and nothing was measured.")
         return 0
 

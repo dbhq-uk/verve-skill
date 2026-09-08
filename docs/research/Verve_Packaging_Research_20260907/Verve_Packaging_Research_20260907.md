@@ -70,6 +70,8 @@ Sepia's precise trending trigger is inferred from dated aggregator snapshots; st
 
 ## Bibliography
 
+Fetch log with every retrieval, angle and verified quote: [`Verve_Packaging_Research_20260907.tsv`](Verve_Packaging_Research_20260907.tsv).
+
 [1] Nanako0129 (2026). "sepia - De-AI writing skill". GitHub. https://github.com/Nanako0129/sepia
 [2] Nanako0129 (2026). "Nanako0129 (Nyanako) profile". GitHub. https://github.com/Nanako0129
 [3] The Daily Commit (2026). "Nanako0129/sepia". thedailycommit.in. https://thedailycommit.in/story/2026-08-29/08-github-nanako0129-sepia

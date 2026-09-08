@@ -15,14 +15,15 @@ cd verve-skill
 ./install.sh          # symlinks into ~/.claude/skills (edits are live)
 ```
 
-The whole skill directory is symlinked, so edits - including to `SKILL.md` and `references/` - are live immediately. For Codex, re-run `./install-codex.sh` after editing a `SKILL.md`, since that path is rewritten at install time. Full walkthrough in [`docs/dev-setup.md`](docs/dev-setup.md).
+The whole skill directory is symlinked, so edits - including to `SKILL.md` and `references/` - are live immediately. For Codex, re-run `./install-codex.sh` after editing a `SKILL.md`, since that file is copied at install time rather than symlinked. Full walkthrough in [`docs/dev-setup.md`](docs/dev-setup.md).
 
 ## Before opening a PR
 
 - `bash -n install.sh install-codex.sh` - the installers parse
 - `claude plugin validate .` - the plugin validates
 - `python3 evals/run.py --dry-run` - the corpus loads and every reference resolves
-- `python3 evals/run.py` - the corpus actually passes. This one needs an `ANTHROPIC_API_KEY` and costs a few pence, and it is the only check that tests the skill rather than describing it. If you changed anything under `skills/`, run it
+- `python3 evals/run.py` - the corpus actually passes. This one needs an `ANTHROPIC_API_KEY` and costs a few pence, and it is the only check that tests the skill rather than describing it. If you changed anything under `skills/`, run it. What it asserts, and what it cannot, is in [`evals/README.md`](evals/README.md)
+- `python3 evals/grade.py evals/runs/<file>.json` - grades outputs produced somewhere else against the same assertions. Use it when the rewrites came from an agent session rather than the API, and commit the outputs under `evals/runs/` so the grading can be repeated
 - British English, plain hyphens, no trailing full stops on headings
 
 Nothing under `skills/` is executable, and CI asserts it. Please keep it that way - see below. `evals/` is the one place code is allowed, because there is no offline way to check that a fact survived a rewrite.

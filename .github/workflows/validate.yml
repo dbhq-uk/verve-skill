@@ -72,16 +72,16 @@ jobs:
       - name: The eval corpus loads
         run: python3 evals/run.py --dry-run
 
-      # The whole install story rests on ${CLAUDE_SKILL_DIR} being substituted.
-      # A hardcoded ~/.claude/skills path works on the author's machine and is
-      # wrong under both a Codex install and a plugin install - which is exactly
-      # the bug that kept this skill Claude-only before it moved here. Asserted
-      # rather than trusted, because it reappears every time someone pastes a
-      # working command out of their own terminal.
+      # The whole install story rests on SKILL.md naming its references by
+      # relative path. A hardcoded ~/.claude/skills path works on the author's
+      # machine and is wrong under both a Codex install and a plugin install -
+      # which is exactly the bug that kept this skill Claude-only before it
+      # moved here. Asserted rather than trusted, because it reappears every
+      # time someone pastes a working command out of their own terminal.
       - name: No hardcoded install paths
         run: |
-          if grep -rn '~/\.claude/skills\|\$HOME/\.claude/skills' skills/; then
-            echo "::error::Hardcoded install path found. Use \${CLAUDE_SKILL_DIR} instead."
+          if grep -rn '~/\.claude/skills\|\$HOME/\.claude/skills\|CLAUDE_SKILL_DIR' skills/; then
+            echo "::error::Hardcoded install path or install-time variable found. Name files by relative path (references/x.md)."
             exit 1
           fi
           echo "No hardcoded install paths."
@@ -115,29 +115,44 @@ jobs:
       - uses: actions/checkout@v7
 
       # The installers are how anyone outside the marketplace gets the skill,
-      # so they are exercised rather than assumed. The Codex path is the one
-      # that can silently break: it rewrites SKILL.md, so a rewrite that
-      # resolves to a nonexistent file still "installs" successfully.
+      # so they are exercised rather than assumed. Each is run twice: once
+      # clean, and once against a real directory it did not create, which it
+      # must refuse rather than delete or nest a link inside. Then the Codex
+      # copy is checked for every relative reference SKILL.md names, from the
+      # installed location, so a reference renamed upstream cannot "install"
+      # successfully and fail at first use.
       - name: Claude install
         run: |
           ./install.sh
           test -L "$HOME/.claude/skills/verve" || { echo "not a symlink"; exit 1; }
           test -f "$HOME/.claude/skills/verve/SKILL.md" || { echo "SKILL.md missing"; exit 1; }
+          ./install.sh   # idempotent over its own symlink
 
-      - name: Codex install, and the rewritten paths resolve
+      - name: Claude install refuses a real directory
+        run: |
+          rm -f "$HOME/.claude/skills/verve"
+          mkdir -p "$HOME/.claude/skills/verve" && echo "somebody's edit" > "$HOME/.claude/skills/verve/SKILL.md"
+          if ./install.sh; then echo "::error::installer replaced a directory it did not create"; exit 1; fi
+          grep -q "somebody's edit" "$HOME/.claude/skills/verve/SKILL.md" || { echo "::error::user file was destroyed"; exit 1; }
+          rm -rf "$HOME/.claude/skills/verve"
+
+      - name: Codex install, and every relative reference resolves
         run: |
           ./install-codex.sh
           target="$HOME/.codex/skills/verve"
           test -f "$target/SKILL.md" || { echo "SKILL.md missing"; exit 1; }
-          grep -q 'CLAUDE_SKILL_DIR' "$target/SKILL.md" && { echo "variable not substituted"; exit 1; }
-          test -d "$target/references" || { echo "references/ not linked"; exit 1; }
-          # Every path the rewritten SKILL.md names must exist on disk. No
-          # exemptions: with the optional engine gone there is nothing this
-          # skill can name that is legitimately absent.
+          test -L "$target/references" || { echo "references/ not a symlink"; exit 1; }
+          cmp -s skills/verve/SKILL.md "$target/SKILL.md" || { echo "installed SKILL.md differs from source"; exit 1; }
+          # Every references/ path SKILL.md names must exist beside the copy.
           fail=0
+          count=0
           while IFS= read -r p; do
-            [ -e "$p" ] || { echo "rewritten path does not exist: $p"; fail=1; }
-          done < <(grep -o "$target[^ \`\"']*" "$target/SKILL.md" | sort -u)
+            count=$((count + 1))
+            [ -e "$target/$p" ] || { echo "named reference does not exist: $target/$p"; fail=1; }
+          done < <(grep -o 'references/[a-z0-9_-]*\.md' "$target/SKILL.md" | sort -u)
+          [ "$count" -gt 0 ] || { echo "::error::SKILL.md names no references; the check ran on nothing"; exit 1; }
+          echo "$count named references resolve"
+          ./install-codex.sh   # idempotent over its own links
           exit $fail
 
       - name: No dangling symlinks after either install

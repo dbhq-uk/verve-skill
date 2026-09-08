@@ -1,11 +1,14 @@
 # Evals
 
-Verve makes claims about what it will and will not do. This measures two of
-them, and it is the first thing in the repository that checks the skill rather
-than describing it.
+Verve makes claims about what it will and will not do. This measures four of
+them, and it is the only thing in the repository that checks the skill rather
+than describing it. Until September 2026 `AGENTS.md` named the two checks that
+matter and then admitted that neither was asserted anywhere. This is that
+assertion, with variety and audience added since.
 
-`AGENTS.md` has named the two checks that matter for a while, and then admitted:
-*"Neither is asserted anywhere."* This is that assertion.
+The reasoning behind the corpus, and behind the variety and audience features it
+checks, is recorded in
+[`docs/design/2026-09-06-varieties-audience-and-evals.md`](../docs/design/2026-09-06-varieties-audience-and-evals.md).
 
 ## The first run
 
@@ -46,6 +49,31 @@ that holds, not that they reliably will. The honest next step is a paid run of
 `run.py --runs 3`, and the number above should be replaced by it rather than
 sitting alongside it.
 
+### What the substrings missed, and a second model caught
+
+The day after that run, an adversarial review by a different model (Codex, read-only,
+briefed to break the repository) read the nine outputs against their sources and
+found that `fidelity-figures-and-names` had passed every assertion while changing
+two claims. The source says Eustat *stands as a testament to the Basque Country's
+commitment to independent data*; the output said it *was founded in 1989 to
+produce data on the Basque Country independently*, which turns evidence of a
+commitment into a founding purpose. The source says its work *underscores the
+vital role that regional statistical bodies play*; the output said *its figures
+are used in policy, which is the main argument for having regional statistical
+bodies at all*, which is an opinion the source never offered.
+
+Every listed figure and name survived. `max_loss` was satisfied. The check had
+nothing to say, because it checks for deletion and this was distortion, exactly
+as the limits section below warns. The output in `runs/` is the corrected one,
+and the point of recording the original here is that it is the clearest evidence
+in this repository of why a green run is not a fidelity guarantee.
+
+Two things changed in the harness as a result. A triage case now fails if the
+output contains anything beyond the input and the one permitted line, where
+before it only checked that the input was present somewhere. And fidelity cases
+carry `max_gain` as well as `max_loss`, because a rewrite that drops unlisted
+claims and pads the result back over the length floor was passing.
+
 ## What it still does not do
 
 **It is not wired into CI**, beyond a dry run that costs nothing. Measuring for
@@ -71,7 +99,7 @@ python3 evals/run.py --runs 3           # repeat, report the worst result
 python3 evals/run.py --only audience    # one kind
 python3 evals/run.py --verbose          # print every rewrite
 
-python3 evals/grade.py runs/FILE.json   # grade outputs produced elsewhere
+python3 evals/grade.py evals/runs/FILE.json   # grade outputs produced elsewhere
 ```
 
 Python 3.11 or newer, for `tomllib`.

@@ -74,11 +74,11 @@ cd verve-skill
 ./install-codex.sh    # Codex: installs into ~/.codex/skills
 ```
 
-[`install.sh`](install.sh) and [`install-codex.sh`](install-codex.sh) are the same install two ways: Claude Code substitutes `${CLAUDE_SKILL_DIR}` so the whole skill directory is symlinked untouched, while Codex does not, so its `SKILL.md` is rewritten at install time.
+[`install.sh`](install.sh) and [`install-codex.sh`](install-codex.sh) are the same install two ways. `SKILL.md` names its references by relative path, so nothing needs rewriting: the Claude Code installer symlinks the whole skill directory and every edit is live, while the Codex installer copies `SKILL.md` and symlinks `references/`, so re-run it after editing `SKILL.md`. Neither will delete a `verve` directory it did not create.
 
 ### Let the agent do it
 
-For an agent none of the above covers, paste [`prompts/install.md`](prompts/install.md) into a session. It finds the skills directory, fetches the five files, puts them in the right layout and asks before overwriting anything already there.
+For an agent none of the above covers, paste [`prompts/install.md`](prompts/install.md) into a session. It finds the skills directory, fetches the eight files, puts them in the right layout and asks before overwriting anything already there.
 
 **Nothing to install beyond that.** No packages, no virtualenv, no credentials, no network. The skill is instructions and reference material, not tooling.
 
@@ -137,7 +137,7 @@ verve looks in the project first, then your home directory, and the request stil
 2. **Tone, variety and audience** - one of four tone presets, British or American, and the reader it is pitched at, all held throughout
 3. **Pattern sweep** - six groups of tells (content, language, style, assistant artefacts, filler, condescension), each with before/after
 4. **Voice pass** - put opinions, rhythm and specificity back, inside the tone
-5. **Quick checks** - a 14-item pre-flight list run against the draft
+5. **Quick checks** - a pre-flight list run against the draft
 6. **Score** - six dimensions, fidelity as a veto rather than an average, Trust scored against the condescension group rather than on feel
 
 ## Audit a whole repository
@@ -168,6 +168,6 @@ Several patterns - false agency, vague declaratives, narrator-from-a-distance, m
 
 Renamed from `humanize` in July 2026. The skill still triggers on *"humanise this"* and *"make this sound human"*; only the name and the directory changed.
 
-## License
+## Licence
 
 [MIT](LICENSE) © 2026 DBHQ Consulting Ltd
