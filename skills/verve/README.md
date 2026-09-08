@@ -30,11 +30,34 @@ Entirely in the conversation. No extra API calls, no cost, nothing to install.
    British or American, and the reader it is pitched at, all held throughout.
 3. **Pattern sweep** - six groups of tells (content, language, style,
    assistant artefacts, filler, condescension) with before/after for each.
+   The condescension group is the politeness check, below.
 4. **Voice pass** - opinions, rhythm variance, specificity, within the tone.
 5. **Quick checks** - a pre-flight list run against the draft.
 6. **Fidelity readback** - questions the source answers, put to the rewrite
    alone, in both directions.
 7. **Score** - six dimensions, with Fidelity as a veto rather than an average.
+
+## Politeness check
+
+Group F of the sweep judges how the text treats its reader rather than how it
+is written. Ten patterns: glossing a term they use daily, restating their
+question, reasons before the answer, unrequested caveats, instructing somebody
+senior, feeding their own words back, performed empathy, grovelling,
+committing on a third party's behalf, and length sent to somebody with no time
+for it. Plus *simply*, *just*, *obviously*, *of course* and *as you know*,
+which fail on sight for any reader who knows the subject.
+
+It runs both ways. A guard built only against condescension produces
+curtness, so the greeting, the thanks and the one apology that is owed all
+stay, and nothing in the group ever licenses cutting a fact, a claim or a step
+in the argument. The **Trust** score marks the result against those patterns
+rather than on feel.
+
+The check runs on every pass. Ask for it by name - *"is this patronising?"*,
+*"check this doesn't talk down to them"* - and it is the same pass, so you get
+the corrected text back rather than a report. Name the reader when you do:
+nothing else settles whether a gloss is a courtesy or an insult. Register
+model in `references/audience.md`.
 
 ## Setup
 
@@ -50,6 +73,8 @@ None. The skill is instructions, not tooling.
 "verve draft.md with heavy rewriting"
 "verve essay.md and explain what you changed"
 "verve draft.md and save to output.md"
+"verve reply.md for a customer who has just complained"
+"verve this and check it doesn't talk down to them"
 ```
 
 ## Options

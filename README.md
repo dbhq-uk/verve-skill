@@ -42,6 +42,8 @@ Meaning holds the veto. Every fact, number, name, date and citation survives unc
 
 **It knows who the writing is for.** Explaining a term to someone who uses it daily is rude, because it says you did not think they would know. Leaving it unexplained for a newcomer is unhelpful. Same sentence, different reader, and nothing but the reader can settle it. So verve takes an audience in plain words (*"for our CTO"*, *"for a customer who has just complained"*) and reads three things off it: how much explanation survives, how far you may direct rather than offer, and how long the thing should be. Say nothing and it infers the reader from the text, then falls back to assuming competence.
 
+**There is a politeness check, and it runs both ways.** Ten patterns are judged against that reader on every pass: glossing a term they use daily, restating their question, reasons before the answer, caveats nobody asked for, instructions aimed at somebody senior, feeding their own words back, performed empathy, the second and third apology, committing on a third party's behalf, and length sent to somebody with no time to read it. With them goes a list that fails on sight for any reader who knows the subject: *simply*, *just*, *obviously*, *of course*, *as you know*. The other direction is checked too, because a guard built only against condescension turns everything curt - so the greeting, the thanks and the one apology that is owed all stay, and none of it ever licenses cutting a fact. The result comes out as the **Trust** score, marked against those patterns rather than on feel: 10 where none survives and the warmth this reader is owed is intact, below 5 where they would finish it feeling talked down to or brushed off.
+
 Triage comes first, and leaving your text alone is a valid result. Writing that already reads as human comes back unchanged, with one line saying so. A tool that processes clean prose for the sake of processing it makes writing worse.
 
 **Nothing to pay, and nothing held back.** The whole skill is the conversation itself - no API key, no per-word billing, no network round trip, no paid tier holding the good half back. Earlier versions shipped an optional commercial detector-evasion API. It was removed in July 2026: writing that reads as human should come from a judgement about the writing, not from a service that tunes text to score against a classifier.
@@ -97,6 +99,7 @@ Ask in any session. Text comes from the message, a file, or the clipboard, and t
 "verve draft.md in US English"
 "verve this for our CTO, she has two minutes"
 "verve reply.md for a customer who has just complained"
+"verve this and check it doesn't talk down to them"
 ```
 
 | Option | Values | Default |
@@ -126,6 +129,8 @@ verve looks in the project first, then your home directory, and the request stil
 
 **Audience** is the other one to know. Give it a reader and verve cuts what that reader does not need: glosses on terms they use daily, the ask restated back at them, reasons before the answer, caveats nobody requested, instructions aimed at someone senior, performed empathy, and the second and third apology. It works the other way too, because brevity is not bluntness. A one-line reply to a customer who has lost money reads as contempt however efficient it is, so the greeting, the thanks and one genuine apology stay. What it never cuts is a fact, a claim or a step in the argument, whatever the reader knows.
 
+That is the politeness check, and it runs on every pass whether you ask for it or not. Ask for it by name - *"is this patronising?"*, *"check this doesn't talk down to them"* - and it is the same pass, so what comes back is the corrected text rather than a report. Name the reader when you do, because nothing else settles whether a gloss is a courtesy or an insult. The register model behind it, and the two tests applied before anything is cut on audience grounds, are in [`references/audience.md`](skills/verve/references/audience.md).
+
 **Variety** picks the English. Ask for it by name and that settles it. Say nothing and verve reads what the draft already is and keeps it, falling back to British when the draft gives no signal either way. Code, quotations, proper nouns, titles and standards text are never converted whichever variety you choose: `background-color` stays `background-color`, and the World Health Organization keeps its `z`.
 
 **Strength** is the dial worth knowing. *Light* touches only the unmistakable tells - banned words, em dashes, chatbot artefacts, sycophancy - and leaves sentence structure alone. *Moderate*, the default, adds rhythm and voice work. *Heavy* restructures freely and rewrites most sentences from scratch. The meaning constraints hold at every level, without exception.
@@ -135,7 +140,7 @@ verve looks in the project first, then your home directory, and the request stil
 0. **Preferences** - saved settings and never-change terms, project first, then home
 1. **Triage** - already-human text is returned unchanged rather than mangled
 2. **Tone, variety and audience** - one of four tone presets, British or American, and the reader it is pitched at, all held throughout
-3. **Pattern sweep** - six groups of tells (content, language, style, assistant artefacts, filler, condescension), each with before/after
+3. **Pattern sweep** - six groups of tells (content, language, style, assistant artefacts, filler, condescension), each with before/after. The condescension group is the politeness check, judged against the reader set in step 2 rather than on its own
 4. **Voice pass** - put opinions, rhythm and specificity back, inside the tone
 5. **Quick checks** - a pre-flight list run against the draft
 6. **Fidelity readback** - questions the source answers, put to the rewrite alone, in both directions
