@@ -7,11 +7,46 @@ than describing it.
 `AGENTS.md` has named the two checks that matter for a while, and then admitted:
 *"Neither is asserted anywhere."* This is that assertion.
 
-## What it does not do yet
+## The first run
 
-**It ships unrun.** No numbers from it appear in the README, and none should
-until somebody has run it and can say when, on what model, and how many times.
-`CONTRIBUTING.md` makes that a rule.
+**9/9, on 8 September 2026, on `claude-opus-5`, once.**
+
+Read that with its method attached, because the method is not the one `run.py`
+describes.
+
+There was no `ANTHROPIC_API_KEY` to hand, so `call_model` never ran. The nine
+rewrites were produced by `claude-opus-5` in a Claude Code session, given the
+system prompt `build_system_prompt()` assembles (67,526 characters) and the same
+case prompts, then graded by `check()` through `grade.py`. The outputs are in
+`runs/2026-09-08-claude-opus-5.json` and the grading is repeatable:
+
+```bash
+python3 evals/grade.py evals/runs/2026-09-08-claude-opus-5.json
+```
+
+Four things about that run are worth knowing before leaning on the number.
+
+**The assertions were withheld until after the outputs were written.** Only the
+`id`, `kind`, `request` and `text` fields were read while rewriting. Had the
+`must_survive` and `must_go` lists been visible first, the run would have been
+teaching to the test and the result worth nothing.
+
+**One run, not three.** `--runs 3` exists because a single pass can get lucky,
+and this was a single pass.
+
+**Nine cases in one session, not nine independent calls.** Each rewrite could
+in principle have been shaped by the ones before it. The API harness does not
+have that problem and this run did.
+
+**It is one model.** Verve runs anywhere the Skills CLI reaches, and nothing
+here says how it behaves on any of them.
+
+So this is a floor under a floor: it says the instructions can produce output
+that holds, not that they reliably will. The honest next step is a paid run of
+`run.py --runs 3`, and the number above should be replaced by it rather than
+sitting alongside it.
+
+## What it still does not do
 
 **It is not wired into CI**, beyond a dry run that costs nothing. Measuring for
 real needs an API key, and `SECURITY.md` makes a point of this project having no
@@ -35,6 +70,8 @@ python3 evals/run.py                    # 9 cases, one call each
 python3 evals/run.py --runs 3           # repeat, report the worst result
 python3 evals/run.py --only audience    # one kind
 python3 evals/run.py --verbose          # print every rewrite
+
+python3 evals/grade.py runs/FILE.json   # grade outputs produced elsewhere
 ```
 
 Python 3.11 or newer, for `tomllib`.
@@ -145,8 +182,8 @@ themselves.
 
 ## The question waiting on this
 
-The current `SKILL.md` and its references come to roughly 59,000 characters. It
-is not known whether that helps or dilutes, and nobody has tested it.
+The current `SKILL.md` and its references come to 67,526 characters. It is not
+known whether that helps or dilutes, and nobody has tested it.
 
 Once this has a baseline, that becomes a run rather than an argument: cut the
 references down, run the corpus again, compare. Related prior art is flint's

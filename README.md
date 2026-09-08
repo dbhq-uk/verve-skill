@@ -158,7 +158,9 @@ Want to hack on the skill or run it from source with live edits? See [`docs/dev-
 
 [`CONTRIBUTING.md`](CONTRIBUTING.md) covers working on it, and [`AGENTS.md`](AGENTS.md) is for an AI agent doing so. The skill itself is [`skills/verve/SKILL.md`](skills/verve/SKILL.md).
 
-[`evals/`](evals/) holds a fixed corpus that checks the skill rather than describing it: triage leaves human prose alone, every figure and identifier survives a rewrite, a variety conversion never reaches code or proper nouns, and the audience guard cuts the gloss without cutting the apology. Run it after changing anything under `skills/`. No numbers from it appear above, and none will until a run has happened that can say when, on what model, and how many times.
+[`evals/`](evals/) holds a fixed corpus that checks the skill rather than describing it: triage leaves human prose alone, every figure and identifier survives a rewrite, a variety conversion never reaches code or proper nouns, and the audience guard cuts the gloss without cutting the apology. Run it after changing anything under `skills/`.
+
+It has now been run once: **9/9, on 8 September 2026, on `claude-opus-5`**. That number comes with conditions worth reading before you trust it - one run rather than three, one model, and produced in an agent session rather than through the API harness, though graded by the same assertions. [`evals/README.md`](evals/README.md) states all of it, and the outputs are committed in [`evals/runs/`](evals/runs/) so the grading can be repeated.
 
 ## Acknowledgements
 
