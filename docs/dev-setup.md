@@ -12,8 +12,8 @@ The skill runs in the conversation and is instructions rather than tooling: no s
 ## 1. Clone
 
 ```bash
-git clone https://github.com/dbhq-uk/verve-skill.git ~/dbhq-verve
-cd ~/dbhq-verve
+git clone https://github.com/dbhq-uk/verve-skill.git ~/dbhq-uk/verve-skill
+cd ~/dbhq-uk/verve-skill
 ```
 
 ## 2. Install (symlink)
@@ -57,4 +57,4 @@ Adding a tell means adding it to `patterns.md` with a before/after, and to `word
 
 ## Working across machines
 
-Editing anything under `~/dbhq-verve` (`SKILL.md` or `references/`) is live immediately in Claude Code - the skill directory is symlinked whole. For Codex, re-run `./install-codex.sh` after a `SKILL.md` edit. If you develop on more than one machine, `git pull` before you start and `git push` when done to keep them in sync.
+Editing anything under `~/dbhq-uk/verve-skill` (`SKILL.md` or `references/`) is live immediately in Claude Code - the skill directory is symlinked whole. For Codex, re-run `./install-codex.sh` after a `SKILL.md` edit. If you develop on more than one machine, `git pull` before you start and `git push` when done to keep them in sync.
