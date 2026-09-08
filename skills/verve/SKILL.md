@@ -130,7 +130,7 @@ Within the tone preset. See `references/voice.md`.
 
 ### 4. Quick checks
 
-Run this list against the draft before scoring:
+Run this list against the draft before the readback:
 
 - Adverb doing no work (really, just, literally, genuinely, simply, actually)? Cut.
 - Passive voice? Name the actor if the source names one. Where the actor is unknown or does not matter, the passive stays: inventing one breaks constraint 3.
@@ -156,13 +156,37 @@ Run this list against the draft before scoring:
 - Cut something on audience grounds that changes what the reader does next? Put it back. Constraint 4 outranks brevity.
 - Touched a term on the preferences "Never change" list? Put it back, whatever rule wanted it gone.
 
-### 5. Score, then stop or revise
+### 5. Fidelity readback
 
-Rate the result 1-10 on each dimension:
+Fidelity is the one dimension you cannot score by feel. A rewrite that dropped
+a figure reads as complete: the sentence is fluent, the paragraph flows, and
+nothing is visibly missing. Rating it from memory of the source is how a lost
+qualifier survives to delivery.
+
+So read it back rather than rate it:
+
+1. List what constraint 1 protects in the source - every fact, number, name,
+   date, citation and technical term.
+2. Write five to ten questions the source answers, drawn from that list.
+3. Answer each one from the rewrite alone, with the source out of view.
+4. A question you cannot answer is a dropped fact, not a style call. Put it
+   back.
+5. Reverse the check: anything the rewrite states that the source does not is
+   invention. Delete it.
+
+Both directions are required. Checking one way catches invention and misses
+omission, and omission is the commoner failure.
+
+Fidelity scores 10 when every question answers and nothing was invented.
+Anything short of that is a fail, however small the loss looks, because a fact
+is either there or it is not.
+
+### 6. Score, then stop or revise
+
+Rate the remaining dimensions 1-10:
 
 | Dimension | Question |
 |---|---|
-| Fidelity | Does it still say exactly what the original said? |
 | Directness | Statements, or announcements of statements? |
 | Rhythm | Varied, or metronomic? |
 | Voice | Is anyone recognisably behind this? |

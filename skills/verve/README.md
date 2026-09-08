@@ -32,7 +32,9 @@ Entirely in the conversation. No extra API calls, no cost, nothing to install.
    assistant artefacts, filler, condescension) with before/after for each.
 4. **Voice pass** - opinions, rhythm variance, specificity, within the tone.
 5. **Quick checks** - a pre-flight list run against the draft.
-6. **Score** - six dimensions, with Fidelity as a veto rather than an average.
+6. **Fidelity readback** - questions the source answers, put to the rewrite
+   alone, in both directions.
+7. **Score** - six dimensions, with Fidelity as a veto rather than an average.
 
 ## Setup
 

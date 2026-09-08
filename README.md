@@ -138,7 +138,8 @@ verve looks in the project first, then your home directory, and the request stil
 3. **Pattern sweep** - six groups of tells (content, language, style, assistant artefacts, filler, condescension), each with before/after
 4. **Voice pass** - put opinions, rhythm and specificity back, inside the tone
 5. **Quick checks** - a pre-flight list run against the draft
-6. **Score** - six dimensions, fidelity as a veto rather than an average, Trust scored against the condescension group rather than on feel
+6. **Fidelity readback** - questions the source answers, put to the rewrite alone, in both directions
+7. **Score** - six dimensions, fidelity as a veto rather than an average, Trust scored against the condescension group rather than on feel
 
 ## Audit a whole repository
 
