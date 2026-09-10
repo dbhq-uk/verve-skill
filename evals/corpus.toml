@@ -15,6 +15,12 @@
 #   must_survive_any_case  must appear, case ignored. Ordinary vocabulary that
 #                          legitimately changes case when a sentence is recast
 #   must_go                must not appear, case ignored
+#   must_match             case-insensitive regular expressions that must each
+#                          match. A smoke check for content whose wording
+#                          legitimately varies (an apology, a modality near a
+#                          deadline). Matching proves a shape is present, not
+#                          that the meaning is right - keep the semantic
+#                          criterion in the why, and read the output
 #   max_loss               largest share of the words a rewrite may cut, 0 to 1
 #   why                    what this case protects, printed on failure
 #
@@ -68,6 +74,7 @@ must_survive = [
   "1,438",
   "Eustat",
 ]
+must_survive_any_case = ["three offices"]
 must_go = ["testament to", "underscores", "evolving"]
 max_loss = 0.5
 max_gain = 0.5
@@ -146,6 +153,19 @@ pivotal role of occupational data. The Department of Labor subsequently \
 navigated a series of challenges in reconciling the two datasets.
 """
 
+[[case]]
+id = "variety-explicit-conversion-of-clean-prose"
+kind = "variety"
+request = "verve this in US English:"
+must_survive_any_case = ["color", "organized"]
+must_go = ["colour", "organised"]
+why = "The ordering defect: triage must not return clean prose unchanged when the request is an explicit conversion. This text is plainly human and needs nothing except the variety it was asked for."
+text = """
+The colour palette took three weekends to settle. I organised the tokens by \
+hue in the end, not by component, and I still think that was the right call - \
+the component grouping fell apart the moment two components shared a shade.
+"""
+
 # ---------------------------------------------------------------------------
 # Audience. Cut what this reader does not need, keep what they must act on.
 # ---------------------------------------------------------------------------
@@ -154,14 +174,20 @@ navigated a series of challenges in reconciling the two datasets.
 id = "audience-drops-the-gloss-keeps-the-facts"
 kind = "audience"
 request = "verve this for our VP of Engineering, who ran the platform team for six years:"
-must_survive = ["87%", "Redis", "Friday"]
+must_survive = ["87%", "Redis", "Friday", "Infrastructure"]
+must_survive_any_case = ["three additional nodes", "next week"]
+must_match = [
+  # "primary cluster" may legitimately be recast as "primary Redis cluster";
+  # the fact that it is the primary cluster must survive in some wording.
+  '\bprimary\b[^.!?]{0,40}\bcluster\b',
+]
 must_go = [
   "in-memory data store",
   "Basically",
   "I hope this makes sense",
   "You need to approve",
 ]
-why = "Group F. The gloss and the upward instruction go; the numbers and the deadline stay, because they are what she acts on."
+why = "Group F. The gloss and the upward instruction go; the numbers, the node count, the provisioning week and the deadline stay, because they are what she acts on. The unlisted-content holes this case used to have were demonstrated: a two-line output that dropped the nodes and the provisioning week passed it."
 text = """
 Thanks so much for your question! I completely understand that budget \
 decisions like this can be difficult.
@@ -181,9 +207,23 @@ I hope this makes sense! Let me know if you have any questions.
 id = "audience-keeps-the-warmth"
 kind = "audience"
 request = "verve this for a customer whose invoice we got wrong:"
-must_survive = ["£240", "Thursday"]
+must_survive = ["£240", "Thursday", "Ms Achebe"]
 must_go = ["I completely understand how frustrating", "at this point in time"]
-why = "The other direction. Brevity is not bluntness: an apology is owed here and cutting it entirely is a register failure, not concision."
+must_match = [
+  # An apology or acknowledgement is owed. This matches its usual shapes; a
+  # reworded acknowledgement that uses none of these words is legitimate and
+  # would need the pattern extended, and "we are not sorry" would match, so
+  # the semantic criterion stays in the why.
+  '\b(?:sorry|apolog(?:y|ies|ise|ize|ised|ized|ising|izing)|inconvenien)',
+  # The refund should reach her account; a rewrite must not promise harder
+  # than the source did. This only checks that a "should" sits near the
+  # deadline - an unrelated "should" satisfies it, which is recorded as a
+  # semantic counterexample in mutations.toml.
+  '\bshould\b[^.!?]{0,80}\bThursday\b',
+  # The letter opens as a letter to her. Structural: anchored at the start.
+  '\A\s*Dear Ms Achebe,',
+]
+why = "The other direction. Brevity is not bluntness: an apology is owed here and cutting it entirely is a register failure, not concision - a bare 'Invoice error. £240 refunded.' passed this case before the must_match assertions existed. The salutation stays, and 'should reach' must not harden into a promise."
 text = """
 Dear Ms Achebe,
 

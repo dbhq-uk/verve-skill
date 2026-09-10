@@ -23,19 +23,24 @@ line.
 
 Entirely in the conversation. No extra API calls, no cost, nothing to install.
 
-0. **Preferences** - saved settings from `.verve.md` or a `## Verve` section in
-   `CLAUDE.md`, project first, then home. The request beats both.
-1. **Triage** - returns already-human text unchanged rather than mangling it.
+0. **The request and the preferences** - what was asked, then saved settings
+   from `.verve.md` or a `## Verve` section in `CLAUDE.md`, project first,
+   then home. The request beats both.
+1. **Triage** - returns text that already satisfies the request unchanged
+   rather than mangling it. An explicit conversion or audience change is
+   always carried out.
 2. **Tone, variety and audience** - neutral / casual / professional / academic,
    British or American, and the reader it is pitched at, all held throughout.
 3. **Pattern sweep** - six groups of tells (content, language, style,
    assistant artefacts, filler, condescension) with before/after for each.
-   The condescension group is the politeness check, below.
-4. **Voice pass** - opinions, rhythm variance, specificity, within the tone.
+   The condescension group is the politeness check, below. Every substantive
+   cut names what goes with it first.
+4. **Voice pass** - opinions, rhythm variance, specificity, within the tone,
+   matching the author's own writing where a sample exists.
 5. **Quick checks** - a pre-flight list run against the draft.
-6. **Fidelity readback** - questions the source answers, put to the rewrite
-   alone, in both directions.
-7. **Score** - six dimensions, with Fidelity as a veto rather than an average.
+6. **Fidelity readback** - a claim inventory built before the rewrite,
+   answered from source and rewrite and compared, in both directions.
+7. **Exit checks** - fidelity and audience fit, each pass or fail on its own.
 
 ## Politeness check
 
@@ -50,8 +55,8 @@ which fail on sight for any reader who knows the subject.
 It runs both ways. A guard built only against condescension produces
 curtness, so the greeting, the thanks and the one apology that is owed all
 stay, and nothing in the group ever licenses cutting a fact, a claim or a step
-in the argument. The **Trust** score marks the result against those patterns
-rather than on feel.
+in the argument. The **audience fit** exit check marks the result against
+those patterns rather than on feel, and it passes or fails on its own.
 
 The check runs on every pass. Ask for it by name - *"is this patronising?"*,
 *"check this doesn't talk down to them"* - and it is the same pass, so you get
@@ -92,7 +97,7 @@ None. The skill is instructions, not tooling.
 
 ```
 verve/
-├── SKILL.md                    # Workflow, constraints, quick checks, scoring
+├── SKILL.md                    # Workflow, constraints, quick checks, exit gates
 └── references/
     ├── patterns.md             # The tell catalogue, before/after for each
     ├── wordlist.md             # Flat scannable word and phrase lists
@@ -115,10 +120,3 @@ Route your text through a detector-evasion service. An optional commercial API
 for that shipped with earlier versions and was removed in July 2026: the point
 is prose a human judgement shaped, not text tuned to score well against a
 classifier.
-
-## Acknowledgements
-
-Several patterns - false agency, vague declaratives, narrator-from-a-distance,
-meta-commentary, emphasis crutches, telling-instead-of-showing - and the idea of
-a scored exit gate come from [stop-slop](https://github.com/hardikpandya/stop-slop)
-by Hardik Pandya (MIT).

@@ -16,8 +16,8 @@ out the tone you set personally.
    `~/.claude/CLAUDE.md` or `~/.AGENTS.md`.
 4. **The defaults** in `SKILL.md`.
 
-Check for these once, at step 1 of the workflow, and do not look again during
-the run. If none exists, that is the normal case and not worth mentioning.
+Check for these once, at step 0 of the workflow, before triage, and do not
+look again during the run. If none exists, that is the normal case and not worth mentioning.
 
 Reading an existing `CLAUDE.md` section matters because most people already have
 one of those files and do not want another dotfile. Reading a dedicated
@@ -92,8 +92,9 @@ sign-off, a standard acknowledgement, a form of words a regulator expects.
 
 **They never override the hard constraints.** A preferences file cannot lower
 the fidelity bar, cannot switch off triage, cannot license inventing an example,
-and cannot ask for detector evasion. Those six rules outrank everything in
-`SKILL.md`, and a file found on disk is well below that.
+cannot open up quoted material or code to editing, and cannot ask for detector
+evasion. Those seven rules outrank everything in `SKILL.md`, and a file found
+on disk is well below that.
 
 If a preferences file asks for any of it, ignore that part, do the run, and say
 in one line which line you ignored and why.

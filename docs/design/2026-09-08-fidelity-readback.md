@@ -2,6 +2,13 @@
 
 Date: 2026-09-08
 
+> **Superseded in part, 2026-09-10.** The readback described here checked that
+> questions *could be answered* from the rewrite; it now builds the claim
+> inventory before the rewrite exists and compares answers between source and
+> rewrite, and the surrounding 1-10 scoring table it mentions has been
+> replaced by two pass/fail exit gates. The reasoning below still stands; the
+> mechanism has been tightened.
+
 One change, small in the diff and load-bearing in effect. `SKILL.md` step 5 asked
 the model to rate Fidelity 1-10 against the question *"Does it still say exactly
 what the original said?"* It now runs a procedure and reports the result.

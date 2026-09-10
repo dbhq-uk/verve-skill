@@ -27,10 +27,19 @@ jobs:
       # appearing here should be a deliberate decision, not a drift.
       - name: The skill stays code-free
         run: |
-          found=$(find skills -name '*.py' -o -name '*.sh' -o -name 'requirements*.txt')
+          found=$(find skills -name '*.py' -o -name '*.sh' -o -name '*.js' \
+                  -o -name '*.mjs' -o -name '*.cjs' -o -name '*.ts' \
+                  -o -name 'requirements*.txt' -o -name 'package.json')
           if [ -n "$found" ]; then
             echo "$found"
             echo "::error::Executable code found. This skill is instructions, not tooling."
+            exit 1
+          fi
+          # A file with any execute bit set is a script whatever its name.
+          execs=$(find skills -type f -perm /111)
+          if [ -n "$execs" ]; then
+            echo "$execs"
+            echo "::error::Executable bit set under skills/. Instructions are not executable."
             exit 1
           fi
           echo "No code under skills/ - instructions only."
@@ -135,6 +144,14 @@ jobs:
           if ./install.sh; then echo "::error::installer replaced a directory it did not create"; exit 1; fi
           grep -q "somebody's edit" "$HOME/.claude/skills/verve/SKILL.md" || { echo "::error::user file was destroyed"; exit 1; }
           rm -rf "$HOME/.claude/skills/verve"
+
+      - name: Codex install refuses somebody else's skill
+        run: |
+          mkdir -p "$HOME/.codex/skills/verve"
+          echo "somebody else's skill" > "$HOME/.codex/skills/verve/SKILL.md"
+          if ./install-codex.sh; then echo "::error::installer overwrote a SKILL.md it did not create"; exit 1; fi
+          grep -q "somebody else's skill" "$HOME/.codex/skills/verve/SKILL.md" || { echo "::error::user file was destroyed"; exit 1; }
+          rm -rf "$HOME/.codex/skills/verve"
 
       - name: Codex install, and every relative reference resolves
         run: |

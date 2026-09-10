@@ -84,6 +84,7 @@ class Case:
     must_survive: list[str] = field(default_factory=list)
     must_survive_any_case: list[str] = field(default_factory=list)
     must_go: list[str] = field(default_factory=list)
+    must_match: list[str] = field(default_factory=list)
     max_loss: float | None = None
     max_gain: float | None = None
 
@@ -103,9 +104,15 @@ def load_cases() -> list[Case]:
             sys.exit(f"Duplicate case id: {case.id}")
         seen.add(case.id)
         asserts = (case.unchanged or case.must_survive
-                   or case.must_survive_any_case or case.must_go)
+                   or case.must_survive_any_case or case.must_go
+                   or case.must_match)
         if not asserts:
             sys.exit(f"Case {case.id} asserts nothing")
+        for pattern in case.must_match:
+            try:
+                re.compile(pattern)
+            except re.error as exc:
+                sys.exit(f"Case {case.id}: bad must_match pattern {pattern!r}: {exc}")
         if case.max_loss is not None and not 0 < case.max_loss < 1:
             sys.exit(f"Case {case.id}: max_loss must be between 0 and 1")
         if case.max_gain is not None and case.max_gain <= 0:
@@ -125,22 +132,39 @@ def load_cases() -> list[Case]:
 
 
 def normalise(text: str) -> str:
-    """Collapse whitespace so a reflowed line is not a false failure."""
+    """Collapse whitespace and casing, for containment checks that should err
+    towards firing."""
     return re.sub(r"\s+", " ", text).strip().lower()
+
+
+def normalise_ws(text: str) -> str:
+    """Collapse whitespace only. Casing is kept, because a triage pass that
+    re-cased the text has changed it, and a check that lowercased both sides
+    would call that unchanged."""
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def words(text: str) -> int:
     return len(text.split())
 
 
-# The one line SKILL.md permits a triage case to add. Compared after
-# normalise(), so casing and whitespace do not matter, and with any italic or
-# bold markers around it stripped, since the skill shows the line in italics.
-TRIAGE_LINE = "this already reads as human-written; returned unchanged."
+# The one line SKILL.md permits a triage case to add, current wording first,
+# then the wording before 2026-09-10, kept so historical runs still grade.
+# Matched case-insensitively with any italic or bold markers stripped, since
+# the skill shows the line in italics. At most one occurrence is stripped: a
+# second copy of the line is commentary, and commentary fails the case.
+TRIAGE_LINES = (
+    "no changes needed for this request.",
+    "this already reads as human-written; returned unchanged.",
+)
 
 
 def strip_triage_line(text: str) -> str:
-    return re.sub(r"[*_]*" + re.escape(TRIAGE_LINE) + r"[*_]*", "", text).strip()
+    for line in TRIAGE_LINES:
+        pattern = r"[*_]*" + re.escape(line) + r"[*_]*"
+        if re.search(pattern, text, flags=re.I):
+            return re.sub(pattern, "", text, count=1, flags=re.I).strip()
+    return text.strip()
 
 
 def check(case: Case, output: str) -> list[str]:
@@ -158,18 +182,22 @@ def check(case: Case, output: str) -> list[str]:
     casing. Both directions therefore err towards failing.
     """
     failures: list[str] = []
-    echoed = normalise(case.text) in normalise(output)
 
     if case.unchanged:
-        if not echoed:
-            failures.append("triage rewrote text that already reads as human")
-        elif strip_triage_line(normalise(output)) != normalise(case.text):
+        payload = normalise_ws(case.text)
+        out_ws = normalise_ws(output)
+        if payload not in out_ws:
+            hint = (" (present in another casing)"
+                    if payload.lower() in out_ws.lower() else "")
+            failures.append(f"triage rewrote text that already reads as human{hint}")
+        elif strip_triage_line(out_ws) != payload:
             # The input is in there, but so is something else: a second
-            # version, a critique, a list of what it would have changed. The
-            # skill permits exactly one line, and an output that keeps the
-            # text while adding commentary has not returned it unchanged.
+            # version, a critique, a repeated preamble, a list of what it
+            # would have changed. The skill permits exactly one line, and an
+            # output that keeps the text while adding commentary has not
+            # returned it unchanged.
             failures.append("triage returned the text but added more than the one permitted line")
-    elif echoed:
+    elif normalise(case.text) in normalise(output):
         # A rewrite case that returns its own input, with or without a
         # preamble wrapped round it, has done nothing. Without this, a case
         # asserting only must_survive passes on a verbatim no-op, because
@@ -188,6 +216,14 @@ def check(case: Case, output: str) -> list[str]:
     for banned in case.must_go:
         if banned.lower() in output.lower():
             failures.append(f"kept: {banned!r}")
+
+    for pattern in case.must_match:
+        # A smoke check for content whose wording legitimately varies (an
+        # apology, a modality). Matching proves a shape is present, not that
+        # the meaning is right: "we are not sorry" matches an apology
+        # pattern. Do not treat a green must_match as the semantic criterion.
+        if not re.search(pattern, output, flags=re.I):
+            failures.append(f"no match: {pattern!r}")
 
     if case.max_loss is not None:
         before, after = words(case.text), words(output)
@@ -259,7 +295,8 @@ def main() -> int:
             survive = len(case.must_survive) + len(case.must_survive_any_case)
             loss = "" if case.max_loss is None else f", max_loss={case.max_loss:.0%}"
             gain = "" if case.max_gain is None else f", max_gain={case.max_gain:.0%}"
-            print(f"            asserts: {survive} survive, {len(case.must_go)} go, "
+            match = "" if not case.must_match else f", {len(case.must_match)} match"
+            print(f"            asserts: {survive} survive, {len(case.must_go)} go{match}, "
                   f"unchanged={case.unchanged}{loss}{gain}")
         print("\nDry run. Nothing was sent anywhere and nothing was measured.")
         return 0

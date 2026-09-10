@@ -26,8 +26,11 @@ know your system. So an unknown reader means:
   whether they already have the term, and a definition somebody did not need
   costs them a sentence, where one they did need and did not get costs them the
   point.
-- **Soften rather than cut** F5 and F9. Offer instead of directing, and do not
-  commit on anyone's behalf. Both are right whoever is reading.
+- **Soften rather than cut** F5 and F9. Own the judgement instead of issuing
+  bare commands, keep every requirement, deadline and actor, and recast
+  third-party promises as the plans they are without inventing status. Right
+  for every reader - and seniority never licenses dropping the instruction
+  itself, only softening how it lands.
 
 Once you do know the reader, F1 comes back into scope and the axes below decide
 the rest.
@@ -101,6 +104,11 @@ Two tests before cutting on audience grounds:
 2. Does removing it change what the reader would do next? If yes, keep it,
    however obvious it looks.
 
+A definition sits on the same line. A gloss on a term the reader provably has
+is explanation, and F1 may cut it. A definition that carries a local
+assumption, a distinction or a decision-relevant condition is content, and it
+stays whoever the reader is.
+
 A caveat that names a real risk is content. A caveat that protects the writer is
 F4. The test is whether it gives the reader something to act on: a condition
 they could meet, a consequence they could avoid, or a limit they could work
@@ -163,13 +171,14 @@ the preset wins on style.
   reads as courtesy. Apply F8 anyway.
 - **Neutral** takes the guard as written.
 
-## Scoring
+## The exit check
 
-The **Trust** dimension in `SKILL.md` scores this. It asks whether the result
-respects the reader's intelligence, which is the question this file answers, and
-it is scored against group F rather than on feel.
+The **audience fit** gate in `SKILL.md` step 7 checks this. It asks whether
+the result respects the reader's intelligence, which is the question this file
+answers, and it is judged against group F rather than on feel.
 
-Score 10 where nothing in group F survives and the warmth appropriate to the
-reader is intact. Score 5 where the text is clean of condescension but has gone
-cold. Score below 5 where a reader would finish it feeling either talked down to
-or brushed off.
+It passes only where nothing in group F survives and the warmth appropriate to
+the reader is intact. It fails where the text is clean of condescension but
+has gone cold, and it fails where a reader would finish it feeling talked down
+to or brushed off. Both failures are register failures; neither is traded
+against how well the prose reads.

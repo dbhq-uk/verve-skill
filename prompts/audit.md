@@ -46,7 +46,7 @@ Then, under the table, three short lists.
 
 **Worth a run.** The files where a verve pass would clearly help, with the strength I should ask for and why. Say `light` where the file is dense with facts and only needs the unmistakable tells removed, and `moderate` or `heavy` where the writing itself is the problem.
 
-**Leave alone.** The files that already read as human-written. Name them explicitly. A survey that finds fault everywhere is not a survey, and verve's own first step is deciding to do nothing.
+**Leave alone.** The files that already read as human-written. Name them explicitly. A survey that finds fault everywhere is not a survey, and verve's own triage step is deciding to do nothing.
 
 **Not prose.** What you set aside, and in a few words each, why.
 

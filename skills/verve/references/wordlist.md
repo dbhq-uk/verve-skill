@@ -3,8 +3,23 @@
 Flat lists to scan for directly. Patterns that need recognition rather than
 matching are in `patterns.md`.
 
+Provenance: compiled from observation of model output and publicly documented
+sign lists, largely reflecting the 2023-2025 vocabulary cohort. Reviewed 2026-09-10. These lists
+describe a moving target - model vocabularies shift and human usage converges
+on them - so review them roughly yearly and retire entries that stop earning
+their place.
+
 Nothing here is an absolute ban. A word on this list used deliberately, once,
 where it is the right word, is fine. The tell is density and reflexive use.
+
+Two licences apply, and they differ. Most sections here are **tells**:
+vocabulary and phrasing that marks prose as machine-drafted, cut on the terms
+above. The sections marked **wordiness** are different: corpus work finds
+wordy constructions and intensifiers *more* common in human writing than in
+model output, so they are editorial preferences rather than evidence of
+anything. Cut them for concision where they pad, and leave them alone when the
+prose is already tight - stripping them mechanically pushes text towards the
+generated register, not away from it.
 
 ## AI vocabulary
 
@@ -103,7 +118,7 @@ Assert weight without adding any. Delete.
 - Here's why that matters
 - I promise / they exist, I promise
 
-## Dead adverbs
+## Dead adverbs (wordiness)
 
 - really, just, literally, genuinely, honestly, simply, actually
 - truly, deeply, fundamentally, inherently, inevitably
@@ -111,9 +126,11 @@ Assert weight without adding any. Delete.
 - arguably, undoubtedly, certainly
 
 Exception: the casual preset allows *honestly*, *look* and similar as discourse
-markers that shift stance, not as decoration. See `patterns.md` E6.
+markers that shift stance, not as decoration. And a word here doing semantic
+work is not dead: *just* meaning "only", *literally* meaning literally,
+*arguably* marking a genuinely contested claim. See `patterns.md` E6.
 
-## Filler phrases
+## Filler phrases (wordiness)
 
 | Avoid | Use |
 |---|---|

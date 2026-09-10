@@ -24,8 +24,15 @@ case prompts, then graded by `check()` through `grade.py`. The outputs are in
 `runs/2026-09-08-claude-opus-5.json` and the grading is repeatable:
 
 ```bash
-python3 evals/grade.py evals/runs/2026-09-08-claude-opus-5.json
+python3 evals/grade.py evals/runs/2026-09-08-claude-opus-5.json --allow-missing
 ```
+
+`--allow-missing` is there because the corpus has been strengthened since that
+run was recorded (2026-09-10: unlisted-content assertions, `must_match`, and a
+clean-prose conversion case the run predates). The recorded outputs pass the
+strengthened assertions; the flag only skips, loudly, the case that did not
+exist yet. Never use it on a fresh run, where a missing case is a missing
+test.
 
 Four things about that run are worth knowing before leaning on the number.
 
@@ -92,9 +99,10 @@ the reason this directory exists rather than a unit test somewhere.
 
 ```bash
 python3 evals/run.py --dry-run          # validates the corpus, calls nothing
+python3 evals/mutate.py                 # checks the checker, calls nothing
 pip install anthropic
 export ANTHROPIC_API_KEY=...
-python3 evals/run.py                    # 9 cases, one call each
+python3 evals/run.py                    # 10 cases, one call each
 python3 evals/run.py --runs 3           # repeat, report the worst result
 python3 evals/run.py --only audience    # one kind
 python3 evals/run.py --verbose          # print every rewrite
@@ -104,7 +112,7 @@ python3 evals/grade.py evals/runs/FILE.json   # grade outputs produced elsewhere
 
 Python 3.11 or newer, for `tomllib`.
 
-Nine cases is not a benchmark. It is a floor: the things that must not break.
+Ten cases is not a benchmark. It is a floor: the things that must not break.
 
 ## The four kinds
 
@@ -121,10 +129,14 @@ wordlist edit can introduce it quietly.
 never reaches code, identifiers or proper nouns. `background-color` is not a
 spelling and the World Health Organization keeps its `z`.
 
-**audience** asserts that a gloss aimed at an expert goes and the numbers stay,
-and separately that an apology owed to a customer is not cut in the name of
-brevity. Both directions, because a guard built only against condescension
-produces curtness.
+**audience** asserts that a gloss aimed at an expert goes and the numbers,
+node count and provisioning week stay, and separately that an apology owed to
+a customer survives in some wording and a *should* does not harden into a
+promise. Both directions, because a guard built only against condescension
+produces curtness. These cases used to assert much less than their `why`
+claimed: a two-line output with no apology and no node count passed both,
+which is what the 2026-09-10 strengthening and `evals/mutate.py` exist to
+prevent recurring.
 
 ## How a case is written
 
@@ -149,6 +161,14 @@ rewrite moves it to the front of a sentence.
 `must_go` is case-insensitive, because a banned phrase is banned in any casing.
 Both directions err towards failing.
 
+`must_match` holds case-insensitive regular expressions that must each match.
+It is for content whose wording legitimately varies: an apology can be *sorry*
+or *apologise*, *primary cluster* can be recast as *primary Redis cluster*, a
+modality check wants *should* somewhere near its deadline. It is a smoke
+check, not a semantic one - *"we are not sorry"* matches an apology pattern -
+so the criterion it approximates stays written in the case's `why`, and a
+green match is not a substitute for reading the output.
+
 Any case that is not a triage case **fails automatically if the input comes back
 whole**. Without that, a case asserting only `must_survive` passes on a verbatim
 no-op: every fact trivially survives text nobody touched. That hole was real and
@@ -170,6 +190,22 @@ Nothing in a substring harness fixes that. Catching it needs a judge reading for
 meaning, which is a different tool. Treat the fidelity cases as protection
 against *deletion*, not against *distortion*, and do not let a green run stand in
 for reading the output.
+
+### The mutation suite, which checks the checker
+
+`evals/mutate.py` takes recorded outputs that pass, damages each one in a way
+the corpus claims to care about - apology removed, *should* hardened to
+*will*, the node count dropped, a triage passage re-cased, commentary appended
+- and asserts the grader fails the damaged version with the expected failure.
+Every one of those mutation classes was demonstrated to pass the harness on
+2026-09-10, before the assertions they now exercise existed; the suite exists
+so that cannot quietly become true again. Run it after any change to
+`corpus.toml` or `run.py`. It is offline and free.
+
+`evals/mutations.toml` also records the *semantic* mutation classes - figures
+swapped between subjects, a condition inverted into a consequence - that no
+substring assertion can see. `mutate.py` lists them without pretending to
+check them; they are what the reading pass is for.
 
 Each case carries a `why`. It is printed on failure, because six months from now
 the useful thing is not that `fidelity-dense-technical` failed, it is what that
@@ -210,7 +246,7 @@ themselves.
 
 ## The question waiting on this
 
-The current `SKILL.md` and its references come to 67,526 characters. It is not
+As of 2026-09-10 `SKILL.md` and its references come to 79,474 characters, up from 67,526 at the first run. It is not
 known whether that helps or dilutes, and nobody has tested it.
 
 Once this has a baseline, that becomes a run rather than an argument: cut the

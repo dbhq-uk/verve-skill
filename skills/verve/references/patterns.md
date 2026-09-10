@@ -13,11 +13,16 @@ Groups A to E judge the writing on its own. Group F judges it against its
 reader, so it needs `audience.md` alongside it.
 
 Several *After* lines below add a date, a source or a named detail to show what
-the fix looks like when the writer has one. Every one of those is legitimate
-only where the source already contains it. Where it does not, cut the tell and
-keep the bare claim: *"Experts believe it plays a crucial role"* becomes *"It
-supports several endemic fish species"* and nothing more. Hard constraint 3 has
-no exceptions, and `examples.md` shows the same rule worked through.
+the fix looks like when the writer has one. They illustrate the shape of a fix;
+they are not licences. In a real run every fact in the source survives
+(constraint 1), nothing is added (constraint 3), and a cut that would lose a
+claim is not made (constraint 4). Where the source lacks the specific an
+*After* line shows, the sentence keeps its claim: *"Experts believe it plays a
+crucial role in the regional ecosystem"* stays as it stands, with the
+unresolved attribution flagged, because deleting *experts believe* turns their
+opinion into yours and swapping in a specific invents. Hard constraint 3 has
+no exceptions, and `examples.md` works the same rule through full passages
+whose after-texts use only what their before-texts contain.
 
 ---
 
@@ -37,6 +42,11 @@ dropped in without context, doing no work.
 > Before: *Her views have been cited in the NYT, BBC, FT and The Hindu. She has 500k followers.*
 > After: *In a 2024 NYT interview she argued that AI regulation should focus on outcomes, not methods.*
 
+The After assumes the source contains the interview. Where the source gives
+only the list, the list is facts and it stays (constraint 1); the fix is
+anchoring a name-drop to the specific behind it, never trading facts away for
+one.
+
 **A3. Superficial *-ing* analyses.** *highlighting, underscoring, emphasising,
 reflecting, symbolising, contributing to, fostering, showcasing.* Present
 participles tacked on for fake depth.
@@ -51,7 +61,11 @@ must-visit, stunning, rich (figurative), boasts a, in the heart of, renowned.*
 > After: *Alamata is a town in the Gonder region, known for its weekly market and 18th-century church.*
 
 **A5. Vague attribution.** *industry reports, observers have noted, experts
-argue, several sources.* No actual source behind any of it.
+argue, several sources.* No source named behind any of it. Fully fixable only
+when the source carries the source; otherwise keep the claim and its
+attribution and flag the attribution as unresolved. Do not delete the
+attribution - that converts somebody's opinion into the writer's own assertion
+- and do not silently drop the claim.
 
 > Before: *Experts believe it plays a crucial role in the regional ecosystem.*
 > After: *It supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.*
@@ -92,7 +106,7 @@ list plus plain replacements in `wordlist.md`.
 *has*.
 
 > Before: *Gallery 825 serves as LAAA's exhibition space. The gallery features four rooms and boasts over 3,000 sq ft.*
-> After: *Gallery 825 is LAAA's exhibition space. It has four rooms totalling 3,000 sq ft.*
+> After: *Gallery 825 is LAAA's exhibition space. It has four rooms and over 3,000 sq ft.*
 
 **B3. Negative parallelism and binary contrast.** The single most reliable tell
 in current model prose. Every variant of setting up a negation to knock it down:
@@ -106,12 +120,20 @@ in current model prose. Every variant of setting up a negation to knock it down:
 | Stops being X and starts being Y | *The tool stops being a helper and starts being a colleague.* |
 | Not only X but also Y | *Not only faster but also cheaper.* |
 
-**Fix:** state Y. Drop the negation entirely. *The heavy beat adds to the
-aggression* beats *it's not just about the beat; it's part of the aggression*.
+**Fix:** where the contrast is rhetorical scaffolding, state Y and drop the
+negation. *The heavy beat adds to the aggression* beats *it's not just about
+the beat; it's part of the aggression*. Where the negation carries
+information, keep both halves. *Not only faster but also cheaper* becomes
+*faster and cheaper* - both claims survive - and a correction such as *"The
+failure was not caused by your configuration"* stays a negation, because
+ruling something out is the point of the sentence. The tell is the empty
+setup, never negation itself.
 
 **B4. Negative listing.** The same move stretched over several sentences.
 *Not a X. Not a Y. A Z.* / *It wasn't X. It wasn't Y. It was Z.* State Z; the
-reader does not need the runway.
+reader does not need the runway. As with B3, keep any ruled-out item that
+corrects a real misunderstanding: the tell is the rhetorical runway, not
+exclusion itself.
 
 **B5. False agency.** Inanimate subjects given human verbs. Models reach for
 this constantly because it lets them avoid naming who did anything.
@@ -184,11 +206,6 @@ leads.
 > Before: *What makes migrations painful is the rollback path.*
 > After: *The rollback path is what makes migrations painful.* Or better: *Migrations hurt because rolling one back means replaying six hours of writes.*
 
-**B14. Hyphenated word-pair overuse.** *cross-functional, data-driven,
-decision-making, client-facing, end-to-end, real-time, long-term, third-party,
-well-known, high-quality.* Models hyphenate these with perfect consistency;
-people do not.
-
 ---
 
 ## C. Style and formatting
@@ -257,13 +274,28 @@ Delete them. A piece that moves does not need to announce that it is moving.
 than deliver it. *What if [reframe]? Here's what I mean: Think about it: And
 that's okay.* Make the point; let the reader draw the conclusion.
 
+**D8. Vendor residue and placeholders.** Leaked artefacts of the tool that
+drafted the text: citation tokens (`oaicite`, `[cite: 3]`), tracking
+parameters (`utm_source=chatgpt.com`), placeholders (`[Your Name]`,
+`[Client name]`, `INSERT_SOURCE_URL`, an access date left as `YYYY-MM-DD`).
+
+Delete the residue string, then check the surrounding sentence still says
+something: a citation token often marks the spot where a real citation was
+meant to go, and deleting the token does not repair the citation, so flag the
+gap. Two exceptions. A placeholder that is the point of a template stays - in
+a form letter, `[Client name]` is the deliverable. And a URL is a citation
+under constraint 1, so do not silently rewrite one to remove a tracking
+parameter: flag it and propose the stripped form instead.
+
 ---
 
 ## E. Filler and hedging
 
 **E1. Filler phrases.** *in order to* → *to*, *due to the fact that* →
 *because*, *has the ability to* → *can*, *it is important to note that* →
-delete. Full table in `wordlist.md`.
+delete. Full table in `wordlist.md`. Wordiness rather than a tell: wordy
+constructions are commoner in human writing than in model output, so cut them
+where they pad and leave tight prose alone.
 
 **E2. Excessive hedging.** *It could potentially possibly be argued that the
 policy might have some effect.* → *The policy may affect outcomes.*
@@ -282,9 +314,11 @@ without saying, when it comes to.* Full list in `wordlist.md`.
 
 **E6. Dead adverbs.** *really, just, literally, genuinely, honestly, simply,
 actually, truly, deeply, fundamentally, inherently, interestingly, importantly,
-crucially.* These add emphasis without adding meaning.
+crucially.* These add emphasis without adding meaning. Wordiness rather than a
+tell - intensifiers are a human habit, not a model signature - so the licence
+is editorial: cut where they decorate, keep where they work.
 
-Cut them by default, with one exception: the casual tone preset allows
+Cut them where they pad, with one exception: the casual tone preset allows
 *honestly*, *look* and similar as genuine discourse markers, where they mark a
 shift in stance rather than decorate an adjective. *Honestly, I'd skip it* is a
 person talking. *This is genuinely important* is padding.
@@ -321,22 +355,30 @@ get the result. In a reply to a question, the answer is the first thing.
 the writer rather than to inform the reader.
 
 > Before: *Roll back `dep-4471`. Of course, every environment differs, and you should verify this in staging first, and results may vary depending on your configuration.*
-> After: *Roll back `dep-4471`.*
+> After: *Roll back `dep-4471`, and verify it in staging first.*
 
-Distinct from E2: hedging weakens a claim, F4 keeps the claim and bolts a
-disclaimer to it.
+The staging step names an action, so it stays; *every environment differs* and
+*results may vary* name nothing the reader can act on, so they go. Distinct
+from E2: hedging weakens a claim, F4 keeps the claim and bolts a disclaimer to
+it.
 
 **F5. Instructing upwards.** Directing somebody who has more standing on the
-subject than the writer does. Offer, and leave the decision where it belongs.
+subject than the writer does. Soften the delivery - own the judgement - and
+keep the requirement, the deadline and who must act. Seniority does not make
+an instruction wrong; delivering it as a bare command does, and a consultancy
+can legitimately tell a client what has to happen and by when.
 
 > Before: *You need to escalate this to the board before Friday.*
-> After: *This looks like a board matter, and Friday is the last meeting before quarter end.*
+> After: *I think you need to escalate this to the board before Friday.*
 
 **F6. Telling them what they told you.** Feeding a person's own information back
 as though it were news.
 
 > Before: *As you mentioned, the outage started at 02:14. Given that it started at 02:14, the window is just under two hours.*
-> After: *That puts the window at 1h 45m.*
+> After: *So the window is just under two hours.*
+
+The 02:14 goes because the recipient supplied it - restating it is the
+pattern. The window is the writer's contribution, and it stays.
 
 **F7. Performed empathy.** Stated feeling standing in for action. The reader
 wanted the problem dealt with, not acknowledged.
@@ -353,10 +395,18 @@ the reader managing the writer's feelings on top of their own problem.
 One apology, then the fix. The second apology is for the writer.
 
 **F9. Overreach.** Committing on somebody's behalf, assuming authority the
-writer does not have, or setting deadlines for people who do not report to them.
+writer does not have, or setting deadlines for people who do not report to
+them. The fix reports the same content as a plan rather than a promise, and it
+never invents a status report to soften the landing. Where the writer plainly
+owns the undertaking - *"I'll get Finance to sign off"* - it is their
+commitment and it stays. If you cannot tell whether the writer has the
+standing, constraint 6 applies: ask rather than weaken it.
 
-> Before: *Design will have the mocks to you by Wednesday and Legal will sign off the same week.*
-> After: *I have asked Design for mocks by Wednesday. Legal has not been approached yet.*
+> Before, in a draft where nothing confirms Design or Legal agreed: *Design will have the mocks to you by Wednesday and Legal will sign off the same week.*
+> After: *The plan is mocks from Design to you by Wednesday, with Legal sign-off the same week.*
+
+Where the source shows the commitment is real - Design confirmed Wednesday in
+the thread - the *will* stays, because then it is a fact, not overreach.
 
 **F10. Length as an imposition.** A long message where a short one would do,
 sent to somebody with no time to read it. Every word is a cost the writer has

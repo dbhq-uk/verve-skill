@@ -29,6 +29,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("outputs", help="JSON file: {case_id: output}")
     parser.add_argument("--only", help="grade one kind")
+    parser.add_argument(
+        "--allow-missing", action="store_true",
+        help="skip corpus cases absent from the outputs file, loudly. For "
+             "grading a historical run recorded before a case was added; "
+             "never for a fresh run, where a missing case is a missing test.")
     args = parser.parse_args()
 
     outputs = json.loads(Path(args.outputs).read_text(encoding="utf-8"))
@@ -39,8 +44,13 @@ def main() -> int:
             sys.exit(f"No cases of kind {args.only!r}")
 
     missing = [c.id for c in cases if c.id not in outputs]
-    if missing:
-        sys.exit("No output for: " + ", ".join(missing))
+    if missing and args.allow_missing:
+        for case_id in missing:
+            print(f"  SKIP  not in this run: {case_id}")
+        cases = [c for c in cases if c.id in outputs]
+    elif missing:
+        sys.exit("No output for: " + ", ".join(missing)
+                 + "\n(--allow-missing skips cases newer than a historical run)")
 
     unknown = set(outputs) - {c.id for c in load_cases()}
     if unknown:

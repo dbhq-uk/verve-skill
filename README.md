@@ -22,15 +22,15 @@ verve cuts the AI tells out of a piece of writing and puts a voice back into it,
 
 A model writes the most likely next sentence, which is the one that suits the widest range of readers and subjects at once. A person writes for one reader and one subject. Every tell verve hunts is a version of that difference, and the voice pass is what puts the one reader back.
 
-**Before** (86 words)
+**Before** (70 words)
 
 > Here's the thing: in today's fast-paced engineering landscape, code review isn't just a quality gate — it's a cultural artefact. What makes it hard is that the feedback becomes a signal about the team itself. Let that sink in. Teams that delve into review culture find that it fosters trust, improves velocity and builds shared ownership. The implications are significant. Not because the tooling is complex. Because people are complex.
 
-**After** (84 words)
+**After** (61 words)
 
-> Code review is a quality gate, but it also tells you what a team is like. The difficulty is that people read feedback on their code as feedback on them, so the tone of a review carries further than its content. Teams that take review culture seriously tend to trust each other more and ship faster, partly because ownership stops being one person's problem. That is mostly a people problem rather than a tooling one.
+> Code review is a quality gate, but it is also part of a team's culture, and that is the hard part: feedback on the code reads as a signal about the team itself. Teams that work at their review culture find it builds trust, speeds them up and spreads ownership. None of that is because the tooling is complex. People are.
 
-Two words shorter, and all seven of the original's claims survive. Out came the throat-clearing opener, *in today's*, *landscape*, *delve*, *fosters*, the em dash, *let that sink in*, the rule of three, and the not-X-but-Y contrast at both ends.
+Nine words shorter, all seven of the original's claims survive, and nothing appears in the after that the before does not carry. Out came the throat-clearing opener, *in today's*, *landscape*, *delve*, *fosters*, the em dash, *let that sink in*, and the not-X-but-Y contrast at both ends.
 
 Five more, including the failure mode where a rewrite cuts content along with the filler, are in [`references/examples.md`](skills/verve/references/examples.md).
 
@@ -38,13 +38,13 @@ Five more, including the failure mode where a rewrite cuts content along with th
 
 **It does both halves.** Most de-slopping tools only subtract. Strip the tells and stop, and you get clean prose that still reads as machine-made - just blandly rather than floridly, because nothing is behind it. So the pattern sweep is followed by a voice pass: opinions, rhythm variance, specificity, acknowledged complexity, a bit of mess.
 
-Meaning holds the veto. Every fact, number, name, date and citation survives unchanged; technical terms keep their exact wording; nothing is invented. The result is scored on six dimensions, and fidelity below 9 forces a revision whatever the total says, because that failure has changed what the text means rather than how it reads. Aggressive rewriting tempts a model to compress three real points into one punchy line. That is the failure this guards against.
+Meaning holds the veto. Every fact, number, name, date and citation survives unchanged; technical terms keep their exact wording; nothing is invented. Before delivery the rewrite passes two gates, each pass or fail on its own: a fidelity readback in both directions, and an audience-fit check. There is no total for good rhythm to buy a changed meaning back with. Aggressive rewriting tempts a model to compress three real points into one punchy line. That is the failure this guards against.
 
 **It knows who the writing is for.** Explaining a term to someone who uses it daily is rude, because it says you did not think they would know. Leaving it unexplained for a newcomer is unhelpful. Same sentence, different reader, and nothing but the reader can settle it. So verve takes an audience in plain words (*"for our CTO"*, *"for a customer who has just complained"*) and reads three things off it: how much explanation survives, how far you may direct rather than offer, and how long the thing should be. Say nothing and it infers the reader from the text, then falls back to assuming competence.
 
-**There is a politeness check, and it runs both ways.** Ten patterns are judged against that reader on every pass: glossing a term they use daily, restating their question, reasons before the answer, caveats nobody asked for, instructions aimed at somebody senior, feeding their own words back, performed empathy, the second and third apology, committing on a third party's behalf, and length sent to somebody with no time to read it. With them goes a list that fails on sight for any reader who knows the subject: *simply*, *just*, *obviously*, *of course*, *as you know*. The other direction is checked too, because a guard built only against condescension turns everything curt - so the greeting, the thanks and the one apology that is owed all stay, and none of it ever licenses cutting a fact. The result comes out as the **Trust** score, marked against those patterns rather than on feel: 10 where none survives and the warmth this reader is owed is intact, below 5 where they would finish it feeling talked down to or brushed off.
+**There is a politeness check, and it runs both ways.** Ten patterns are judged against that reader on every pass: glossing a term they use daily, restating their question, reasons before the answer, caveats nobody asked for, instructions aimed at somebody senior, feeding their own words back, performed empathy, the second and third apology, committing on a third party's behalf, and length sent to somebody with no time to read it. With them goes a list that fails on sight for any reader who knows the subject: *simply*, *just*, *obviously*, *of course*, *as you know*. The other direction is checked too, because a guard built only against condescension turns everything curt - so the greeting, the thanks and the one apology that is owed all stay, and none of it ever licenses cutting a fact. The result is the **audience fit** gate, marked against those patterns rather than on feel: it passes only where no condescension pattern survives and the warmth this reader is owed is intact, and it fails where the reader would finish feeling either talked down to or brushed off.
 
-Triage comes first, and leaving your text alone is a valid result. Writing that already reads as human comes back unchanged, with one line saying so. A tool that processes clean prose for the sake of processing it makes writing worse.
+Triage comes early, and leaving your text alone is a valid result. Writing that already satisfies the request comes back unchanged, with one line saying so - though an explicit ask, a variety conversion or an audience change, is always carried out however clean the prose is. A tool that processes clean prose for the sake of processing it makes writing worse.
 
 **Nothing to pay, and nothing held back.** The whole skill is the conversation itself - no API key, no per-word billing, no network round trip, no paid tier holding the good half back. Earlier versions shipped an optional commercial detector-evasion API. It was removed in July 2026: writing that reads as human should come from a judgement about the writing, not from a service that tunes text to score against a classifier.
 
@@ -137,14 +137,14 @@ That is the politeness check, and it runs on every pass whether you ask for it o
 
 ## How it works
 
-0. **Preferences** - saved settings and never-change terms, project first, then home
-1. **Triage** - already-human text is returned unchanged rather than mangled
+0. **The request and the preferences** - what was asked, then saved settings and never-change terms, project first, then home
+1. **Triage** - text that already satisfies the request is returned unchanged rather than mangled; an explicit conversion or audience change is always carried out
 2. **Tone, variety and audience** - one of four tone presets, British or American, and the reader it is pitched at, all held throughout
-3. **Pattern sweep** - six groups of tells (content, language, style, assistant artefacts, filler, condescension), each with before/after. The condescension group is the politeness check, judged against the reader set in step 2 rather than on its own
-4. **Voice pass** - put opinions, rhythm and specificity back, inside the tone
+3. **Pattern sweep** - six groups of tells (content, language, style, assistant artefacts, filler, condescension), each with before/after. The condescension group is the politeness check, judged against the reader set in step 2 rather than on its own. Every substantive cut names what goes with it before it is made
+4. **Voice pass** - put opinions, rhythm and specificity back, inside the tone, matching the author's own writing where a sample exists
 5. **Quick checks** - a pre-flight list run against the draft
-6. **Fidelity readback** - questions the source answers, put to the rewrite alone, in both directions
-7. **Score** - six dimensions, fidelity as a veto rather than an average, Trust scored against the condescension group rather than on feel
+6. **Fidelity readback** - a claim inventory built before the rewrite, answered from source and rewrite and compared, in both directions
+7. **Exit checks** - fidelity and audience fit, each pass or fail on its own, no total to trade against
 
 ## Audit a whole repository
 
@@ -164,13 +164,11 @@ Want to hack on the skill or run it from source with live edits? See [`docs/dev-
 
 [`CONTRIBUTING.md`](CONTRIBUTING.md) covers working on it, and [`AGENTS.md`](AGENTS.md) is for an AI agent doing so. The skill itself is [`skills/verve/SKILL.md`](skills/verve/SKILL.md).
 
-[`evals/`](evals/) holds a fixed corpus that checks the skill rather than describing it: triage leaves human prose alone, every figure and identifier survives a rewrite, a variety conversion never reaches code or proper nouns, and the audience guard cuts the gloss without cutting the apology. Run it after changing anything under `skills/`.
+[`evals/`](evals/) holds a fixed corpus that checks the skill rather than describing it: triage leaves human prose alone, every figure and identifier survives a rewrite, a variety conversion never reaches code or proper nouns, and the audience guard cuts the gloss without cutting the apology. The assertions are substring and pattern checks - they catch deletion, not distortion, and a green run is not a substitute for reading the output. A mutation suite ([`evals/mutate.py`](evals/mutate.py)) checks the checker: damaged outputs must fail, and every damage class it applies once passed the harness undetected. Run both after changing anything under `skills/`.
 
-It has now been run once: **9/9, on 8 September 2026, on `claude-opus-5`**. That number comes with conditions worth reading before you trust it - one run rather than three, one model, and produced in an agent session rather than through the API harness, though graded by the same assertions. [`evals/README.md`](evals/README.md) states all of it, and the outputs are committed in [`evals/runs/`](evals/runs/) so the grading can be repeated.
+It has been run once: **9/9, on 8 September 2026, on `claude-opus-5`**, against the corpus as it stood that day; the corpus has been strengthened since and the recorded outputs pass the stronger assertions too. That number comes with conditions worth reading before you trust it - one run rather than three, one model, and produced in an agent session rather than through the API harness, though graded by the same assertions. [`evals/README.md`](evals/README.md) states all of it, and the outputs are committed in [`evals/runs/`](evals/runs/) so the grading can be repeated.
 
-## Acknowledgements
-
-Several patterns - false agency, vague declaratives, narrator-from-a-distance, meta-commentary, emphasis crutches, telling-instead-of-showing - and the idea of a scored exit gate come from [stop-slop](https://github.com/hardikpandya/stop-slop) by Hardik Pandya (MIT).
+## History
 
 Renamed from `humanize` in July 2026. The skill still triggers on *"humanise this"* and *"make this sound human"*; only the name and the directory changed.
 

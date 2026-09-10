@@ -110,7 +110,7 @@ precision for nothing.
 | Serial comma | Usually omitted | Usually kept |
 | Courtesy titles | Mr, Mrs, Dr, St (no stop) | Mr., Mrs., Dr., St. |
 | Dates in prose | 14 March 2026 | March 14, 2026 |
-| All-numeric dates | Avoid: `14/03/2026` and `03/14/2026` read the same and mean different days. Use `2026-03-14`, or write the month out |
+| All-numeric dates | Never produce one: `03/04/2026` is 4 March in one variety and 3 April in the other. Write the month out. An ISO `2026-03-14` already in the source stays exactly as it is |
 | Time | 14:00, or 2pm | 2:00 p.m. |
 | Billion | Modern British follows American: a thousand million |
 | Collective nouns | Plural verb where the members act: *the team are arguing* | Singular verb: *the team is arguing* |
@@ -118,13 +118,14 @@ precision for nothing.
 The serial comma row is a preference, not a rule, in either variety. Where
 dropping it creates ambiguity, keep it, whichever variety you are writing.
 
-**On dates.** Constraint 1 itself carries the exception: a date's value survives,
-its written format may follow the variety, and it never becomes all-numeric.
-This file does not get to widen that. Two notes on applying it. `03/14/2026` and
-`14/03/2026` look identical and mean different days, which is why all-numeric
-output is barred: a reader cannot recover the original from it. And if the
-source is already all-numeric and you cannot tell which order it uses, leave it
-exactly as it is rather than guessing.
+**On dates.** Constraint 1 itself carries the exception: a date's value
+survives, its written format may follow the variety, and verve never produces
+a new all-numeric date. This file does not get to widen that. Applying it:
+`03/04/2026` is 3 April in British order and 4 March in American, and a reader
+cannot tell which was meant, so when converting a date in running prose, write
+the month out. An ISO `YYYY-MM-DD` already in the source is unambiguous and
+stays exactly as it is - and so does any other all-numeric date whose order
+you cannot determine. Leave it rather than guess.
 
 ## What the variety does not change
 
@@ -136,7 +137,7 @@ variety, and `patterns.md` C1 applies unchanged.
 
 Also unchanged by the variety: the curly quote rule (C6), which is about
 typographic artefacts rather than nationality; every tell in `patterns.md`; every
-list in `wordlist.md`; the tone presets; and the six scoring dimensions.
+list in `wordlist.md`; the tone presets; and the exit checks.
 
 ## What must never be converted
 

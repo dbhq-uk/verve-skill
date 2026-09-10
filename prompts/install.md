@@ -1,6 +1,6 @@
 Install the verve skill for me. Do all of it yourself, and tell me at the end what changed.
 
-Verve is prose: a `SKILL.md` and seven reference files, with no code, no packages and no credentials. Installing it means putting five markdown files where this agent looks for skills.
+Verve is prose: a `SKILL.md` and seven reference files, with no code, no packages and no credentials. Installing it means putting eight markdown files where this agent looks for skills.
 
 First, work out where that is. Check which of these directories exist, and use every one you find:
 

@@ -1,0 +1,127 @@
+# Mutation tests for the grader itself.
+#
+# Each automated mutation takes a recorded output that passes the corpus,
+# damages it in a way the corpus claims to care about, and asserts the grader
+# FAILS the damaged version with the expected failure. A grader that accepts
+# a mutated output is not grading: every one of these mutation classes was
+# demonstrated to pass the harness on 2026-09-10, before the assertions they
+# now exercise existed.
+#
+# Fields:
+#   id              unique, kebab-case
+#   case            the corpus case whose checker is being exercised
+#   run             the runs/ file supplying the base output
+#   kind            "automated" - applied and asserted by mutate.py
+#                   "semantic"  - not detectable by substring assertions;
+#                   recorded here with the violated claim so a reading pass
+#                   knows what to look for. mutate.py lists these and does
+#                   not pretend to check them.
+#   replace         [old, new] applied once to the base output ("" deletes)
+#   append          text appended to the base output
+#   uppercase       true to uppercase the whole base output
+#   expect_failure  substring that must appear in the grader's failure list
+#   violated_claim  semantic kind only: the meaning change a reader must catch
+#
+# The unmutated base output must pass its case (the control). A control that
+# fails means the corpus and the recorded run have diverged - fix that first.
+
+[[mutation]]
+id = "warmth-apology-removed"
+case = "audience-keeps-the-warmth"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+replace = [", and I am sorry", ""]
+expect_failure = "sorry"
+
+[[mutation]]
+id = "warmth-modality-hardened"
+case = "audience-keeps-the-warmth"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+replace = ["should reach", "will reach"]
+expect_failure = "should"
+
+[[mutation]]
+id = "redis-node-count-dropped"
+case = "audience-drops-the-gloss-keeps-the-facts"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+replace = ["Three additional nodes would fix it, and ", ""]
+expect_failure = "three additional nodes"
+
+[[mutation]]
+id = "redis-provisioning-week-dropped"
+case = "audience-drops-the-gloss-keeps-the-facts"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+replace = [" next week", ""]
+expect_failure = "next week"
+
+[[mutation]]
+id = "fidelity-unlisted-fact-dropped"
+case = "fidelity-figures-and-names"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+replace = [" across three offices", ""]
+expect_failure = "three offices"
+
+[[mutation]]
+id = "triage-recased"
+case = "triage-human-blog"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+uppercase = true
+expect_failure = "casing"
+
+[[mutation]]
+id = "triage-commentary-added"
+case = "triage-human-blog"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+append = "\n\nNo changes needed for this request. No changes needed for this request."
+expect_failure = "more than the one permitted line"
+
+[[mutation]]
+id = "fidelity-figures-swapped"
+case = "fidelity-figures-and-names"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "semantic"
+replace = ["serves a population of 2.19 million and employs 1,438 people", "serves a population of 1,438 and employs 2.19 million people"]
+violated_claim = "The population is 2.19 million and the headcount is 1,438. Both substrings survive the swap, so no substring assertion can see it; only a reader comparing subjects can."
+
+[[mutation]]
+id = "redis-condition-becomes-consequence"
+case = "audience-drops-the-gloss-keeps-the-facts"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "semantic"
+replace = ["if the decision lands by Friday", "so the decision can land by Friday"]
+violated_claim = "The source makes provisioning conditional on a Friday decision. The mutation makes the decision a consequence of provisioning. Every asserted substring survives; only a reader can catch the inverted dependency."
+
+[[mutation]]
+id = "warmth-salutation-dropped"
+case = "audience-keeps-the-warmth"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+replace = ["Dear Ms Achebe,\n\n", ""]
+expect_failure = "Dear Ms Achebe"
+
+[[mutation]]
+id = "warmth-apology-demanded-of-customer"
+case = "audience-keeps-the-warmth"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "semantic"
+violated_claim = "'You should apologise by Thursday. We processed your £240 refund.' passes every assertion: an apology-shaped word is present and a 'should' sits near Thursday. But the customer is being told to apologise, and the arrival estimate is gone. Who apologises, and what the 'should' qualifies, need a reader."
+
+[[mutation]]
+id = "warmth-unrelated-should"
+case = "audience-keeps-the-warmth"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "semantic"
+violated_claim = "'Your £240 refund will reach your account by Thursday. You should contact us on Thursday with questions.' hardens 'should reach' into 'will reach' while an unrelated 'should' satisfies the modality pattern. Only a reader comparing what the 'should' attaches to can see it."
+
+[[mutation]]
+id = "redis-deadline-moved"
+case = "audience-drops-the-gloss-keeps-the-facts"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "semantic"
+violated_claim = "'Approve three additional nodes after Friday' keeps every asserted token and reverses the deadline. 'Friday is the review day' keeps 'Friday' while deleting the approval deadline altogether. 'Provision them next week' directed at the VP keeps 'Infrastructure' as a noun while losing its undertaking. Actor, action and deadline relationships need a reader."

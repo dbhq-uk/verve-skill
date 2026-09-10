@@ -44,7 +44,7 @@ The skill is mostly prose, and `SKILL.md` is deliberately the short half.
 
 | File | Contents |
 |---|---|
-| `skills/verve/SKILL.md` | Workflow, hard constraints, quick checks, scoring |
+| `skills/verve/SKILL.md` | Workflow, hard constraints, quick checks, exit gates |
 | `skills/verve/references/patterns.md` | The tell catalogue, before/after for each |
 | `skills/verve/references/wordlist.md` | Flat scannable word and phrase lists |
 | `skills/verve/references/voice.md` | Tone presets, and restoring voice without inventing content |
