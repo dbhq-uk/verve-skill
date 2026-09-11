@@ -118,6 +118,28 @@ Assert weight without adding any. Delete.
 - Here's why that matters
 - I promise / they exist, I promise
 
+## Condescension
+
+These fail on sight, for every reader. They are about the writer's assumption,
+not the reader's knowledge, so there is no expertise level that redeems them.
+Backs `patterns.md` group F; the register model is in `audience.md`.
+
+- simply, just, obviously, of course, clearly, naturally
+- as you know, as you are aware, as I am sure you know
+- don't worry, rest assured, no need to panic
+- to be clear, let me explain, let me walk you through
+- I hope this makes sense, does that make sense?, hope this helps
+
+*As you know* is the clearest of them: if they do know, you wasted their time
+saying so; if they do not, you told them they should have.
+
+**One exception, gated on the reader.** The simplification markers below are a
+service to a newcomer and an insult to an expert, so they go only where the
+reader has expertise in the subject, and they stay where the reader is new to
+it.
+
+- basically, essentially, in layman's terms, to put it simply
+
 ## Dead adverbs (wordiness)
 
 - really, just, literally, genuinely, honestly, simply, actually

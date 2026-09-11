@@ -112,9 +112,10 @@ python3 evals/grade.py evals/runs/FILE.json   # grade outputs produced elsewhere
 
 Python 3.11 or newer, for `tomllib`.
 
-Ten cases is not a benchmark. It is a floor: the things that must not break.
+Thirteen cases is not a benchmark. It is a floor: the things that must not
+break.
 
-## The four kinds
+## The five kinds
 
 **triage** gives it prose that already reads as human and asserts it comes back
 unchanged. A skill that always rewrites has lost the property that makes it safe
@@ -137,6 +138,20 @@ produces curtness. These cases used to assert much less than their `why`
 claimed: a two-line output with no apology and no node count passed both,
 which is what the 2026-09-10 strengthening and `evals/mutate.py` exist to
 prevent recurring.
+
+**overshare** asserts the thing group G is unusual for: that it did *not* edit
+the text. The other client, the date and the excuse must all still be there,
+with a note naming them, because a rewrite that helpfully removed them did the
+one thing the group may not do on its own initiative. A second case gives it a
+dated slip the client has to plan around and asserts no flag fires at all, which
+is the floor holding. A third asks for the cuts explicitly and asserts they are
+made and named.
+
+A limitation those three share, and it is worth knowing before reading a green
+run: verve's note is part of the output, so a `must_survive` string matches
+whether it sits in the body or only in the note. The assertions cannot tell
+those apart. The cut case is written so the note must not echo what it removed,
+which catches the worst version, but the general case needs a reader.
 
 ## How a case is written
 

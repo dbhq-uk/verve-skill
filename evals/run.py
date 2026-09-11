@@ -269,7 +269,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dry-run", action="store_true", help="no API calls")
     parser.add_argument("--model", default=DEFAULT_MODEL)
-    parser.add_argument("--only", help="run one kind: triage, fidelity, variety, audience")
+    parser.add_argument("--only", help="run one kind: triage, fidelity, variety, audience, overshare")
     parser.add_argument("--runs", type=int, default=1, help="repeats per case")
     parser.add_argument("--verbose", action="store_true", help="print every output")
     args = parser.parse_args()

@@ -5,12 +5,14 @@ and a *Before → After* to match in spirit. Flat word and phrase lists live in
 `wordlist.md`; this file covers patterns you have to recognise rather than
 grep for.
 
-Six groups: **A** content, **B** language and structure, **C** style and
+Seven groups: **A** content, **B** language and structure, **C** style and
 formatting, **D** assistant artefacts, **E** filler and hedging, **F**
-condescension and overreach.
+condescension, overreach and curtness, **G** overshare.
 
 Groups A to E judge the writing on its own. Group F judges it against its
-reader, so it needs `audience.md` alongside it.
+reader, so it needs `audience.md` alongside it. Group G judges it against the
+writer's own interests and against whoever is not in the room, so it needs
+`overshare.md` - and alone among the seven it flags rather than cuts.
 
 Several *After* lines below add a date, a source or a named detail to show what
 the fix looks like when the writer has one. They illustrate the shape of a fix;
@@ -325,12 +327,16 @@ person talking. *This is genuinely important* is padding.
 
 ---
 
-## F. Condescension and overreach
+## F. Condescension, overreach and curtness
 
 These are tells about the reader rather than about the writing. They only
 resolve once you know who is going to read the result, so `audience.md` carries
 the register model and this group carries the patterns. Where no audience is
 known, assume competence.
+
+F1 to F10 point one way, at talking down to somebody. F11 points the other, at
+the coldness a guard built only against the first will produce. Both are
+register failures, and the exit gate fails on either.
 
 **F1. Explaining a term the reader uses daily.** A gloss on a word the recipient
 works with every day. The gloss is not wrong; it is the assumption behind it
@@ -418,6 +424,112 @@ director who asked one question is not.
 
 > Before: eleven paragraphs and three headings, in reply to *"which deploy do I roll back?"*
 > After: *`dep-4471`, gateway, deployed 01:52 by `a.novak`. Full timeline in `INCIDENT-2026-03-14.md`.*
+
+**F11. Warmth stripped.** The greeting, the thanks, or the one apology that was
+owed, removed in the name of concision. This is the failure the other ten
+patterns produce when they are applied without a stop, and it is the one this
+catalogue is structurally biased towards creating, so it is checked by name.
+
+The example runs differently from the rest of the group, because the fault is
+in the rewrite rather than in the source:
+
+> Source: *Thanks for flagging this, and sorry. We have refunded the £240 and it should reach you by Thursday.*
+> After an over-aggressive sweep: *Refunded. £240, Thursday.*
+> Correct: the source line, restored.
+
+**F11 restores warmth the rewrite removed. It never adds warmth the source did
+not have** - that would be inventing content, which constraint 3 forbids
+without exception. A blunt source stays blunt. F11 is a fidelity check wearing
+a register hat, and it is the only pattern here that puts something back rather
+than taking it away.
+
+F8 is its neighbour and its opposite: F8 cuts the second and third apology,
+F11 keeps the first. Where they appear to disagree, they do not - between them
+they specify exactly one.
+
+---
+
+## G. Overshare
+
+Where group F asks whether this reader needs something explained, group G asks
+whether the writer should be handing it over at all. Respecting the reader and
+protecting the writer are different judgements, which is why they are different
+groups.
+
+`overshare.md` carries the two tests, the floor and the rule about which
+patterns need a reader. Read it before applying any of these. In short: nothing
+fires unless the reader neither asked for it nor needs it to act, **and**
+saying it costs the writer or somebody not in the room. The floor overrides
+every pattern below - anything the reader needs in order to decide or act is
+information, and information is never an overshare.
+
+**This group flags, it does not cut.** An overshare is a fact (constraint 1) or
+a claim (constraint 4), and removing one is the user's call, not verve's. So
+every *After* line below shows what an explicitly requested cut produces. On a
+default run the *Before* text is what ships, and the *After* is what the note
+describes. The catalogue is not a licence.
+
+### Fires on sight, for any reader
+
+**G1. Third-party disclosure.** Another client named, a colleague's private
+remark, what somebody else is paying.
+
+> Before: *I can start on the 6th, once the Northwind engagement wraps up.*
+> After: *I can start on the 6th.*
+
+The date is what the reader needs. Who else is buying the writer's time is not
+theirs to receive.
+
+**G2. Personal circumstances.** Health, money, family, mood, where the writer
+was.
+
+> Before: *Sorry for the slow reply, I have been dealing with a family illness.*
+> After: *Sorry for the slow reply.*
+
+The apology is owed and stays; cutting it would be F11. The reason is not the
+reader's business. Note where test 1 draws the line: *"I am away next week"* is
+operational and stays, because the reader plans around it.
+
+### Fire only where the reader is known, or the text is plainly outward-facing
+
+**G3. Unasked-for reasons and excuses.** The apology is owed; the reason behind
+it is the writer's problem.
+
+> Before: *Sorry, I missed Friday - the spec landed late and I had two other deadlines that week.*
+> After: *Sorry, I missed Friday.*
+
+**G4. Internal detail.** How the sausage was made: who was off sick, which
+system fell over, that the writer forgot.
+
+> Before: *The report is late - the build server died on Tuesday and Sam was on leave.*
+> After: *The report is late.*
+
+The floor governs the exception, and it is a common one. Where the cause tells
+the reader it will happen again, the cause is a risk they are carrying and it
+stays. Telling a colleague on your own team which server fell over is how work
+gets done; telling the client is G4.
+
+**G5. Position leakage.** Thin availability, needing the work, a fallback
+price, how much a deadline is hurting.
+
+> Before: *I have capacity from next week and the pipeline is quiet, so I can be flexible on rate.*
+> After: *I have capacity from next week.*
+
+**G6. Over-answering.** Answering the question they did not ask alongside the
+one they did. Scope, a figure, or a capability nobody costed, volunteered.
+
+> Before, replying to *"can you take the Azure piece?"*: *Yes. I could also take the identity workstream and the reporting if that helps.*
+> After: *Yes.*
+
+**G7. Pre-emptive confession.** Flagging something that is not yet a problem
+and that the writer can still absorb.
+
+> Before: *This should be fine, though I have had weeks where things slip.*
+> After: *This should be fine.*
+
+The floor governs this one hardest, and it is the pattern most likely to be
+applied wrongly. Where the slip is real and dated, the reader needs it and it
+stays. G7 covers anxiety, not risk.
 
 ---
 

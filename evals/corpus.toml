@@ -6,7 +6,7 @@
 #
 # Fields:
 #   id                     unique, kebab-case
-#   kind                   triage | fidelity | variety | audience
+#   kind                   triage | fidelity | variety | audience | overshare
 #   request                what the user asks, minus the text itself
 #   text                   the input passage
 #   unchanged              true if the output must match the input
@@ -238,4 +238,97 @@ Please do not hesitate to reach out if you have any further questions.
 
 Kind regards,
 Billing
+"""
+
+# ---------------------------------------------------------------------------
+# Overshare. Flag what the writer is giving away, without cutting it, and do
+# not flag what the reader needs.
+#
+# A limitation these three cases share, recorded here rather than discovered
+# later: the note verve prints is part of the output, so a must_survive string
+# matches whether it appears in the body or only in the note. The checks below
+# cannot tell those apart. Read the outputs.
+# ---------------------------------------------------------------------------
+
+[[case]]
+id = "overshare-flags-without-cutting"
+kind = "overshare"
+request = "verve this:"
+must_survive = ["Northwind", "6th", "two other deadlines"]
+must_match = [
+  # The note fired. Heading wording is fixed by SKILL.md's Output section.
+  '(?m)^Overshare \(not cut\):',
+]
+must_go = [
+  "I hope this helps",
+  "reach out",
+  "circle back",
+]
+why = "Group G flags, it does not cut. The other client, the date and the excuse must all still be in the text - a rewrite that helpfully removed them has failed the case by doing the very thing the group is forbidden to do on its own initiative. The tells go, because the humanisation still runs."
+text = """
+Hi Tom,
+
+I hope this helps clarify things! Just circling back on the timeline question \
+you raised.
+
+I can start on the 6th, once the Northwind engagement wraps up. Apologies again \
+for missing Friday - the spec landed late and I had two other deadlines that \
+week.
+
+Do reach out if you need anything further.
+"""
+
+[[case]]
+id = "overshare-floor-holds"
+kind = "overshare"
+request = "verve this for the client:"
+must_survive = ["14th", "three weeks"]
+must_match = [
+  # The slip is real, dated and outside the writer's control to absorb, so it
+  # is information. Nothing in group G may fire on it.
+  '\bslip\w*\b|\blate\b|\bdelay\w*\b',
+]
+must_go = [
+  "Overshare",
+  "at this point in time",
+  "it is important to note that",
+]
+why = "The floor. A dated slip the client has to plan around is a risk they are carrying, so it is information and never an overshare. A flag raised here is the failure that matters most in this group: it teaches the writer to bury the thing the reader needed. The three-week figure and the date survive."
+text = """
+Hi,
+
+It is important to note that at this point in time the integration work will \
+slip. The vendor has not returned the credentials and we cannot start without \
+them.
+
+Realistically this puts delivery at the 14th rather than the end of the month, \
+so roughly three weeks later than we planned. You will want to factor that into \
+the go-live date.
+"""
+
+[[case]]
+id = "overshare-cuts-on-request"
+kind = "overshare"
+request = "verve this and cut the oversharing:"
+must_survive = ["6th"]
+must_match = [
+  # The cuts are named rather than made silently.
+  '(?m)^Overshare \(cut\):',
+]
+must_go = [
+  "Northwind",
+  "pipeline is quiet",
+  "flexible on rate",
+]
+why = "An explicit instruction is the only thing that licenses removing content, and it must still be named. The start date survives because it is what the reader acts on. The step 6 carve-out is what lets this pass: without it the readback scores every requested cut as an omission."
+text = """
+Hi Tom,
+
+Thanks for coming back to me so quickly on this one.
+
+I can start on the 6th, once the Northwind engagement wraps up. I have capacity \
+from then and honestly the pipeline is quiet, so I can be flexible on rate if \
+that helps move things along.
+
+Let me know how you want to proceed.
 """

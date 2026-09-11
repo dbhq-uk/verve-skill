@@ -331,6 +331,20 @@ next to it.
 | `AGENTS.md` | A conventions bullet for group G, matching the audience guard bullet |
 | `evals/corpus.toml` | A fifth case type: overshare flags without cutting, and the floor holds |
 
+## One rule the implementation added
+
+Writing the corpus outputs turned up a hole this document did not have. The
+`Overshare (cut):` note names what was removed, and the note is part of the
+output, so a note reading *"the Northwind engagement"* puts the client's name
+straight back into the text the user asked to have it taken out of. The cut
+becomes a relocation, and the `must_go` assertion on that case catches it.
+
+So: **a cut line describes what went and never reproduces it.** *"The other
+client and what you are doing for them"*, not the name. This does not apply to
+`Overshare (not cut):`, where the text is still there and naming it is how the
+writer finds it. The rule is in `overshare.md` and in the `SKILL.md` Output
+section.
+
 ## Verification
 
 `bash -n install.sh install-codex.sh`, `claude plugin validate .` and
@@ -354,6 +368,34 @@ Worth saying as plainly as the readback document said it: the third case is the
 one substring assertions can check, and the second is the one that matters
 most. A green run shows the change broke nothing the harness can see. It does
 not show that the floor holds.
+
+There is a second limitation specific to this group, and it is recorded in
+`corpus.toml` and `evals/README.md` as well as here. Verve's note is part of
+the output, so a `must_survive` string matches whether it sits in the body or
+only in the note. The assertions cannot tell those apart. The cut case is
+written so the note may not echo what it removed, which catches the worst
+version of the problem, but the general case needs a reader.
+
+### The run
+
+Done on 2026-09-11, with no API key, by the route
+[`2026-09-08-fidelity-readback.md`](2026-09-08-fidelity-readback.md) used: the
+thirteen rewrites were produced in an agent session against the edited skill
+and graded by the same assertions.
+
+```
+python3 evals/grade.py evals/runs/2026-09-11-claude-opus-5-overshare.json
+13/13 passed
+```
+
+`bash -n`, `claude plugin validate .`, `python3 evals/run.py --dry-run` and
+`python3 evals/mutate.py` (8/8 automated mutations caught) all pass. The
+outputs are committed so the grading can be repeated.
+
+The same caveat as last time, and it is not a formality: the session that
+produced those rewrites is the session that designed the rules they were graded
+against. A green run shows the harness saw nothing break. The case for the
+floor rests on the reasoning above.
 
 ## What this does not do
 

@@ -4,6 +4,11 @@ Tone controls how the writing sounds. Strength controls how much of it changes.
 Neither says anything about who is going to read it, and without that a whole
 class of failure is invisible.
 
+This file and `patterns.md` group F are the **politeness check**. Its sibling
+is the overshare check in `overshare.md`, which asks a different question: not
+whether the reader needs something explained, but whether the writer should be
+handing it over at all.
+
 Explaining a term to somebody who uses it every day is rude, because it says you
 did not think they would know. Leaving the same term unexplained for a newcomer
 is unhelpful. The sentence is identical in both cases. Only the reader differs,
@@ -31,6 +36,9 @@ know your system. So an unknown reader means:
   third-party promises as the plans they are without inventing status. Right
   for every reader - and seniority never licenses dropping the instruction
   itself, only softening how it lands.
+- **Apply F11 whoever the reader is.** An unknown reader is a reason to cut
+  less, never a reason to cut the greeting or the thanks. Warmth is the thing
+  you keep when you do not know who you are talking to.
 
 Once you do know the reader, F1 comes back into scope and the axes below decide
 the rest.
@@ -62,28 +70,35 @@ Where inference fails, assume competence, as above. Do not stop and ask. A
 question about the reader is worth asking only when the text could not be
 delivered at all without the answer, which is rare.
 
-## What the guard removes
+## What the guard removes, and what it puts back
 
-The ten patterns in `patterns.md` group F, judged against the audience you have
-just read:
+This is the **politeness check**. The whole of it is `patterns.md` group F, the
+condescension list in `wordlist.md`, and the two-sided rule below, judged
+against the audience you have just read and gated by the audience fit exit
+check.
+
+Eleven patterns, ten pointing one way and one pointing the other:
 
 F1 explaining known terms, F2 restating the ask, F3 reasons before the answer,
 F4 unrequested caveats, F5 instructing upwards, F6 telling them what they told
 you, F7 performed empathy, F8 grovelling, F9 overreach, F10 length as an
-imposition.
+imposition - and **F11 warmth stripped**, which puts back a greeting, the
+thanks or the one owed apology that an over-aggressive sweep removed. F11 never
+adds warmth the source did not have.
 
-Plus these, on sight, wherever the reader has any expertise in the subject:
+Plus the condescension list in `wordlist.md`, which fails on sight for every
+reader. It used to live here, gated on the reader having expertise in the
+subject, and that gate was wrong twice over: the default reader is competent
+but not assumed knowledgeable, so the gate never resolved, and every line on
+the list is about the writer's posture rather than the reader's knowledge
+anyway. The four simplification markers are the one real exception and
+`wordlist.md` marks them as such, because simplifying is a service to a
+newcomer and an insult to an expert.
 
-- simply, just, obviously, of course, clearly, naturally
-- as you know, as you are aware, as I am sure you know
-- basically, essentially, in layman's terms, to put it simply
-- don't worry, rest assured, no need to panic
-- to be clear, let me explain, let me walk you through
-- I hope this makes sense, does that make sense?, hope this helps
-
-*As you know* deserves its own note, because it fails in both directions at
-once. If they do know, you have wasted their time saying so. If they do not, you
-have told them they should have. There is no reader for whom it works.
+*As you know* is the clearest case, and it is why the rest of the list is
+ungated. It fails in both directions at once. If they do know, you have wasted
+their time saying so. If they do not, you have told them they should have.
+There is no reader for whom it works.
 
 ## The boundary, which is not negotiable
 
@@ -119,7 +134,10 @@ names both, so it stays.
 ## Politeness fails in two directions
 
 The obvious failure is condescension. The other one is curtness, and a guard
-built only against the first will produce it.
+built only against the first will produce it. That is what F11 is for: ten
+patterns cut, one puts back, and without the eleventh the sweep can only ever
+make text colder while the exit gate is asked to catch a failure the sweep
+itself creates.
 
 Brevity is not bluntness. Cutting the explanation a reader does not need is
 courtesy; cutting the greeting, the thanks, or the acknowledgement that somebody
@@ -173,9 +191,10 @@ the preset wins on style.
 
 ## The exit check
 
-The **audience fit** gate in `SKILL.md` step 7 checks this. It asks whether
-the result respects the reader's intelligence, which is the question this file
-answers, and it is judged against group F rather than on feel.
+The **audience fit** gate in `SKILL.md` step 7 checks this, and it is the gate
+the politeness check exits through. It asks whether the result respects the
+reader's intelligence, which is the question this file answers, and it is
+judged against group F rather than on feel.
 
 It passes only where nothing in group F survives and the warmth appropriate to
 the reader is intact. It fails where the text is clean of condescension but
