@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo.svg" alt="verve skill for Claude Code, by DBHQ" width="420">
+<img src="assets/logo.svg" alt="verve skill for Claude Code, by DBHQ" width="560">
 
 # verve
 
@@ -10,7 +10,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-blueviolet)](https://code.claude.com/docs/en/plugins)
 [![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20WSL-lightgrey)]()
 
-A free, open-source tool by [DBHQ](https://dbhq.uk)
+A free, open-source tool by [DBHQ](https://dbhq.uk) - documented at [skills.dbhq.uk](https://skills.dbhq.uk/verve/)
 
 </div>
 
@@ -67,7 +67,8 @@ Triage comes early, and leaving your text alone is a valid result. Writing that 
 npx skills add dbhq-uk/verve-skill
 ```
 
-The [skills.sh](https://skills.sh) CLI installs into whichever agent directories it finds, so this works outside Claude Code and Codex too.
+The [skills.sh](https://skills.sh) CLI installs into whichever agent directories
+it finds, so this works outside Claude Code and Codex too.
 
 ### Local install (Claude Code or Codex)
 
@@ -78,13 +79,18 @@ cd verve-skill
 ./install-codex.sh    # Codex: installs into ~/.codex/skills
 ```
 
-[`install.sh`](install.sh) and [`install-codex.sh`](install-codex.sh) are the same install two ways. `SKILL.md` names its references by relative path, so nothing needs rewriting: the Claude Code installer symlinks the whole skill directory and every edit is live, while the Codex installer copies `SKILL.md` and symlinks `references/`, so re-run it after editing `SKILL.md`. Neither will delete a `verve` directory it did not create.
+[`install.sh`](install.sh) and [`install-codex.sh`](install-codex.sh) are the
+same install two ways: Claude Code substitutes `${CLAUDE_SKILL_DIR}`, so the
+whole skill directory is symlinked untouched, while Codex does not, so its
+`SKILL.md` is rewritten at install time. Re-run the Codex one after editing
+`SKILL.md`.
 
 ### Let the agent do it
 
 For an agent none of the above covers, paste [`prompts/install.md`](prompts/install.md) into a session. It finds the skills directory, fetches the eight files, puts them in the right layout and asks before overwriting anything already there.
 
 **Nothing to install beyond that.** No packages, no virtualenv, no credentials, no network. The skill is instructions and reference material, not tooling.
+
 
 ## Usage
 
@@ -178,6 +184,29 @@ It has been run once: **9/9, on 8 September 2026, on `claude-opus-5`**, against 
 ## History
 
 Renamed from `humanize` in July 2026. The skill still triggers on *"humanise this"* and *"make this sound human"*; only the name and the directory changed.
+
+## Also from DBHQ
+
+Fifteen free agent skills, all of them installable from the same marketplace and
+all documented at **[skills.dbhq.uk](https://skills.dbhq.uk)**.
+
+| Skill | What it does |
+|---|---|
+| [outlook](https://skills.dbhq.uk/outlook/) | Microsoft 365 mail and calendar, from the terminal |
+| [trello](https://skills.dbhq.uk/trello/) | Your boards, run from your agent |
+| [legwork](https://skills.dbhq.uk/legwork/) | Research that settles a decision, and says when it cannot |
+| [dovetail](https://skills.dbhq.uk/dovetail/) | Checks whether your repository still agrees with itself |
+| [vela](https://skills.dbhq.uk/vela/) | Compiler-exact code search for .NET |
+| [garmin](https://skills.dbhq.uk/garmin/) | Your Garmin data, answered in the terminal |
+| [imager](https://skills.dbhq.uk/imager/) | Images from GPT Image 2, costed before it spends |
+| [gitview](https://skills.dbhq.uk/gitview/) | Which branches are finished, and safe to delete |
+| [atlassian](https://skills.dbhq.uk/atlassian/) | Jira issues and Confluence pages |
+| [pennyblack](https://skills.dbhq.uk/pennyblack/) | A physical letter, posted from the terminal |
+| [buildwork](https://skills.dbhq.uk/buildwork/) | Your open issues, run as parallel agents |
+| [deskwork](https://skills.dbhq.uk/deskwork/) | What an agent noticed, tracked as real work |
+| [groupwork](https://skills.dbhq.uk/groupwork/) | A second agent on the work, adversary or partner |
+
+Plus [heliograph](https://skills.dbhq.uk/heliograph/), for a machine you cannot log into.
 
 ## Licence
 
