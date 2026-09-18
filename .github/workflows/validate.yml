@@ -87,6 +87,30 @@ jobs:
       - name: The eval corpus loads
         run: python3 evals/run.py --dry-run
 
+      # AND THE GRADER STILL GRADES, which the dry run does not check. Every
+      # recorded run in evals/runs/ is graded against the current corpus here:
+      # 9/9, 9/9 and 13/13 as of 18 Sep 2026. No API key, no spend, no model
+      # call - the outputs were written down when the run happened and grading
+      # them is deterministic.
+      #
+      # What this catches is the failure the dry run cannot see: a corpus edit
+      # that makes an assertion wrong rather than unparseable, or a grade.py
+      # change that stops asserting. The corpus has been strengthened twice
+      # since the first run and each time the recorded outputs were re-graded
+      # by hand; this is that check, run every push instead of when remembered.
+      #
+      # --allow-missing is correct HERE and nowhere else. It skips, loudly, a
+      # case that postdates the run being graded. evals/README.md says never to
+      # use it on a fresh run, where a missing case is a missing test - so this
+      # step must never be repointed at a new run without dropping the flag.
+      - name: The recorded runs still grade against the current corpus
+        run: |
+          for run in evals/runs/*.json; do
+            echo "::group::$run"
+            python3 evals/grade.py "$run" --allow-missing
+            echo "::endgroup::"
+          done
+
       # The whole install story rests on SKILL.md naming its references by
       # relative path. A hardcoded ~/.claude/skills path works on the author's
       # machine and is wrong under both a Codex install and a plugin install -
