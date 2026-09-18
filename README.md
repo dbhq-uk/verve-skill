@@ -92,6 +92,15 @@ For an agent none of the above covers, paste [`prompts/install.md`](prompts/inst
 **Nothing to install beyond that.** No packages, no virtualenv, no credentials, no network. The skill is instructions and reference material, not tooling.
 
 
+## Requirements
+
+**Nothing.** The skill is `SKILL.md` and its references - prose the agent
+reads, with no script to run, no interpreter and no key. If your host can
+install a skill, you meet the floor.
+
+The eval harness in `evals/` is the exception, and it is not part of using
+the skill: it needs Python 3 and an `ANTHROPIC_API_KEY` to score a real run.
+
 ## Usage
 
 Ask in any session. Text comes from the message, a file, or the clipboard, and the options are plain language.
