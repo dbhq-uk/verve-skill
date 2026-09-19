@@ -38,7 +38,11 @@ Five more, including the failure mode where a rewrite cuts content along with th
 
 **It does both halves.** Most de-slopping tools only subtract. Strip the tells and stop, and you get clean prose that still reads as machine-made - just blandly rather than floridly, because nothing is behind it. So the pattern sweep is followed by a voice pass: opinions, rhythm variance, specificity, acknowledged complexity, a bit of mess.
 
-Meaning holds the veto. Every fact, number, name, date and citation survives unchanged; technical terms keep their exact wording; nothing is invented. Before delivery the rewrite passes three gates, each pass or fail on its own: a fidelity readback in both directions, an audience-fit check, and a disclosure check. There is no total for good rhythm to buy a changed meaning back with. Aggressive rewriting tempts a model to compress three real points into one punchy line. That is the failure this guards against.
+Meaning holds the veto. Every fact, number, name, date and citation survives unchanged; technical terms keep their exact wording; nothing is invented.
+
+Before delivery the rewrite passes three gates, each pass or fail on its own: a fidelity readback in both directions, an audience-fit check, and a disclosure check. There is no total for good rhythm to buy a changed meaning back with.
+
+Aggressive rewriting tempts a model to compress three real points into one punchy line. That is the failure this guards against.
 
 **It knows who the writing is for.** Explaining a term to someone who uses it daily is rude, because it says you did not think they would know. Leaving it unexplained for a newcomer is unhelpful. Same sentence, different reader, and nothing but the reader can settle it. So verve takes an audience in plain words (*"for our CTO"*, *"for a customer who has just complained"*) and reads three things off it: how much explanation survives, how far you may direct rather than offer, and how long the thing should be. Say nothing and it infers the reader from the text, then falls back to assuming competence.
 
@@ -149,7 +153,11 @@ verve looks in the project first, then your home directory, and the request stil
 
 **Audience** is the other one to know. Give it a reader and verve cuts what that reader does not need: glosses on terms they use daily, the ask restated back at them, reasons before the answer, caveats nobody requested, instructions aimed at someone senior, performed empathy, and the second and third apology. It works the other way too, because brevity is not bluntness. A one-line reply to a customer who has lost money reads as contempt however efficient it is, so the greeting, the thanks and one genuine apology stay. What it never cuts is a fact, a claim or a step in the argument, whatever the reader knows.
 
-That is the politeness check, and it runs on every pass whether you ask for it or not. Ask for it by name - *"is this patronising?"*, *"check this doesn't talk down to them"* - and it is the same pass, so what comes back is the corrected text rather than a report. Name the reader when you do, because nothing else settles whether a gloss is a courtesy or an insult. The register model behind it, and the two tests applied before anything is cut on audience grounds, are in [`references/audience.md`](skills/verve/references/audience.md).
+That is the politeness check, and it runs on every pass whether you ask for it or not.
+
+Ask for it by name - *"is this patronising?"*, *"check this doesn't talk down to them"* - and it is the same pass, so what comes back is the corrected text rather than a report. Name the reader when you do: nothing else settles whether a gloss is a courtesy or an insult.
+
+The register model behind it, and the two tests applied before anything is cut on audience grounds, are in [`references/audience.md`](skills/verve/references/audience.md).
 
 **Overshare** is its sibling, and the only setting that leaves your text alone by design. It runs on every pass too, names what you are giving away that nobody asked for, and changes nothing until you say *"cut the oversharing"*. Set it to `off` in a project where it does not earn its place. `cut` is the one value a saved file may **not** set: a `.verve.md` arrives with any repository you clone, and nothing found on disk gets to authorise dropping a fact from your draft. The two tests, the floor and the patterns are in [`references/overshare.md`](skills/verve/references/overshare.md).
 
@@ -186,9 +194,15 @@ Want to hack on the skill or run it from source with live edits? See [`docs/dev-
 
 [`CONTRIBUTING.md`](CONTRIBUTING.md) covers working on it, and [`AGENTS.md`](AGENTS.md) is for an AI agent doing so. The skill itself is [`skills/verve/SKILL.md`](skills/verve/SKILL.md).
 
-[`evals/`](evals/) holds a fixed corpus that checks the skill rather than describing it: triage leaves human prose alone, every figure and identifier survives a rewrite, a variety conversion never reaches code or proper nouns, and the audience guard cuts the gloss without cutting the apology. The assertions are substring and pattern checks - they catch deletion, not distortion, and a green run is not a substitute for reading the output. A mutation suite ([`evals/mutate.py`](evals/mutate.py)) checks the checker: damaged outputs must fail, and every damage class it applies once passed the harness undetected. Run both after changing anything under `skills/`.
+[`evals/`](evals/) holds a fixed corpus that checks the skill rather than describing it: triage leaves human prose alone, every figure and identifier survives a rewrite, a variety conversion never reaches code or proper nouns, and the audience guard cuts the gloss without cutting the apology.
 
-It has been run once: **9/9, on 8 September 2026, on `claude-opus-5`**, against the corpus as it stood that day; the corpus has been strengthened since and the recorded outputs pass the stronger assertions too. That number comes with conditions worth reading before you trust it - one run rather than three, one model, and produced in an agent session rather than through the API harness, though graded by the same assertions. [`evals/README.md`](evals/README.md) states all of it, and the outputs are committed in [`evals/runs/`](evals/runs/) so the grading can be repeated.
+The assertions are substring and pattern checks. They catch deletion, not distortion, so a green run is not a substitute for reading the output.
+
+A mutation suite ([`evals/mutate.py`](evals/mutate.py)) checks the checker: damaged outputs must fail, and every damage class it applies once passed the harness undetected. Run both after changing anything under `skills/`.
+
+It has been run once: **9/9, on 8 September 2026, on `claude-opus-5`**, against the corpus as it stood that day. The corpus has been strengthened since, and the recorded outputs pass the stronger assertions too.
+
+That number comes with conditions worth reading before you trust it: one run rather than three, one model, and produced in an agent session rather than through the API harness, though graded by the same assertions. [`evals/README.md`](evals/README.md) states all of it, and the outputs are committed in [`evals/runs/`](evals/runs/) so the grading can be repeated.
 
 ## History
 
