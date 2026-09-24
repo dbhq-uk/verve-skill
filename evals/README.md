@@ -106,6 +106,32 @@ and *a key part* went, so the writer's degree went with them. *Most recent*
 went from *most recent invoice*. Constraint 4 names one-word claims, but its
 list did not cover these kinds.
 
+### One-word claims, fixed the same day
+
+Constraint 4 now names the four kinds of one-word claim that went missing -
+rank and scope, modality and estimate, sequence and cause, and degree or
+identity the writer asserted - with the rule that a word which is itself the
+tell is replaced by a plain word of the same force, never by nothing and never
+by a stronger one. The step 6 readback checks them by name, and the output
+contract forbids a tool call written out as text, which the grader now fails
+on every case. Three runs each, judged by Codex:
+
+| Kept their meaning | Before | After |
+|---|---|---|
+| `claude-opus-5-5` | 46 of 48 | **48 of 48** |
+| `claude-sonnet-5` | 34 of 48 | **43 of 48** |
+
+The substring grader held at 19/19 on every Opus run and 17 of 19 on Sonnet,
+so nothing it measures moved. What is left on Sonnet: *running out* softened
+to *running low* or dropped, *vital* to *important*, one Redis approval recast
+as a neutral *decision*, a third fake tool call in a different markup, and
+one run that turned the Eustat evidence into a founding purpose again - the
+8 Sep distortion, nearly word for word. The judge caught it; the grader would
+not have. The outputs are in `runs/` and `runs/sonnet-5/` with
+`one-word-claims` in the name, the verdicts in `runs/judged/`. The one earlier
+Opus run holding the fake tool call is in `runs/superseded/`, which CI does
+not grade, because the grader now fails it.
+
 The judge is strict, and it varies a little between calls: one flag on a
 *would acquire* the source meant as a report, since pinned in the claim. Read
 what it flags. Like the grader, it is a reason to look, not a substitute for

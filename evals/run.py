@@ -171,6 +171,12 @@ TRIAGE_LINES = (
 )
 
 
+TOOL_MARKUP = re.compile(
+    r"<(?:invoke|parameter|invoke_response|function_calls)\b"   # XML-shaped
+    r"|^\s*\*{0,2}Tool: ?\w+\*{0,2}\s*$",                      # **Tool: bash**
+    re.M)
+
+
 def strip_triage_line(text: str) -> str:
     for line in TRIAGE_LINES:
         pattern = r"[*_]*" + re.escape(line) + r"[*_]*"
@@ -194,6 +200,12 @@ def check(case: Case, output: str) -> list[str]:
     casing. Both directions therefore err towards failing.
     """
     failures: list[str] = []
+
+    # Every case, whatever it asserts: a tool call written out as text is
+    # never part of a rewrite. A model with no tool to call printed one on
+    # 24 Sep 2026 and every asserted string survived around it.
+    if TOOL_MARKUP.search(output):
+        failures.append("a tool call written out as text")
 
     if case.unchanged:
         payload = normalise_ws(case.text)

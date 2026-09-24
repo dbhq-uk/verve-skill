@@ -82,6 +82,14 @@ append = "\n\nNo changes needed for this request. No changes needed for this req
 expect_failure = "more than the one permitted line"
 
 [[mutation]]
+id = "tool-call-printed"
+case = "fidelity-figures-and-names"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+append = "\n<invoke name=\"Bash\">\n<parameter name=\"command\">ls .verve.md</parameter>\n</invoke>"
+expect_failure = "tool call"
+
+[[mutation]]
 id = "fidelity-figures-swapped"
 case = "fidelity-figures-and-names"
 run = "runs/2026-09-08-claude-opus-5.json"

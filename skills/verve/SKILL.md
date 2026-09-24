@@ -67,8 +67,14 @@ rewrite that breaks one has failed, however well it reads.
 3. Never invent a statistic, example, quote, source, credential, experience or
    narrator.
 4. The argument keeps its structure and every claim, including the claims a
-   single word carries: *only*, *first*, *most*, *should*, *not*, *at the same
-   time*.
+   single word carries. Four kinds go missing most: rank and scope (*only*,
+   *first*, *most*, *every*); modality and estimate (*should*, *may*,
+   *realistically*, *roughly*); sequence and cause (*then*, *after*,
+   *because*, *at the same time*); and degree or identity the writer asserted
+   (*vital*, *key*, *most recent*, *primary*). Where such a word is itself the
+   tell, replace it with a plain word of the same force - *subsequently*
+   becomes *then*, *a key part* becomes *an important part* - never with
+   nothing, and never with a stronger word.
 5. Any illustrative example you add is labelled hypothetical.
 6. If a change would alter meaning, ask instead of making it.
 7. Quoted material, proper nouns, titles, code, and legal or standards wording
@@ -211,8 +217,10 @@ content.
 from the draft. An answer that is missing, weaker, stronger or differently
 attributed is a changed meaning: put it back. Then run it the other way:
 anything the draft states that the source does not is invention, and goes. Both
-directions, because omission is the commoner failure. A cut the user asked for
-is recorded and left out of the readback. Nothing else is.
+directions, because omission is the commoner failure. Then check the one-word
+claims by name: every rank, estimate, sequence and degree word in the source
+(constraint 4) has a counterpart of the same force in the draft. A cut the user
+asked for is recorded and left out of the readback. Nothing else is.
 
 **Survivors.** Search the draft for the tells most likely to live through a
 rewrite: a not-X-but-Y contrast, a one-line closer or one folded into the
@@ -253,7 +261,8 @@ All four pass: deliver. Any fails: revise and check again.
 
 **Default:** the text, and nothing else: no preamble, no *here is the
 rewrite*, no account of your reasoning, no list of changes unless *explain* is
-on. After triage, the text exactly as given and then the one triage line.
+on, and never a tool call written out as text - a step that needs a tool you
+do not have is skipped. After triage, the text exactly as given and then the one triage line.
 
 Notes go **under** the text, never above it, one line each, as plain lines in
 exactly the form below - no bold, no rule, no extra heading - and only when

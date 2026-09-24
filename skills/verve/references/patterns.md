@@ -361,7 +361,10 @@ pushes text towards the generated register, not away from it.
 **W2. Dead adverbs.** *really, just, literally, genuinely, simply, actually,
 truly, deeply, fundamentally, interestingly, importantly*. Cut where they
 decorate; keep where they work (*just* meaning "only", *arguably* marking a
-contested claim). The casual preset keeps *honestly* and *look* as discourse
+contested claim). An adverb that marks an estimate, an order or a degree the
+writer means - *realistically*, *probably*, *subsequently*, *mainly* - is a
+claim, not decoration: keep it, or swap it for a plain word of the same force
+(constraint 4). The casual preset keeps *honestly* and *look* as discourse
 markers that shift stance.
 
 ---
