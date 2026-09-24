@@ -96,7 +96,8 @@ def main() -> int:
                   f"{m['expect_failure']!r}, got {got}")
 
     if semantic:
-        print("\nSemantic mutations - not checkable by substrings, read for these:")
+        print("\nSemantic mutations - not checkable by substrings. evals/judge.py")
+        print("checks their kind through judge_fixtures.toml; read for these too:")
         for m in semantic:
             print(f"  {m['id']} ({m['case']})")
             print(f"      {m['violated_claim']}")

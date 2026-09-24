@@ -96,6 +96,7 @@ class Case:
     must_go: list[str] = field(default_factory=list)
     must_match: list[str] = field(default_factory=list)
     must_not_match: list[str] = field(default_factory=list)
+    claims: list[str] = field(default_factory=list)
     max_loss: float | None = None
     max_gain: float | None = None
 

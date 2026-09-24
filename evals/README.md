@@ -48,6 +48,69 @@ fidelity output turned *stands as a testament to the Basque Country's
 commitment* into *was founded in 1989 as evidence of* it, which is close to the
 distortion recorded below and passed every assertion.
 
+## The fidelity judge
+
+`judge.py` is the reading pass the substring grader cannot do. Each case
+carries `claims`: the atomic claims its rewrite must keep, who did what with
+what polarity, modality and condition. A second model is shown only the
+source, the rewrite and the claims - never the skill, never which model wrote
+the rewrite - and rules on each claim (kept, weakened, strengthened, changed,
+missing) and lists anything the rewrite added. One claim not kept, or one
+addition, fails the case.
+
+```bash
+python3 evals/judge.py --dry-run                     # claims and fixtures load, no model
+python3 evals/judge.py --selftest --reps 3           # judge the judge
+python3 evals/judge.py evals/runs/FILE.json --save /tmp/verdicts.json
+python3 evals/judge.py FILE.json --judge claude:claude-sonnet-5
+```
+
+The default judge is Codex on its configured model, a different model family
+from the Claude models verve is run on, because a model shares its own blind
+spots. Use a judge that did not write the rewrite.
+
+**It judges itself first.** `judge_fixtures.toml` holds eight rewrites read by
+hand as faithful and ten that are not: the semantic mutations
+`mutations.toml` has listed since 10 Sep as invisible to substrings, and the
+distortion the 8 Sep run actually shipped. Every one of the ten passes the
+substring grader. On 24 Sep 2026 the Codex judge got all eighteen right on
+every one of three reps, and a `claude-sonnet-5` judge on its rep.
+
+**A claim that encodes the tell fails verve for doing its job.** The first
+judged run failed six outputs on the claims rather than the rewrites: *pivotal
+role* came back as *important role*, which is B1 working; *isn't just a speed
+trick* lost its empty contrast, which is A1 working. So a claim is written at
+the strength of its plain content and says in brackets what latitude a rewrite
+has. The corpus header says so.
+
+### What it found in the runs the grader passed
+
+The three Opus runs and three Sonnet runs above, judged by Codex on the final
+claims. Verdicts are in `runs/judged/`.
+
+| Run | Substring grader | Judge: kept their meaning |
+|---|---|---|
+| `claude-opus-5-5`, 3 runs | 19/19 each | 16, 14, 16 of 16 |
+| `claude-sonnet-5`, 3 runs | 17 of 19 across all three | 9, 12, 13 of 16 |
+
+On Opus, one real defect and one borderline call. The real one: an output
+opened with a printed fake tool call - the model "checking for preferences"
+in text, with no tool to call - and every asserted string was present, so the
+grader passed it. The borderline one dropped *we have identified* from *I'm
+sorry about the error*.
+
+On Sonnet the misses are one pattern: single words that carry a claim,
+dropped. *Realistically* went, so an estimate became a fact. *Subsequently*
+went with nothing in its place, so the order of two events was lost. *Vital*
+and *a key part* went, so the writer's degree went with them. *Most recent*
+went from *most recent invoice*. Constraint 4 names one-word claims, but its
+list did not cover these kinds.
+
+The judge is strict, and it varies a little between calls: one flag on a
+*would acquire* the source meant as a report, since pinned in the claim. Read
+what it flags. Like the grader, it is a reason to look, not a substitute for
+looking.
+
 ## The first run
 
 **9/9, on 8 September 2026, on `claude-opus-5`, once.** Superseded by the
@@ -123,7 +186,8 @@ claims and pads the result back over the length floor was passing.
 
 ## What it still does not do
 
-**It is not wired into CI**, beyond a dry run that costs nothing. Measuring for
+**It is not wired into CI**, beyond dry runs that cost nothing - the corpus,
+and the judge's claims and fixtures. Measuring for
 real needs an API key, and `SECURITY.md` makes a point of this project having no
 credentials. That claim is about the skill rather than about the repository's
 own CI, so it would survive a secret being added, but that is a decision to take
