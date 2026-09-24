@@ -3,23 +3,17 @@
 Flat lists to scan for directly. Patterns that need recognition rather than
 matching are in `patterns.md`.
 
-Provenance: compiled from observation of model output and publicly documented
-sign lists, largely reflecting the 2023-2025 vocabulary cohort. Reviewed 2026-09-10. These lists
-describe a moving target - model vocabularies shift and human usage converges
-on them - so review them roughly yearly and retire entries that stop earning
-their place.
+Compiled from observed model output and published sign lists, including
+Wikipedia's *Signs of AI writing*. Reviewed 2026-09-24. Model vocabulary moves
+with every release and human usage converges on it, so these lists age; the
+structural tells in `patterns.md` do not, and they come first.
 
 Nothing here is an absolute ban. A word on this list used deliberately, once,
 where it is the right word, is fine. The tell is density and reflexive use.
 
-Two licences apply, and they differ. Most sections here are **tells**:
-vocabulary and phrasing that marks prose as machine-drafted, cut on the terms
-above. The sections marked **wordiness** are different: corpus work finds
-wordy constructions and intensifiers *more* common in human writing than in
-model output, so they are editorial preferences rather than evidence of
-anything. Cut them for concision where they pad, and leave them alone when the
-prose is already tight - stripping them mechanically pushes text towards the
-generated register, not away from it.
+Most sections here are **tells**, cut on those terms. The sections marked
+**wordiness** are editorial preferences, not evidence (`patterns.md` W1 and
+W2): cut them where they pad and leave tight prose alone.
 
 ## AI vocabulary
 
@@ -59,8 +53,20 @@ Replace with plain equivalents.
 | interplay | relationship |
 | key (adjective) | main, or name the thing |
 | valuable | useful, or say why |
+| crucial | important, or say why |
+| enhance | improve |
+| bolster | support, strengthen |
+| align with | match, fit |
+| highlight (verb) | show, point out |
+| meticulous(ly) | careful(ly) |
+| seamless(ly) | smooth, without a break |
+| enduring | lasting, long |
+| quietly (as praise) | cut, or say what it does |
+| gate, gated (figurative) | limit, depend on (keep technical uses) |
 
 ## Business jargon
+
+Swap on sight (`patterns.md` B8), including inside a letter's closing line.
 
 | Avoid | Use |
 |---|---|
@@ -68,8 +74,10 @@ Replace with plain equivalents.
 | unpack (analysis) | explain, examine |
 | double down | commit further |
 | take a step back | reconsider |
-| moving forward | next, from now on |
+| moving forward, going forward | next, from now on, or cut |
 | circle back | return to, revisit |
+| reach out | get in touch, write, call |
+| touch base | talk, check in |
 | on the same page | agreed, aligned |
 | game-changer | significant, important |
 | low-hanging fruit | the easy wins |
@@ -78,7 +86,7 @@ Replace with plain equivalents.
 
 ## Throat-clearing openers
 
-Cut and state the content directly.
+Cut and state the content directly (`patterns.md` A4).
 
 - Here's the thing:
 - Here's what / Here's why / Here's how
@@ -95,8 +103,49 @@ Cut and state the content directly.
 Any *here's what / here's this / here's why* construction is throat-clearing.
 Cut it and make the point.
 
+## Hinges and hedged enumeration
+
+Sentences whose only job is to announce the next one (`patterns.md` A4).
+
+- Where we are is that / What this means is / The upshot is
+- Which brings us to / Here is where it gets interesting
+- There are several factors to consider / There are a few things to keep in mind
+- It depends on a number of factors / Generally speaking
+
+## Performed candour and rigour
+
+The writer certifies their own honesty or care (`patterns.md` A6). Delete the
+certificate, keep what follows.
+
+- to be clear, to be fair, in fairness, let's be honest, let's be accurate
+- the honest answer is, the honest version is, the fair reading is
+- it's worth being precise here, it's worth distinguishing
+- I'll say it plainly, no spin, we won't sugarcoat it
+- one caveat up front, a qualification first, worth flagging up front
+- in one specific way, for one particular reason, a very specific kind of
+- it is worth noting, it is worth stating, it bears repeating, this needs saying
+
+## Arguing with no one
+
+Defences against objections nobody raised (`patterns.md` A5).
+
+- This isn't about / This isn't mainly about
+- I'm not saying / I'm not arguing
+- Don't get me wrong / This is not to say
+- Some might argue / Critics may claim / It would be easy to dismiss this as
+- A tempting approach would be / One might be tempted to / You might think
+
+## Reasoning scaffolding
+
+A model narrating its own procedure (`patterns.md` E3).
+
+- Let me think / Let me break this down / Let's work through this
+- First, I'll look at / Step 1: / To answer this I need to
+- Now that we have established
+
 ## Banned openers and closers
 
+- I hope this email finds you well / I hope this finds you well / I hope you are keeping well
 - In today's world / in today's digital landscape / in a world where
 - In conclusion / in summary / in closing
 - At the end of the day
@@ -109,7 +158,7 @@ Cut it and make the point.
 
 ## Emphasis crutches
 
-Assert weight without adding any. Delete.
+Assert weight without adding any. Delete (`patterns.md` A2).
 
 - Full stop. / Period.
 - Let that sink in.
@@ -150,7 +199,7 @@ it.
 Exception: the casual preset allows *honestly*, *look* and similar as discourse
 markers that shift stance, not as decoration. And a word here doing semantic
 work is not dead: *just* meaning "only", *literally* meaning literally,
-*arguably* marking a genuinely contested claim. See `patterns.md` E6.
+*arguably* marking a genuinely contested claim. See `patterns.md` W2.
 
 ## Filler phrases (wordiness)
 
@@ -171,7 +220,8 @@ work is not dead: *just* meaning "only", *literally* meaning literally,
 
 ## Meta-commentary
 
-Remove. The piece should move, not narrate its own structure.
+Remove. The piece should move, not narrate its own structure (`patterns.md`
+A4).
 
 - The rest of this essay explains…
 - In this section, we'll…
@@ -185,7 +235,7 @@ Remove. The piece should move, not narrate its own structure.
 
 ## Vague declaratives
 
-Delete, or replace with the specific thing. See `patterns.md` A7.
+Delete, or replace with the specific thing. See `patterns.md` B2.
 
 - The reasons are structural
 - The implications are significant
@@ -196,7 +246,7 @@ Delete, or replace with the specific thing. See `patterns.md` A7.
 
 ## Telling instead of showing
 
-See `patterns.md` A8. Demonstrate it or cut it.
+See `patterns.md` B2. Demonstrate it or cut it.
 
 - This is genuinely hard
 - This is what [X] actually looks like

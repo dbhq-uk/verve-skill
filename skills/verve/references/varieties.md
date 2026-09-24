@@ -133,9 +133,10 @@ you cannot determine. Leave it rather than guess.
 not a British convention. Chicago style uses em dashes freely and correctly, so
 a reader setting the variety to American may reasonably assume the ban was a
 British quirk and put them back. It was not. Models overuse the em dash in every
-variety, and `patterns.md` C1 applies unchanged.
+variety, and `patterns.md` C5 applies unchanged, including its one exception:
+an author's own writing sample that uses dashes.
 
-Also unchanged by the variety: the curly quote rule (C6), which is about
+Also unchanged by the variety: the curly quote rule (D5), which is about
 typographic artefacts rather than nationality; every tell in `patterns.md`; every
 list in `wordlist.md`; the tone presets; and the exit checks.
 

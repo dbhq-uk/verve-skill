@@ -30,14 +30,14 @@ usually deleted content, not filler.
 > them up and spreads ownership. None of that is because the tooling is
 > complex. People are.
 
-**Removed:** throat-clearing opener (D-list), *in today's* (E5), *landscape* and
-*delve* and *fosters* (B1), em dash (C1), Wh- opener (B13), emphasis crutch
-*let that sink in* (E3), vague declarative (A7), binary contrast (B3).
+**Removed:** throat-clearing opener and *in today's* (A4), *landscape*,
+*delve* and *fosters* (B8), em dash (C5), Wh- opener (C7), emphasis crutch
+*let that sink in* (A2), vague declarative (B2), not-X-but-Y at both ends (A1).
 
 **Note:** every claim in the original survives: quality gate, cultural
 artefact, feedback as a signal about the team, trust, velocity, shared
 ownership, people over tooling. Trust, velocity and ownership stay as three
-items because they are three claims; B7 targets forced triplets, not real
+items because they are three claims; C1 targets forced triplets, not real
 ones. And nothing appears in the after-text that the before-text does not
 carry. The tells came out; the argument stayed.
 
@@ -76,9 +76,9 @@ with the filler.
 > now holds numerous independent shops. It continues to draw visitors from
 > across the globe.
 
-**Removed:** *nestled*, *breathtaking*, *vibrant*, *picturesque*, *boasts* (A4),
-*stands as* and *serves as* (A1, B2), *rich history* (A1), *highlighting* (A3),
-*enduring appeal* (A1).
+**Removed:** *nestled*, *breathtaking*, *vibrant*, *picturesque* (B4),
+*stands as*, *serves as* and *boasts* (B7), *rich history* and *enduring
+appeal* (B1), *highlighting* (B3).
 
 **Note:** the charter date and the sheep fairs are in the before-text, which is
 why the after-text may use them. Where a real source says only *"a rich
@@ -109,8 +109,8 @@ never let cutting the adjective take a claim with it.
 > B-tree indexes are the most common type. Hash indexes give O(1) lookups for
 > equality comparisons. Partial indexes cover only a subset of rows.
 
-**Removed:** sycophancy (D3), signposting (D4), chatbot artefacts (D1),
-inline-header bullets (C3), fragmented restatement of each heading (D5).
+**Removed:** sycophancy and chatbot wrapper (E1), signposting (A4), bold-label
+bullets (D1), each bullet restating its own label (D4).
 
 **Note:** light strength normally preserves sentence structure. Here the
 structure *was* the tell, so converting the list to prose is in scope even at
@@ -141,10 +141,10 @@ because filling it out would be invention.
 > rather than at the review. Things look good for the platform from
 > here.
 
-**Removed:** *it is important to note* (E1), *due to the fact that* (E1),
-formulaic challenges-then-triumph arc (A6), *testament* (A1, B1),
-*moving forward* (jargon), *subsequently*, generic positive conclusion (E4)
-folded into a plain final sentence.
+**Removed:** *it is important to note* and *due to the fact that* (W1),
+the challenges-then-triumph arc, *testament* and the generic positive
+conclusion (B1, folded into a plain final sentence), *moving forward*
+(jargon), *subsequently*.
 
 **Note:** the attempts, the CI failures and the ops engineer are all in the
 before-text; heavy strength licenses restructuring, never invention. The
@@ -192,11 +192,11 @@ She asked one question: whether to approve the extra Redis nodes.
 > Infrastructure can provision next week if the decision lands by Friday, and
 > I'll get Finance to sign off the spend at the same time.
 
-**Removed:** sycophancy (D3), performed empathy (F7), a definition of Redis for
-somebody who ran the platform team (F1), *basically* and *I hope this makes
-sense* (condescension list), *you need to approve* aimed upwards, recast so the
-deadline and the decision survive without the command (F5), chatbot closer
-(D1).
+**Removed:** sycophancy and the chatbot closer (E1), performed empathy (F7), a
+definition of Redis for somebody who ran the platform team (F1), *basically*
+and *I hope this makes sense* (condescension list), *you need to approve* aimed
+upwards, recast so the deadline and the decision survive without the command
+(F5).
 
 **Note:** every figure, estimate and modality in the after-text is in the
 before-text - *should cover* stays an estimate because the source said

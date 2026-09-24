@@ -70,35 +70,17 @@ Where inference fails, assume competence, as above. Do not stop and ask. A
 question about the reader is worth asking only when the text could not be
 delivered at all without the answer, which is rare.
 
-## What the guard removes, and what it puts back
+## What the guard covers
 
-This is the **politeness check**. The whole of it is `patterns.md` group F, the
-condescension list in `wordlist.md`, and the two-sided rule below, judged
-against the audience you have just read and gated by the audience fit exit
-check.
+`patterns.md` group F: ten patterns that cut (F1 to F10) and one that puts back
+(F11), plus the condescension list in `wordlist.md`, which fails on sight for
+every reader because every line on it is about the writer's posture rather than
+the reader's knowledge. The four simplification markers there are the one
+exception: simplifying is a service to a newcomer and an insult to an expert.
 
-Eleven patterns, ten pointing one way and one pointing the other:
-
-F1 explaining known terms, F2 restating the ask, F3 reasons before the answer,
-F4 unrequested caveats, F5 instructing upwards, F6 telling them what they told
-you, F7 performed empathy, F8 grovelling, F9 overreach, F10 length as an
-imposition - and **F11 warmth stripped**, which puts back a greeting, the
-thanks or the one owed apology that an over-aggressive sweep removed. F11 never
-adds warmth the source did not have.
-
-Plus the condescension list in `wordlist.md`, which fails on sight for every
-reader. It used to live here, gated on the reader having expertise in the
-subject, and that gate was wrong twice over: the default reader is competent
-but not assumed knowledgeable, so the gate never resolved, and every line on
-the list is about the writer's posture rather than the reader's knowledge
-anyway. The four simplification markers are the one real exception and
-`wordlist.md` marks them as such, because simplifying is a service to a
-newcomer and an insult to an expert.
-
-*As you know* is the clearest case, and it is why the rest of the list is
-ungated. It fails in both directions at once. If they do know, you have wasted
-their time saying so. If they do not, you have told them they should have.
-There is no reader for whom it works.
+*As you know* is the clearest case. If they do know, you wasted their time
+saying so; if they do not, you told them they should have. There is no reader
+for whom it works.
 
 ## The boundary, which is not negotiable
 
@@ -133,11 +115,9 @@ names both, so it stays.
 
 ## Politeness fails in two directions
 
-The obvious failure is condescension. The other one is curtness, and a guard
-built only against the first will produce it. That is what F11 is for: ten
-patterns cut, one puts back, and without the eleventh the sweep can only ever
-make text colder while the exit gate is asked to catch a failure the sweep
-itself creates.
+The obvious failure is condescension. The other is curtness, and a guard built
+only against the first produces it. That is what F11 is for: ten patterns cut,
+one puts back.
 
 Brevity is not bluntness. Cutting the explanation a reader does not need is
 courtesy; cutting the greeting, the thanks, or the acknowledgement that somebody
@@ -174,6 +154,17 @@ it somewhere they can reach rather than to delete it. A short reply that names
 the file holding the long version respects the reader twice: once by being
 short, and once by not throwing the work away.
 
+**First contact.** Where the reader has had nothing from this writer before,
+the whole piece fits on one phone screen, about 150 words, and everything
+beyond that goes behind one link the reader can follow if they choose. The same
+350 words are an imposition from a stranger and a conversation after a reply;
+what changes is whether the reader asked for them. A first-contact piece that
+runs long is usually long because the story interested the writer.
+
+This is a flag, not a cut. The content is the writer's (constraint 4), so verve
+names the overrun and the paragraphs a link could carry, under the output, and
+leaves the words in place.
+
 ## Interaction with the tone presets
 
 The audience sets the register; the tone preset sets the surface. They are
@@ -189,15 +180,8 @@ the preset wins on style.
   reads as courtesy. Apply F8 anyway.
 - **Neutral** takes the guard as written.
 
-## The exit check
+## The gate
 
-The **audience fit** gate in `SKILL.md` step 7 checks this, and it is the gate
-the politeness check exits through. It asks whether the result respects the
-reader's intelligence, which is the question this file answers, and it is
-judged against group F rather than on feel.
-
-It passes only where nothing in group F survives and the warmth appropriate to
-the reader is intact. It fails where the text is clean of condescension but
-has gone cold, and it fails where a reader would finish it feeling talked down
-to or brushed off. Both failures are register failures; neither is traded
-against how well the prose reads.
+The **audience fit** gate in `SKILL.md` step 7 is where this is checked:
+against group F, never on feel. Clean but cold fails; talked down to fails.
+Neither is traded against how well the prose reads.
