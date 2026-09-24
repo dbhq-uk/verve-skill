@@ -6,7 +6,8 @@
 #
 # Fields:
 #   id                     unique, kebab-case
-#   kind                   triage | fidelity | variety | audience | overshare
+#   kind                   triage | fidelity | variety | audience | overshare |
+#                          tells | voice | detect | contact
 #   request                what the user asks, minus the text itself
 #   text                   the input passage
 #   unchanged              true if the output must match the input
@@ -15,6 +16,9 @@
 #   must_survive_any_case  must appear, case ignored. Ordinary vocabulary that
 #                          legitimately changes case when a sentence is recast
 #   must_go                must not appear, case ignored
+#   must_not_match         case-insensitive regular expressions that must not
+#                          match anywhere. For a shape that has to be absent in
+#                          any wording: a probability score, an invented "I"
 #   must_match             case-insensitive regular expressions that must each
 #                          match. A smoke check for content whose wording
 #                          legitimately varies (an apology, a modality near a
@@ -110,6 +114,28 @@ a pool with a ceiling of 20. Beginning at 02:14, the pool was exhausted, and \
 83% of requests subsequently failed. The deployment in question was dep-4471.
 """
 
+[[case]]
+id = "fidelity-rank-and-simultaneity"
+kind = "fidelity"
+request = "verve this:"
+must_survive = ["Harlow Water", "2019"]
+must_survive_any_case = ["only", "first", "weekly"]
+must_match = [
+  # The two series come out together. That claim lives in one word, and a
+  # rewrite that cuts "simultaneously" as filler has changed what happens.
+  '\b(?:simultaneous\w*|at once|at the same time|same time|together|alongside)\b',
+]
+must_go = ["stands as", "testament", "Notably", "Crucially"]
+max_loss = 0.5
+max_gain = 0.5
+why = "A ranking or a claim that things happen at once is carried by a single word - only, first, simultaneously - and those are exactly the words a sweep for inflation cuts as emphasis. humanizer hit this as a reported bug (#212, fixed in 2.11.3). A rewrite that makes Harlow one of several utilities, or has it publish the two series at different times, reads fine and says something else."
+text = """
+Notably, Harlow Water stands as the only utility in the region that publishes \
+its leak data weekly, and it was the first to do so, back in 2019. \
+Crucially, it releases the raw meter readings and the cleaned series \
+simultaneously, a testament to its commitment to transparency.
+"""
+
 # ---------------------------------------------------------------------------
 # Variety. Convert conventions, never terms.
 # ---------------------------------------------------------------------------
@@ -118,9 +144,15 @@ a pool with a ceiling of 20. Beginning at 02:14, the pool was exhausted, and \
 id = "variety-keeps-american-source"
 kind = "variety"
 request = "verve this:"
-must_survive_any_case = ["color", "behavior", "organize"]
+must_survive_any_case = ["color", "organize"]
+must_match = [
+  # "the behavior of each component" may legitimately become "how each
+  # component behaves". The variety check is that nothing is Britishised,
+  # which must_go carries; this only asserts the idea did not vanish.
+  '\bbehav(?:ior|iors|es|e|ed|ing)\b',
+]
 must_go = ["colour", "behaviour", "Delving", "holistic", "going forward"]
-why = "The default changed in the varieties PR: an American source stays American. Silently Britishising somebody's finished prose is the unrequested edit constraint 1 exists to stop. These three are ordinary vocabulary rather than identifiers, so casing may legitimately change when a sentence is recast."
+why = "The default changed in the varieties PR: an American source stays American. Silently Britishising somebody's finished prose is the unrequested edit constraint 1 exists to stop. These are ordinary vocabulary rather than identifiers, so casing may legitimately change when a sentence is recast, and 'behavior' may become 'behaves'."
 text = """
 The color system was designed to organize our tokens in a way that reflects \
 how the product actually behaves. Delving into the behavior of each component, \
@@ -331,4 +363,156 @@ from then and honestly the pipeline is quiet, so I can be flexible on rate if \
 that helps move things along.
 
 Let me know how you want to proceed.
+"""
+
+# ---------------------------------------------------------------------------
+# Tells. The strongest current tells go, whatever else happens.
+# ---------------------------------------------------------------------------
+
+[[case]]
+id = "tells-closers-and-contrast"
+kind = "tells"
+request = "verve this:"
+must_survive_any_case = ["caching", "repeat work", "retries", "outages"]
+must_go = ["real win", "not just", "Let that sink in"]
+max_loss = 0.75
+max_gain = 0.5
+why = "The two tells current models lean on hardest: a contrast against something nobody claimed, and a one-line closer that restates the paragraph before it. Both have to go on one sighting, and the two claims they decorate have to stay."
+text = """
+Caching isn't just a speed trick, it's a strategy. It cuts repeat work.
+
+That's the real win.
+
+Retries hide brief outages from the user.
+
+That's the real win. Let that sink in.
+"""
+
+[[case]]
+id = "tells-performed-candour"
+kind = "tells"
+request = "verve this:"
+must_survive = ["£1,200", "£1,450", "Brennan's"]
+must_survive_any_case = ["two days", "five"]
+must_go = [
+  "worth being precise",
+  "the honest answer",
+  "let me break this down",
+  "to be clear",
+]
+must_not_match = [
+  # The certificate reworded is the same certificate. A 2026-09-24 baseline
+  # run turned "It's worth being precise here" into "so to put it
+  # precisely:", which passed every phrase in must_go.
+  '\bprecise(?:ly)?\b',
+]
+max_loss = 0.7
+max_gain = 0.5
+why = "Performed rigour and staged candour: the writer announces that they are being careful or honest instead of being it. None of these was in verve's catalogue before September 2026, and a model that has been told to strip tells will happily keep all four. The figures and the delivery times are what the reader acts on."
+text = """
+It's worth being precise here, because this gets repeated a lot. To be clear, \
+the honest answer is that Brennan's delivers in two days and the old supplier \
+took five. Let me break this down: delivery is faster, and the cost is £1,200 \
+a month against £1,450.
+"""
+
+# ---------------------------------------------------------------------------
+# Voice. Putting a person back never means inventing one.
+# ---------------------------------------------------------------------------
+
+[[case]]
+id = "voice-no-invented-experience"
+kind = "voice"
+request = "verve this and make it sound more human:"
+must_survive = ["1982", "520", "125", "200"]
+must_go = ["testament", "pivotal"]
+must_not_match = [
+  # Reference prose with no writer in it. A first person here is an invented
+  # witness, which is the commonest way humanising goes wrong: it makes text
+  # sound more human by making it less true.
+  '(?-i:\bI\b)|\bmy\b|\bme\b|\bwe\b|\bour\b',
+]
+max_loss = 0.5
+max_gain = 0.6
+why = "Over-correction. 'Make it sound more human' tempts a rewrite to add a narrator - I remember, when I visited - and that is invention under constraint 3, however natural it reads. Reference text stays neutral: neutral is the human voice for an encyclopedia entry. The Chinese fork of humanizer names this the new AI tell; faking a person is how a humaniser gets caught."
+text = """
+The Thames Barrier, completed in 1982, stands as a pivotal testament to \
+British engineering. Spanning 520 metres across the river, it protects 125 \
+square kilometres of central London from tidal surges, and it has been \
+closed more than 200 times.
+"""
+
+# ---------------------------------------------------------------------------
+# Detect. Asked what gives text away, name it and quote it. No score, no
+# rewrite.
+# ---------------------------------------------------------------------------
+
+[[case]]
+id = "detect-names-and-quotes-no-score"
+kind = "detect"
+request = "does this read as AI-written? Don't rewrite it, just tell me what gives it away:"
+must_match = [
+  # Every flag carries a quote from the text. At least one of the plainest
+  # tells has to be quoted back.
+  'testament|pivotal|not just|vibrant|seamless',
+]
+must_not_match = [
+  # No probability. A percentage is a guess dressed as a measurement, and it
+  # is the first step towards tuning text against a classifier.
+  '\b\d{1,3}\s?%',
+  '\b(?:probability|likelihood|confidence score|ai score)\b',
+]
+why = "Detect mode. Somebody asking whether a draft reads as AI wants the evidence, quoted, so they can judge it themselves - not a rewrite they did not ask for, and never a percentage, which is a guess presented as a measurement and the first step towards detector evasion."
+text = """
+In today's fast-paced digital landscape, our platform isn't just a tool - \
+it's a partner. It stands as a testament to our pivotal commitment to \
+seamless, vibrant collaboration, empowering teams to unlock their full \
+potential.
+"""
+
+# ---------------------------------------------------------------------------
+# First contact. Long cold email is flagged, never cut.
+# ---------------------------------------------------------------------------
+
+[[case]]
+id = "contact-first-contact-length-flag"
+kind = "contact"
+request = "verve this - it's a first email to a founder I have never written to:"
+must_survive = ["Orla", "ScentVerdict", "2,400"]
+must_match = [
+  # The note fired. Heading wording is fixed by SKILL.md's Output section.
+  '(?m)^First contact \(not cut\):',
+]
+must_go = ["I hope this email finds you well", "delve", "reach out"]
+max_loss = 0.5
+why = "A stranger's first email costs the reader more per word than a reply does, and a long one is usually long because the story interested the writer. The flag names the overrun and where a link could carry the detail. It never cuts: the content is the writer's."
+text = """
+Dear Orla,
+
+I hope this email finds you well. My name is Dan and I run ScentVerdict, a \
+fragrance review site that I started last year after getting frustrated with \
+how hard it was to find honest reviews of niche perfumes.
+
+We delve deep into every fragrance we cover. Each review is based on at least \
+two weeks of wear, and we score longevity, projection and value separately, \
+because a single star rating hides too much. Over the last twelve months we \
+have published 2,400 reviews, and our readers tell us the separate scores are \
+the reason they come back.
+
+I have been following your house for a while and I think your approach to \
+small-batch releases is exactly the kind of story our readers care about. I \
+would love to review your autumn collection, and I would be happy to share \
+our methodology in more detail, including how we handle samples, how we \
+disclose free products, and how we make sure the review is independent of any \
+commercial relationship.
+
+We also run a monthly newsletter that goes to our most engaged readers, and \
+we have a small but growing presence on Instagram and TikTok, where short \
+wear-test videos have done particularly well.
+
+Please do reach out if this sounds interesting. I would be delighted to set \
+up a call at a time that suits you.
+
+Kind regards,
+Dan
 """

@@ -10,9 +10,49 @@ The reasoning behind the corpus, and behind the variety and audience features it
 checks, is recorded in
 [`docs/design/2026-09-06-varieties-audience-and-evals.md`](../docs/design/2026-09-06-varieties-audience-and-evals.md).
 
+## Three runs each, 24 September 2026
+
+Cases that held in all three runs, graded by the same `check()` against the
+current corpus, through `run.py --via cli`:
+
+| | Before the rewrite | After |
+|---|---|---|
+| `claude-opus-5-5`, all nineteen | 12 | **19** |
+| `claude-opus-5-5`, the thirteen that existed before that day | 9 | **13** |
+| `claude-sonnet-5`, all nineteen | 7 | **17** |
+| `claude-sonnet-5`, the original thirteen | 6 | **12** |
+
+The number that matters most is the second row. The instructions recorded as
+13/13 on one run failed four of those cases in at least one of three. One was a
+harness timeout; three were real faults in the instructions: F7's example
+taught dropping an owed apology (three runs out of three), an
+`Overshare (cut):` note paraphrased the words it had cut, and a *reach out*
+the corpus asserted gone was on no list the skill carried.
+`docs/design/2026-09-24-rewrite.md` has the detail.
+
+The two Sonnet misses after the rewrite are one run each: commentary in place
+of the triage text, and a closer folded into the sentence before it. Both are
+instructions the skill states and the model did not follow.
+
+Where the outputs are: the passing Opus runs at the top of `runs/`, which CI
+regrades on every push; the before-runs for both models in `runs/baseline/`
+and the after-runs on Sonnet in `runs/sonnet-5/`, which it does not, because
+they record failures rather than runs that should pass. The first Opus
+before-run holds one harness error, the timeout.
+
+Two caveats. The rewrite took six revisions to get here, each answering
+failures the previous run showed, so the final wording has been tuned against
+this corpus; the Sonnet runs are the partial check on that, since most of the
+tuning was done on Opus. And a substring check cannot see distortion: one
+fidelity output turned *stands as a testament to the Basque Country's
+commitment* into *was founded in 1989 as evidence of* it, which is close to the
+distortion recorded below and passed every assertion.
+
 ## The first run
 
-**9/9, on 8 September 2026, on `claude-opus-5`, once.**
+**9/9, on 8 September 2026, on `claude-opus-5`, once.** Superseded by the
+three-run comparison above; kept because its method notes still apply to any
+run done by hand.
 
 Read that with its method attached, because the method is not the one `run.py`
 describes.
@@ -100,10 +140,14 @@ the reason this directory exists rather than a unit test somewhere.
 ```bash
 python3 evals/run.py --dry-run          # validates the corpus, calls nothing
 python3 evals/mutate.py                 # checks the checker, calls nothing
+
+# Through the Claude Code CLI: no key, runs on whatever the CLI is logged in as
+python3 evals/run.py --via cli --runs 3 --jobs 6 --save /tmp/NAME
+
+# Through the API
 pip install anthropic
 export ANTHROPIC_API_KEY=...
-python3 evals/run.py                    # 10 cases, one call each
-python3 evals/run.py --runs 3           # repeat, report the worst result
+python3 evals/run.py --runs 3           # repeat, report every failure
 python3 evals/run.py --only audience    # one kind
 python3 evals/run.py --verbose          # print every rewrite
 
@@ -112,10 +156,18 @@ python3 evals/grade.py evals/runs/FILE.json   # grade outputs produced elsewhere
 
 Python 3.11 or newer, for `tomllib`.
 
-Thirteen cases is not a benchmark. It is a floor: the things that must not
+`--via cli` gives each call a fresh `claude -p` with the skill as the whole
+system prompt, no tools, no settings files and no `CLAUDE.md`, in an empty
+directory. A call occasionally stalls; the runner retries a timeout once, and a
+call that stalls twice is reported as a harness error rather than a verdict on
+the skill. `--save` writes one JSON per run in the shape `grade.py` reads.
+
+Always run three. One run can get lucky: see below.
+
+Nineteen cases is not a benchmark. It is a floor: the things that must not
 break.
 
-## The five kinds
+## The nine kinds
 
 **triage** gives it prose that already reads as human and asserts it comes back
 unchanged. A skill that always rewrites has lost the property that makes it safe
@@ -147,8 +199,22 @@ dated slip the client has to plan around and asserts no flag fires at all, which
 is the floor holding. A third asks for the cuts explicitly and asserts they are
 made and named.
 
-A limitation those three share, and it is worth knowing before reading a green
-run: verve's note is part of the output, so a `must_survive` string matches
+**tells** asserts that the strongest current tells go on one sighting - the
+contrast against something nobody claimed, the one-line closer, performed
+candour - and that a certificate reworded (*so to put it precisely*) still
+counts.
+
+**voice** asserts that *make it sound more human* does not add a narrator to
+reference text. An invented *I* is invention, however natural it reads.
+
+**detect** asserts that *does this read as AI?* is answered by quoting the tells,
+never with a percentage or a probability.
+
+**contact** asserts that a long first email to a stranger gets the first-contact
+flag, and keeps its content.
+
+A limitation the overshare cases share, and it is worth knowing before reading
+a green run: verve's note is part of the output, so a `must_survive` string matches
 whether it sits in the body or only in the note. The assertions cannot tell
 those apart. The cut case is written so the note must not echo what it removed,
 which catches the worst version, but the general case needs a reader.
@@ -261,8 +327,10 @@ themselves.
 
 ## The question waiting on this
 
-As of 2026-09-10 `SKILL.md` and its references come to 79,474 characters, up from 67,526 at the first run. It is not
-known whether that helps or dilutes, and nobody has tested it.
+As of 2026-09-24 `SKILL.md` and its references come to 101,715 characters, up from 67,526 at the first run, 79,474 on
+2026-09-10 and 98,752 just before the 24 Sep rewrite. The rewrite moved weight out of `SKILL.md` (3.2k words to 2.8k) and
+into the catalogue, and the total grew by about 4%. It is still not known whether the size helps or dilutes, and nobody
+has tested it.
 
 Once this has a baseline, that becomes a run rather than an argument: cut the
 references down, run the corpus again, compare. Related prior art is flint's

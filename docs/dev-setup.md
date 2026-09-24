@@ -36,7 +36,7 @@ The behaviour lives in prose, so verification is behavioural, and `evals/` is wh
 - **Triage still refuses to work.** Hand it something plainly human-written and confirm it comes back unchanged. A skill that always rewrites has lost the property that makes it safe to run on anything.
 - **Fidelity still vetoes.** Hand it a passage dense with figures and names, and confirm every one survives. This is the failure mode that matters, and it is the one a wordlist edit can quietly introduce.
 
-Both are cases in `evals/corpus.toml`, alongside variety and audience. `python3 evals/run.py` runs them for real and needs an `ANTHROPIC_API_KEY`; without one, do the rewrites in a session and grade them with `python3 evals/grade.py`. CI runs only the dry run, so a green CI run says the corpus loads and no code has crept into `skills/`, not that the skill still works. [`evals/README.md`](../evals/README.md) says what the assertions can and cannot see.
+Both are cases in `evals/corpus.toml`, alongside variety and audience. `python3 evals/run.py --via cli --runs 3` runs them for real through the `claude` CLI, and `python3 evals/run.py` does the same through the API with an `ANTHROPIC_API_KEY`; outputs produced any other way are graded with `python3 evals/grade.py`. CI runs only the dry run, so a green CI run says the corpus loads and no code has crept into `skills/`, not that the skill still works. [`evals/README.md`](../evals/README.md) says what the assertions can and cannot see.
 
 ## Where the content lives
 

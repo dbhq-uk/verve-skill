@@ -23,25 +23,39 @@ line.
 
 Entirely in the conversation. No extra API calls, no cost, nothing to install.
 
+A model writes the choice that suits the widest range of readers; a person
+writes for one. Every tell in the catalogue is a form of that default choice,
+grouped by what it is doing: staging instead of stating, inflation and
+borrowed authority, rhythm and structure by rule, formatting by rule, and
+leftovers from the chat. Each is marked **on sight** (one instance justifies an
+edit) or **needs company** (a habit careful writers share, acted on only where
+tells cluster), and the strongest lead.
+
 0. **The request and the preferences** - what was asked, then saved settings
    from `.verve.md` or a `## Verve` section in `CLAUDE.md`, project first,
    then home. The request beats both.
-1. **Triage** - returns text that already satisfies the request unchanged
-   rather than mangling it. An explicit conversion or audience change is
+1. **Triage** - text that already satisfies the request comes back unchanged
+   with one line saying so. An explicit conversion or audience change is
    always carried out.
-2. **Tone, variety and audience** - neutral / casual / professional / academic,
-   British or American, and the reader it is pitched at, all held throughout.
-3. **Pattern sweep** - seven groups of tells (content, language, style,
-   assistant artefacts, filler, condescension, overshare) with before/after for
-   each. The last two are the politeness check and the overshare check, below.
-   Every substantive cut names what goes with it first.
-4. **Voice pass** - opinions, rhythm variance, specificity, within the tone,
-   matching the author's own writing where a sample exists.
-5. **Quick checks** - a pre-flight list run against the draft.
-6. **Fidelity readback** - a claim inventory built before the rewrite,
-   answered from source and rewrite and compared, in both directions.
-7. **Exit checks** - fidelity, audience fit and disclosure, each pass or fail
-   on its own.
+2. **The reader** - tone, variety, audience, whether this is first contact,
+   and whether it is one of a set.
+3. **Inventory** - what the source commits to, written down before a rewrite
+   exists to bias it.
+4. **The tells** - marked strongest first, then the politeness check (group F)
+   and the overshare check (group G), which flags and never cuts.
+5. **Rewrite** - each point stated plainly, then a voice put back within the
+   tone, matching the author's own writing where a sample exists.
+6. **Check** - the inventory answered from source and rewrite in both
+   directions, a search for the tells that most often survive, and a check
+   for over-correction: an invented narrator, a stance added to neutral text.
+7. **Gates** - fidelity, audience fit, disclosure and, for a set, the set
+   check, each pass or fail on its own.
+
+Four modes: **rewrite** (the default), **detect** (*"does this sound like
+AI?"* - the tells quoted and named, strongest first, no rewrite and never a
+percentage), **file** (only prose changes; code, frontmatter and link targets
+stay byte for byte) and **embedded** (another skill runs verve on its own
+draft and gets back the text and any notes, to pass on).
 
 ## Politeness check
 
@@ -90,6 +104,23 @@ that helps you conceal, and the floor is the line between them. The
 **disclosure** exit check fails on a cut nobody named, and on a flag raised
 against something on that floor. Full model in `references/overshare.md`.
 
+## Set check
+
+Send eight messages to eight people, pass each through verve on its own, and
+each can come back clean while all eight open with the same move, run the same
+paragraph order and close on the same formula. The recipient who compares notes
+reads the template straight through the wording. So a set gets a table before
+anything is rewritten - one row per piece: what its first paragraph does, its
+paragraph order, what its last paragraph does - and the **set** gate passes
+only when no two rows share an opener, an order or a closer. The fix is a
+reorder, which moves paragraphs and changes no content. Each piece is
+delivered with its row under it.
+
+Alongside it, a flag for first contact: where the reader has had nothing from
+the writer before and the piece runs past about 150 words, a line under the
+output names the length and the paragraphs a link could carry. The text is
+never cut for it.
+
 ## Setup
 
 None. The skill is instructions, not tooling.
@@ -108,6 +139,8 @@ None. The skill is instructions, not tooling.
 "verve this and check it doesn't talk down to them"
 "verve this and cut the oversharing"
 "verve draft.md - am I giving too much away?"
+"does this read as AI? just tell me what gives it away"
+"verve these four emails, one per recipient"
 ```
 
 ## Options
@@ -120,7 +153,7 @@ None. The skill is instructions, not tooling.
 | Audience | who it is for, in plain words | infer from the text, else assume competence |
 | Overshare | flag, cut, off | flag |
 | Explain | on / off | off |
-| Output | conversation, save to file | conversation |
+| Output | conversation, save to file, in place | conversation |
 
 `Overshare: cut` is the one value a saved preferences file may not set, because
 a `.verve.md` arrives with any repository you clone and nothing found on disk
@@ -130,11 +163,11 @@ gets to authorise dropping a fact from your draft.
 
 ```
 verve/
-├── SKILL.md                    # Workflow, constraints, quick checks, exit gates
+├── SKILL.md                    # Modes, constraints, workflow, gates, output
 └── references/
-    ├── patterns.md             # The tell catalogue, before/after for each
+    ├── patterns.md             # The tell catalogue, strongest first; the set table; what is not a tell
     ├── wordlist.md             # Flat scannable word and phrase lists
-    ├── voice.md                # Tone presets and restoring voice
+    ├── voice.md                # Tone presets, restoring voice, over-correction
     ├── varieties.md            # British and American conventions, and what never converts
     ├── audience.md             # Who the text is for, and the register that follows
     ├── overshare.md            # Whether the writer should be saying it at all
@@ -150,7 +183,19 @@ no network.
 
 ## What this will not do
 
-Route your text through a detector-evasion service. An optional commercial API
-for that shipped with earlier versions and was removed in July 2026: the point
-is prose a human judgement shaped, not text tuned to score well against a
-classifier.
+Route your text through a detector-evasion service, or tune it to score
+against a classifier. An optional commercial API for that shipped with earlier
+versions and was removed in July 2026: the point is prose a human judgement
+shaped, not a score. Detect mode follows from the same line - it quotes and
+names the tells so you can judge them, and never gives a probability.
+
+## Sources
+
+The catalogue draws on Wikipedia's [Signs of AI
+writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing),
+maintained by WikiProject AI Cleanup, and on
+[blader/humanizer](https://github.com/blader/humanizer) (MIT) and its forks,
+reviewed in September 2026: the account of the default choice, strength
+ordering, and several tells, among them arguing with no one, performed candour,
+reasoning scaffolding and hidden characters. What verve adds is in the sections
+above.

@@ -99,44 +99,26 @@ An email, a letter, a proposal, a client note or anything with a salutation
 addressed outside the writer's own organisation counts as plainly
 outward-facing without being told.
 
-## What the note looks like
+## The note
 
-Under the rewritten text, and only where something fired:
-
-```
-Overshare (not cut):
-- You give the reason you missed Friday. He asked for the date, not the why.
-- Paragraph 3 names the other client's rate.
-```
-
-One line each: what it is, and why it fired. Name the thing in the writer's own
-terms rather than citing a pattern number at them.
-
-Nothing fires, nothing is said. That is the rule the preferences lookup already
-follows for a file that is not there, and it matters more here: a check that
-speaks on every run gets ignored within a week, and then it is not a check.
-
-Where the request asked for cuts, the heading is `Overshare (cut):` and the
-same lines describe what was removed.
+The format is in `SKILL.md` Output: one line per candidate, what it is and why
+it fired, in the writer's own terms rather than a pattern number. Nothing
+fires, nothing is said.
 
 **A cut line describes what went; it never reproduces it.** *"The other client
-and what you are doing for them"*, not *"the Northwind engagement"*. The note
-is part of the output, so quoting the removed words back puts them straight
-into the thing the user asked you to take them out of, and the cut becomes a
-relocation. Name the shape, not the content.
+and what you are doing for them"*, not *"the Northwind engagement"*. *"How much
+work you have on, and room on price"*, not *"that your pipeline is quiet and
+you are flexible on rate"*: a paraphrase that keeps the words is still a
+quotation. The note is part of the output, so quoting the removed words back
+puts them straight into the thing the user asked you to take them out of, and
+the cut becomes a relocation. Name the shape, not the content.
 
 This does not apply to `Overshare (not cut):`, where the text is still there
 and naming it is how the writer finds it.
 
-## The exit gate
+## The gate
 
-The **Disclosure** gate in `SKILL.md` step 7 checks this, pass or fail on its
-own like the other two.
-
-It passes when every candidate is either left in place and listed, or removed
-under an explicit request and named.
-
-It fails when anything was removed without being named, and it fails when
-something on the floor list was flagged. The second failure is the one to
-watch, because it is the one that does damage: the first costs the writer a
-sentence they wanted, the second costs the reader something they needed.
+The **disclosure** gate in `SKILL.md` step 7. It fails when anything was
+removed without being named, and when something on the floor was flagged. Watch
+the second: the first costs the writer a sentence they wanted, the second costs
+the reader something they needed.

@@ -40,7 +40,9 @@ Five more, including the failure mode where a rewrite cuts content along with th
 
 Meaning holds the veto. Every fact, number, name, date and citation survives unchanged; technical terms keep their exact wording; nothing is invented.
 
-Before delivery the rewrite passes three gates, each pass or fail on its own: a fidelity readback in both directions, an audience-fit check, and a disclosure check. There is no total for good rhythm to buy a changed meaning back with.
+Before delivery the rewrite passes its gates, each pass or fail on its own: a fidelity readback in both directions, an audience-fit check, a disclosure check, and for a batch of messages a set check. There is no total for good rhythm to buy a changed meaning back with.
+
+**It knows which tells matter.** Every tell in the catalogue is marked *on sight*, where one instance justifies an edit, or *needs company*, where a careful writer does it on purpose too and only a cluster counts. The strongest lead: the not-X-but-Y contrast, the one-line closer, the staged run-up, arguing with an objection nobody raised, and certifying your own candour (*to be clear*, *the honest answer is*). A lone curly quote is not treated like any of those. And a humanised draft is checked for the tells humanising leaves behind: an invented narrator, a stance added to neutral text, the same breezy voice given to everything.
 
 Aggressive rewriting tempts a model to compress three real points into one punchy line. That is the failure this guards against.
 
@@ -91,7 +93,7 @@ whole skill directory is symlinked untouched, while Codex does not, so its
 
 ### Let the agent do it
 
-For an agent none of the above covers, paste [`prompts/install.md`](prompts/install.md) into a session. It finds the skills directory, fetches the eight files, puts them in the right layout and asks before overwriting anything already there.
+For an agent none of the above covers, paste [`prompts/install.md`](prompts/install.md) into a session. It finds the skills directory, fetches the nine files, puts them in the right layout and asks before overwriting anything already there.
 
 **Nothing to install beyond that.** No packages, no virtualenv, no credentials, no network. The skill is instructions and reference material, not tooling.
 
@@ -103,7 +105,7 @@ reads, with no script to run, no interpreter and no key. If your host can
 install a skill, you meet the floor.
 
 The eval harness in `evals/` is the exception, and it is not part of using
-the skill: it needs Python 3 and an `ANTHROPIC_API_KEY` to score a real run.
+the skill: it needs Python 3, and either the `claude` CLI or an `ANTHROPIC_API_KEY`, to score a real run.
 
 ## Usage
 
@@ -163,18 +165,20 @@ The register model behind it, and the two tests applied before anything is cut o
 
 **Variety** picks the English. Ask for it by name and that settles it. Say nothing and verve reads what the draft already is and keeps it, falling back to British when the draft gives no signal either way. Code, quotations, proper nouns, titles and standards text are never converted whichever variety you choose: `background-color` stays `background-color`, and the World Health Organization keeps its `z`.
 
-**Strength** is the dial worth knowing. *Light* touches only the unmistakable tells - banned words, em dashes, chatbot artefacts, sycophancy - and leaves sentence structure alone. *Moderate*, the default, adds rhythm and voice work. *Heavy* restructures freely and rewrites most sentences from scratch. The meaning constraints hold at every level, without exception.
+**Strength** is the dial worth knowing. *Light* touches only the tells marked on sight - the contrasts, closers, run-ups, inflation, chatbot wrappers and em dashes - and leaves sentence structure alone. *Moderate*, the default, adds the weaker tells where they cluster, plus rhythm and voice work. *Heavy* restructures freely and rewrites most sentences from scratch. The meaning constraints hold at every level, without exception.
+
+**Detect** is a mode rather than a setting. Ask *"does this sound like AI?"* and verve quotes each tell, strongest first, says what it does, and names what reads as a person. It does not rewrite unless asked, and it never gives a percentage: a tell shows a default choice, not who typed it.
 
 ## How it works
 
 0. **The request and the preferences** - what was asked, then saved settings and never-change terms, project first, then home
 1. **Triage** - text that already satisfies the request is returned unchanged rather than mangled; an explicit conversion or audience change is always carried out
-2. **Tone, variety and audience** - one of four tone presets, British or American, and the reader it is pitched at, all held throughout
-3. **Pattern sweep** - seven groups of tells (content, language, style, assistant artefacts, filler, condescension, overshare), each with before/after. The condescension group is the politeness check, judged against the reader set in step 2 rather than on its own; the overshare group is the disclosure check, and it flags rather than cuts. Every substantive cut names what goes with it before it is made
-4. **Voice pass** - put opinions, rhythm and specificity back, inside the tone, matching the author's own writing where a sample exists
-5. **Quick checks** - a pre-flight list run against the draft
-6. **Fidelity readback** - a claim inventory built before the rewrite, answered from source and rewrite and compared, in both directions
-7. **Exit checks** - fidelity, audience fit and disclosure, each pass or fail on its own, no total to trade against
+2. **The reader** - one of four tone presets, British or American, the reader it is pitched at, whether this is first contact, and whether it is one of a set
+3. **Inventory** - what the source commits to, written down before a rewrite exists to bias it
+4. **The tells** - five families, strongest first: staging instead of stating, inflation and borrowed authority, rhythm and structure by rule, formatting by rule, and leftovers from the chat. Then the politeness check (group F), judged against the reader, and the overshare check (group G), which flags rather than cuts. Every cut names what goes with it before it is made
+5. **Rewrite** - each point stated plainly, then a voice put back inside the tone, matching the author's own writing where a sample exists
+6. **Check** - the inventory answered from source and rewrite in both directions, a search for the tells that most often survive, and a check for over-correction
+7. **Gates** - fidelity, audience fit, disclosure and, for a set, the set check, each pass or fail on its own, no total to trade against
 
 ## Audit a whole repository
 
@@ -194,7 +198,7 @@ Want to hack on the skill or run it from source with live edits? See [`docs/dev-
 
 [`CONTRIBUTING.md`](CONTRIBUTING.md) covers working on it, and [`AGENTS.md`](AGENTS.md) is for an AI agent doing so. The skill itself is [`skills/verve/SKILL.md`](skills/verve/SKILL.md).
 
-[`evals/`](evals/) holds a fixed corpus that checks the skill rather than describing it: triage leaves human prose alone, every figure and identifier survives a rewrite, a variety conversion never reaches code or proper nouns, and the audience guard cuts the gloss without cutting the apology.
+[`evals/`](evals/) holds a fixed corpus that checks the skill rather than describing it: triage leaves human prose alone, every figure and identifier survives a rewrite, a variety conversion never reaches code or proper nouns, the audience guard cuts the gloss without cutting the apology, the strongest tells go, a humanised draft invents no narrator, and detect mode quotes rather than scores.
 
 The assertions are substring and pattern checks. They catch deletion, not distortion, so a green run is not a substitute for reading the output.
 
@@ -238,3 +242,7 @@ Plus [heliograph](https://skills.dbhq.uk/heliograph/), for a machine you cannot 
 ## Licence
 
 [MIT](LICENSE) © 2026 DBHQ Consulting Ltd
+
+## Sources
+
+The catalogue draws on Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup, and on [blader/humanizer](https://github.com/blader/humanizer) (MIT) and the forks of it that changed something, reviewed in September 2026. The account of the default choice and the strength ordering come from humanizer 3.0; several tells, and detect mode's refusal to give a score, come from the jooray fork; the over-correction check from the Chinese-language fork. What verve adds - the constraints and the readback, triage, the politeness and overshare checks, varieties, preferences and the evals - is described above. The review is in [`docs/design/2026-09-24-rewrite.md`](docs/design/2026-09-24-rewrite.md).

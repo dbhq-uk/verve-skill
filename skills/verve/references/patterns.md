@@ -1,475 +1,500 @@
-# Pattern catalogue
+# Tell catalogue
 
-Every tell has three parts: what it looks like, why it reads as machine-made,
-and a *Before → After* to match in spirit. Flat word and phrase lists live in
-`wordlist.md`; this file covers patterns you have to recognise rather than
-grep for.
+## Why these read as machine-made
 
-Seven groups: **A** content, **B** language and structure, **C** style and
-formatting, **D** assistant artefacts, **E** filler and hedging, **F**
-condescension, overreach and curtness, **G** overshare.
+A model writes whatever is most likely to come next, so by default it makes the
+choice that fits the widest range of readers and subjects. A person chooses for
+one reader and one subject, and their choices come out uneven and specific.
+Every tell below is one form of the default choice:
 
-Groups A to E judge the writing on its own. Group F judges it against its
-reader, so it needs `audience.md` alongside it. Group G judges it against the
-writer's own interests and against whoever is not in the room, so it needs
-`overshare.md` - and alone among the seven it flags rather than cuts.
+- **A. Staging instead of stating.** The sentence signals that something
+  matters instead of saying what it is.
+- **B. Inflation and borrowed authority.** An ordinary fact dressed as
+  pivotal, promotional or expert-backed.
+- **C. Rhythm and structure by rule.** Threes, dashes, parallel paragraphs and
+  connectives applied everywhere, whether or not the meaning asks for them.
+- **D. Formatting by rule.** Bold, title case and emoji put on every item.
+- **E. Leftovers.** Chat wrappers and drafting scaffolding never meant for the
+  reader.
 
-Several *After* lines below add a date, a source or a named detail to show what
-the fix looks like when the writer has one. They illustrate the shape of a fix;
-they are not licences. In a real run every fact in the source survives
-(constraint 1), nothing is added (constraint 3), and a cut that would lose a
-claim is not made (constraint 4). Where the source lacks the specific an
-*After* line shows, the sentence keeps its claim: *"Experts believe it plays a
-crucial role in the regional ecosystem"* stays as it stands, with the
-unresolved attribution flagged, because deleting *experts believe* turns their
-opinion into yours and swapping in a specific invents. Hard constraint 3 has
-no exceptions, and `examples.md` works the same rule through full passages
-whose after-texts use only what their before-texts contain.
+Two more groups judge the text against people rather than against itself:
+**F**, how it treats its reader (with `audience.md`), and **G**, what the
+writer is giving away (with `overshare.md`, and it flags rather than cuts).
+**S** is the check across a set of pieces.
 
----
+Word habits change with every model release; the structural habits persist.
+That is why the structural tells lead and the vocabulary sits in
+`wordlist.md`.
 
-## A. Content patterns
-
-**A1. Significance inflation.** *stands as, serves as, is a testament to,
-pivotal, key role, evolving landscape, indelible mark, deeply rooted.* Ordinary
-facts puffed into civilisational milestones.
-
-> Before: *was established in 1989, marking a pivotal moment in the evolution of regional statistics*
-> After: *was established in 1989 to collect regional statistics independently of Spain's national office*
-
-**A2. Notability name-drops.** *cited in The New York Times, BBC, Financial
-Times; active social media presence; written by a leading expert.* Credentials
-dropped in without context, doing no work.
-
-> Before: *Her views have been cited in the NYT, BBC, FT and The Hindu. She has 500k followers.*
-> After: *In a 2024 NYT interview she argued that AI regulation should focus on outcomes, not methods.*
-
-The After assumes the source contains the interview. Where the source gives
-only the list, the list is facts and it stays (constraint 1); the fix is
-anchoring a name-drop to the specific behind it, never trading facts away for
-one.
-
-**A3. Superficial *-ing* analyses.** *highlighting, underscoring, emphasising,
-reflecting, symbolising, contributing to, fostering, showcasing.* Present
-participles tacked on for fake depth.
-
-> Before: *…resonates with the region's natural beauty, symbolising the bluebonnets, reflecting the community's deep connection to the land.*
-> After: *…uses blue, green and gold; the architect chose them to reference local bluebonnets and the Gulf coast.*
-
-**A4. Promotional / brochure language.** *nestled, vibrant, breathtaking,
-must-visit, stunning, rich (figurative), boasts a, in the heart of, renowned.*
-
-> Before: *Nestled in the breathtaking region of Gonder, Alamata stands as a vibrant town with rich cultural heritage.*
-> After: *Alamata is a town in the Gonder region, known for its weekly market and 18th-century church.*
-
-**A5. Vague attribution.** *industry reports, observers have noted, experts
-argue, several sources.* No source named behind any of it. Fully fixable only
-when the source carries the source; otherwise keep the claim and its
-attribution and flag the attribution as unresolved. Do not delete the
-attribution - that converts somebody's opinion into the writer's own assertion
-- and do not silently drop the claim.
-
-> Before: *Experts believe it plays a crucial role in the regional ecosystem.*
-> After: *It supports several endemic fish species, according to a 2019 survey by the Chinese Academy of Sciences.*
-
-**A6. Formulaic "challenges and future prospects".** *Despite its… faces several
-challenges… Despite these challenges… continues to thrive.*
-
-> Before: *Despite challenges typical of urban areas, Korattur continues to thrive as part of Chennai's growth.*
-> After: *Traffic worsened after 2015 when three IT parks opened; the council began a drainage project in 2022.*
-
-**A7. Vague declaratives.** A sentence that asserts importance, depth or
-structure without naming the thing. *The reasons are structural. The
-implications are significant. The stakes are high. This is the deepest problem.*
-
-Distinct from A1: A1 inflates a real fact, A7 has no fact in it at all. If the
-sentence would survive being pasted into an unrelated document, it is filler.
-
-> Before: *The implications for hiring are significant. The reasons are structural.*
-> After: *Teams now interview for judgement rather than recall, because the recall half is automated.*
-
-**A8. Telling instead of showing.** Announcing difficulty, importance or
-authenticity rather than demonstrating it. *This is genuinely hard. This is what
-leadership actually looks like. This actually matters.*
-
-> Before: *Getting this right is genuinely hard. This is what real engineering discipline looks like.*
-> After: *The migration took four attempts. The first three passed CI and broke in production.*
+**On sight** means one instance justifies an edit. **Needs company** means a
+careful writer does this on purpose too, so act only where other tells cluster
+in the same passage. Count a cluster once. Nothing here overrides the hard
+constraints: several *After* lines use a detail to show the shape of a fix, and
+they are not licences. In a real run the detail must already be in the source,
+and where it is not, the claim stays as the writer made it.
 
 ---
 
-## B. Language and structure
+## A. Staging instead of stating
 
-**B1. AI vocabulary.** *delve, tapestry, leverage, utilise, realm, landscape,
-pivotal, intricate, harness, groundbreaking, navigate, testament, robust,
-holistic, foster, garner, underscore, showcase, interplay* and the rest. Full
-list plus plain replacements in `wordlist.md`.
+The strongest and most frequent tells in current model prose. All on sight.
 
-**B2. Copula avoidance.** Elaborate constructions standing in for *is*, *are*,
-*has*.
+**A1. Not X but Y.** A negation set up only to be knocked down: *not just X,
+it's Y*; *it's not X, it's Y*; *X isn't the problem. Y is*; *it looks like X.
+It's actually Y*; *stops being X and starts being Y*; the same move split
+across two sentences (*This doesn't mean X. It means Y.*); the stretched form
+(*Not a X. Not a Y. A Z.*); and the clipped tail (*..., no guessing*). The
+negative half names something nobody claimed, so the positive half sounds
+bigger without saying more. State Y.
 
-> Before: *Gallery 825 serves as LAAA's exhibition space. The gallery features four rooms and boasts over 3,000 sq ft.*
-> After: *Gallery 825 is LAAA's exhibition space. It has four rooms and over 3,000 sq ft.*
+> Before: *It's not just about the beat; it's part of the aggression.*
+> After: *The beat is part of the aggression.*
 
-**B3. Negative parallelism and binary contrast.** The single most reliable tell
-in current model prose. Every variant of setting up a negation to knock it down:
+Rewording it into *more than X; it is Y* or *X, yes, but also Y* keeps the
+move and is not a fix. Keep the negation when it rules something out that the
+reader may believe, or when both halves carry information. *"The failure was not caused by your
+configuration"* is a correction and stays. *Not only faster but also cheaper*
+becomes *faster and cheaper*: both claims survive.
 
-| Variant | Example |
-|---|---|
-| Not X, but Y | *It's not just a song, it's a statement.* |
-| The answer/question isn't X, it's Y | *The question isn't whether, it's when.* |
-| X isn't the problem. Y is. | *Technology isn't the problem. Culture is.* |
-| It feels like X. It's actually Y. | *It looks like a pricing issue. It's a trust issue.* |
-| Stops being X and starts being Y | *The tool stops being a helper and starts being a colleague.* |
-| Not only X but also Y | *Not only faster but also cheaper.* |
+**A2. Closers, fragments and emphasis crutches.** A one-sentence paragraph that
+restates the paragraph before it; the same closer after several sections;
+stacked fragments (*No prior. No nostalgia. Just data.*); *Let that sink in*,
+*Read that again*, *Full stop*, *Make no mistake*; *every. single. day.*; one
+word in capitals. The line asks the reader to pause on a claim instead of
+adding to it. Cut the closer that repeats, and cut it whole: folding it into
+the sentence before (*its real win is cutting repeat work*) keeps the tell.
+Fold stacked fragments into one sentence that carries the claim. A single short sentence that brings a new fact is good
+writing, and `voice.md` asks for one now and then.
 
-**Fix:** where the contrast is rhetorical scaffolding, state Y and drop the
-negation. *The heavy beat adds to the aggression* beats *it's not just about
-the beat; it's part of the aggression*. Where the negation carries
-information, keep both halves. *Not only faster but also cheaper* becomes
-*faster and cheaper* - both claims survive - and a correction such as *"The
-failure was not caused by your configuration"* stays a negation, because
-ruling something out is the point of the sentence. The tell is the empty
-setup, never negation itself.
+> Before: *Caching cuts repeat work.* / *That's the real win.* / *Retries hide brief outages.* / *That's the real win.*
+> After: *Caching cuts repeat work, and retries hide brief outages.*
 
-**B4. Negative listing.** The same move stretched over several sentences.
-*Not a X. Not a Y. A Z.* / *It wasn't X. It wasn't Y. It was Z.* State Z; the
-reader does not need the runway. As with B3, keep any ruled-out item that
-corrects a real misunderstanding: the tell is the rhetorical runway, not
-exclusion itself.
-
-**B5. False agency.** Inanimate subjects given human verbs. Models reach for
-this constantly because it lets them avoid naming who did anything.
-
-| Pattern | What actually happened |
-|---|---|
-| *a complaint becomes a fix* | Someone read it and fixed it. |
-| *the decision emerges* | Someone decided. |
-| *the culture shifts* | People changed how they behave. |
-| *the conversation moves toward* | Someone steered it. |
-| *the data tells us* | Someone read the data and drew a conclusion. |
-| *the market rewards* | Buyers paid for it. |
-| *a bet lives or dies in days* | Someone shipped it or killed it. |
-
-**Fix:** name the human. If no specific person fits, use *you* and put the
-reader in the seat, subject to the tone preset (see `voice.md` - academic and
-professional presets restrict second person).
-
-**B6. Narrator from a distance.** Floating above the scene rather than standing
-in it. *Nobody designed this. People tend to. This happens because. This is why.*
-
-> Before: *Nobody designed this. Organisations tend to accumulate process over time.*
-> After: *You don't sit down one morning and decide to add four approval steps. You add one, then another, after each thing goes wrong.*
-
-Tone-dependent: fine in academic register, a tell in essays and blog posts.
-
-**B7. Rule of three.** Forced triplets to sound comprehensive. Two items are
-almost always enough.
-
-> Before: *talks, panels and networking opportunities; innovation, inspiration and insight.*
-> After: *talks and panels, plus informal networking between sessions.*
-
-**B8. Elegant variation.** Synonym cycling driven by repetition penalties.
-
-> Before: *The protagonist faces challenges. The main character overcomes obstacles. The central figure triumphs. The hero returns home.*
-> After: *The protagonist faces challenges but eventually triumphs and returns home.*
-
-**B9. False ranges.** *from X to Y* where X and Y sit on no real scale.
-
-> Before: *from the Big Bang to the cosmic web, from the birth of stars to the dance of dark matter*
-> After: *covers the Big Bang, star formation and current theories about dark matter*
-
-**B10. Passive voice and subjectless fragments.** Passive hides the actor and
-drains the sentence.
-
-> Before: *No configuration file needed. The results are preserved automatically.*
-> After: *You don't need a configuration file. The system preserves results automatically.*
-
-Keep the passive where the actor is genuinely unknown or irrelevant, and in
-academic register where convention expects it.
-
-**B11. Persuasive authority tropes.** *the real question is, at its core,
-fundamentally, what really matters, the heart of the matter.* Ceremony around an
-ordinary point.
+**A3. Sayings that sound deep.** *The real question is, at its core, what
+really matters, fundamentally, the heart of the matter*; aphorism formulas (*X
+is the language of Y*, *X becomes a trap*, *X is not a tool but a mirror*); and
+portentous shorthand, where a fact the writer has is swapped for an ominous
+possession (*this advantage has a date*). Replace the saying with the claim it
+gestures at.
 
 > Before: *The real question is whether teams can adapt. At its core, what matters is organisational readiness.*
 > After: *Whether teams can adapt depends mostly on whether the organisation is ready to change its habits.*
 
-**B12. Lazy extremes.** *every, always, never, everyone, nobody, all.* False
-authority standing in for a specific claim. Replace with the actual scope.
-
-> Before: *Everyone knows this approach never scales.*
-> After: *Both teams that tried it hit the same lock contention at around 200 writers.*
-
-**B13. Wh- opener crutch.** *What makes this hard is… Why this matters is…
-How teams solve this is…* Occasional use is fine; models use it as a default
-sentence shape. If two or more appear in a passage, restructure so the subject
-leads.
-
-> Before: *What makes migrations painful is the rollback path.*
-> After: *The rollback path is what makes migrations painful.* Or better: *Migrations hurt because rolling one back means replaying six hours of writes.*
-
----
-
-## C. Style and formatting
-
-**C1. Em dashes.** Used far more by models than by people. Replace with commas,
-full stops, semicolons or brackets.
-
-**C2. Boldface emphasis.** Mechanical inline bolding of key terms. Strip unless
-the source genuinely uses bold for UI labels or defined terms.
-
-**C3. Inline-header vertical lists.** Bullets shaped `- **Foo:** …`. Convert to
-prose unless a real list is warranted.
-
-**C4. Title Case Headings.** Use sentence case: *## Strategic negotiations and
-global partnerships*.
-
-**C5. Emojis in headings and bullets.** 🚀 💡 ✅ - remove unless the source
-document genuinely uses them.
-
-**C6. Curly quotes.** Replace typographic quotes with straight ones unless the
-source is typeset prose where curly is correct.
-
-**C7. Dramatic fragmentation.** Stacked fragments performing profundity.
-*[Noun]. That's it. That's the [thing]. X. And Y. And Z.*
-
-A single fragment for emphasis is good writing and `voice.md` asks for one
-occasionally. Stacking them is the tell. One per few hundred words reads as a
-choice; three in a row reads as a template.
-
-> Before: *Speed. Quality. Cost. You can only pick two. That's it. That's the tradeoff.*
-> After: *You get two of speed, quality and cost. Everyone picks cost and regrets it.*
-
----
-
-## D. Assistant artefacts
-
-**D1. Chatbot artefacts.** *I hope this helps! Of course! Certainly! You're
-absolutely right! Let me know if you'd like… Here's an overview of…* Strip
-entirely.
-
-**D2. Knowledge-cutoff disclaimers.** *As of my last update, while specific
-details are limited, based on available information.*
-
-**D3. Sycophancy.** *Great question! That's an excellent point!* Delete.
-
-**D4. Signposting.** *Let's dive in, let's explore, let's break this down,
-here's what you need to know, without further ado.* Do the thing instead.
+**A4. Run-ups, signposts and hinges.** The writer announces the point instead
+of making it. Openers: *Let's dive in, Here's the thing, Here's what you need
+to know, Honestly?, Look, The truth is, It turns out, In today's world, When it
+comes to*, and in a letter the stock pleasantry after the greeting (*I hope
+this email finds you well*, *I hope you are keeping well*). Hinges between sentences: *Where we are is that, What this means
+is, The upshot is, Which brings us to*. Meta-commentary: *In this section we'll,
+As we'll see, Let me walk you through*. The staged reveal: *The best part: it
+learns.* The setup question: *What if...? Think about it:*. The hedged
+enumeration that opens an answer: *There are several factors to consider*. Cut
+the run-up, not just its tone, and let the point lead. *Honestly* inside a
+casual sentence is ordinary; the tell is the standalone opener before a routine
+claim.
 
 > Before: *Let's dive into how caching works in Next.js. Here's what you need to know.*
-> After: *Next.js caches data at several layers: request memoisation, the data cache, and the router cache.*
+> After: *Next.js caches data at several layers: request memoisation, the data cache and the router cache.*
 
-**D5. Fragmented headers.** A heading followed by a one-line paragraph that
-restates the heading.
+**A5. Arguing with no one.** An answer to an objection nobody raised, or the
+rejection of an option nobody proposed: *This isn't about X, I'm not saying,
+Don't get me wrong, Some might argue, A tempting approach would be, You might
+think... but*. Usually a leftover from an earlier draft that tried another
+position. Remove the defence; where it carries a real claim, state the claim.
+Keep an objection the text attributes to someone or answers in full, and an
+option a reader of that document would genuinely weigh.
 
-> Before: *## Performance* / *Speed matters.* / *When users hit a slow page they leave.*
-> After: *## Performance* / *When users hit a slow page they leave.*
+> Before: *Tokens rotate every 24 hours. A tempting approach would be to restart the auth service on a cron job, but that would drop every session. Rotation happens in place.*
+> After: *Tokens rotate every 24 hours, in place.*
 
-**D6. Meta-commentary.** The piece narrating its own structure instead of
-having one. *The rest of this essay explains… In this section, we'll… Let me
-walk you through… As we'll see… But that's another post.* Also the stock asides:
-*Plot twist: / Spoiler: / Hint: / X is a feature, not a bug.*
+**A6. Performed rigour and candour.** The writer certifies that they are being
+careful, fair or honest instead of being it: *it's worth being precise here,
+to be clear, to be fair, the honest answer is, let's be accurate, I'll say it
+plainly, credit where it's due*. Three variants hide from a word search. The
+**announced caveat**: *One caveat has to sit up front*, followed by the caveat
+a sentence later. **Asserted specificity**: *they differ in one specific way*,
+where *specific* stands in for the specific. The **worth-saying certificate**:
+*it is worth noting*, *it bears repeating*, *it is worth stating*. Delete the
+certificate and keep what follows; where the certificate is the whole
+sentence, the claim in the next sentence leads.
 
-Delete them. A piece that moves does not need to announce that it is moving.
-
-**D7. Rhetorical setups.** Questions and prompts that announce insight rather
-than deliver it. *What if [reframe]? Here's what I mean: Think about it: And
-that's okay.* Make the point; let the reader draw the conclusion.
-
-**D8. Vendor residue and placeholders.** Leaked artefacts of the tool that
-drafted the text: citation tokens (`oaicite`, `[cite: 3]`), tracking
-parameters (`utm_source=chatgpt.com`), placeholders (`[Your Name]`,
-`[Client name]`, `INSERT_SOURCE_URL`, an access date left as `YYYY-MM-DD`).
-
-Delete the residue string, then check the surrounding sentence still says
-something: a citation token often marks the spot where a real citation was
-meant to go, and deleting the token does not repair the citation, so flag the
-gap. Two exceptions. A placeholder that is the point of a template stays - in
-a form letter, `[Client name]` is the deliverable. And a URL is a citation
-under constraint 1, so do not silently rewrite one to remove a tracking
-parameter: flag it and propose the stripped form instead.
+> Before: *It's worth being precise here: the two runs differ in one specific way. The second used a larger context window.*
+> After: *The second run used a larger context window.*
 
 ---
 
-## E. Filler and hedging
+## B. Inflation and borrowed authority
 
-**E1. Filler phrases.** *in order to* → *to*, *due to the fact that* →
-*because*, *has the ability to* → *can*, *it is important to note that* →
-delete. Full table in `wordlist.md`. Wordiness rather than a tell: wordy
-constructions are commoner in human writing than in model output, so cut them
-where they pad and leave tight prose alone.
+The fact underneath is usually sound. Keep it, keep any claim the dressing
+makes in plain words, and remove only the dressing.
 
-**E2. Excessive hedging.** *It could potentially possibly be argued that the
-policy might have some effect.* → *The policy may affect outcomes.*
+**B1. Inflated significance.** On sight. *stands as, is a testament to, marks
+a pivotal moment, plays a key role, shaping the, reflects a broader, enduring
+legacy, indelible mark, evolving landscape, setting the stage for*. It works at
+three scales: the phrase; the stock section (*Despite these challenges... it
+continues to thrive*); and the send-off (*The future looks bright*, *exciting
+times lie ahead*). Take out the inflation and keep the claim. Where the
+significance says something a reader could check - that X is evidence of Y,
+that X mattered to Z - say it plainly, because constraint 4 keeps every claim.
+Where it says nothing checkable - an indelible mark, a bright future - cut it
+and end on the last concrete fact, or on real plans if the source states them.
 
-**E3. Emphasis crutches.** Phrases that assert weight without adding any.
-*Full stop. Period. Let that sink in. Make no mistake. This matters because.
-Here's why that matters.* Delete; if the point carries weight, it carries it.
+> Before: *The 1989 charter marked a pivotal moment in the evolution of regional statistics.*
+> After: *The 1989 charter was an important step for regional statistics.*
 
-**E4. Generic positive conclusions.** *The future looks bright. Exciting times
-lie ahead. A major step in the right direction.* Replace with a concrete next
-thing, or simply end on the last real point.
+> Before: *The bridge stands as a testament to the town's pride in its engineering.*
+> After: *The bridge shows the town's pride in its engineering.* Cutting the sentence would lose the pride, which is a claim the writer made.
 
-**E5. Banned openers and closers.** *In today's world, in conclusion, in
-summary, at the end of the day, having said that, needless to say, it goes
-without saying, when it comes to.* Full list in `wordlist.md`.
+**B2. Vague declaratives, and telling instead of showing.** On sight. A
+sentence that asserts weight with no fact in it: *The implications are
+significant. The stakes are high. The reasons are structural. This is
+genuinely hard. This is what leadership actually looks like.* If it would
+survive being pasted into an unrelated document, it is filler. Name the
+implication or the difficulty where the source has it; cut the sentence where
+it does not.
 
-**E6. Dead adverbs.** *really, just, literally, genuinely, honestly, simply,
-actually, truly, deeply, fundamentally, inherently, interestingly, importantly,
-crucially.* These add emphasis without adding meaning. Wordiness rather than a
-tell - intensifiers are a human habit, not a model signature - so the licence
-is editorial: cut where they decorate, keep where they work.
+> Before: *Getting this right is genuinely hard.* (followed by the account of four attempts)
+> After: the account of four attempts, which already shows it.
 
-Cut them where they pad, with one exception: the casual tone preset allows
-*honestly*, *look* and similar as genuine discourse markers, where they mark a
-shift in stance rather than decorate an adjective. *Honestly, I'd skip it* is a
-person talking. *This is genuinely important* is padding.
+**B3. Shallow -ing riders.** On sight. *highlighting, underscoring,
+emphasising, reflecting, symbolising, ensuring, fostering, contributing to,
+showcasing*, bolted on to a plain fact to sound like analysis. Unbolt it: the
+fact becomes one sentence and whatever the rider claims becomes a plain clause
+of its own, or goes where it claims nothing.
+
+> Before: *The temple is painted blue, green and gold, symbolising the bluebonnets and reflecting the community's deep connection to the land.*
+> After: *The temple is painted blue, green and gold, colours that stand for the bluebonnets and the community's tie to the land.*
+
+**B4. Sales language.** On sight, outside copy meant to sell. *nestled,
+vibrant, breathtaking, stunning, must-visit, boasts, in the heart of, renowned,
+rich (figurative), diverse array*. State what the thing is. In marketing copy
+the persuasion is the job: keep the sell and make it concrete, and never
+invent a figure, a customer or a testimonial to make it land.
+
+> Before: *Nestled in the breathtaking Cotswolds, Stow stands as a vibrant market town.*
+> After: *Stow is a market town in the Cotswolds.*
+
+**B5. Borrowed authority.** On sight. *experts argue, observers have noted,
+industry reports, some critics, several sources*; a list of outlets someone was
+*cited in*; a follower count standing in for a view. Where the source names
+the authority and what it said, use that. Where it does not, **keep the
+attribution and the claim** and flag the attribution as unresolved: deleting
+*experts believe* turns their opinion into the writer's assertion, and dropping
+the claim loses content. A list of outlets is facts and stays; the fix is
+anchoring it to the specific behind it when the source has one. A missing
+citation alone is not a tell. Most writing is unsourced.
+
+**B6. Vague connection.** Needs company. *associated with, in connection with,
+linked to, tied to*, where the source knows the relationship. *He was
+associated with the orchestra* hides whether he founded it, conducted it or
+funded it. Name the relationship the source gives; where it gives none, keep
+the vague wording rather than invent a role.
+
+**B7. Avoiding is, are and has.** On sight. *serves as, stands as, functions
+as, features, boasts, offers, represents*, in place of the plain verb.
+
+> Before: *Gallery 825 serves as LAAA's exhibition space and boasts over 3,000 sq ft.*
+> After: *Gallery 825 is LAAA's exhibition space. It has over 3,000 sq ft.*
+
+**B8. AI vocabulary and business jargon.** AI vocabulary needs company:
+*delve, tapestry, testament, pivotal, landscape (figurative), intricate, robust
+(figurative), showcase, underscore, foster, garner, interplay, meticulous,
+seamless* and the rest in `wordlist.md`. The tell is density and reflexive use;
+one deliberate use of the right word is fine, and a formal word that is not on
+the list is not a tell. Business jargon (*reach out, circle back, touch base,
+moving forward, low-hanging fruit*) is swapped for the plain word on sight,
+from the table in `wordlist.md`: it is not evidence of a model, but it is the
+register a humanised draft should not keep.
+
+**B9. Lazy extremes.** Needs company. *every, always, never, everyone, nobody,
+all*, standing in for a scope the writer knows. Use the real scope where the
+source gives it. Where it does not, the extreme is the writer's claim and
+stays (constraint 4).
+
+---
+
+## C. Rhythm and structure by rule
+
+Mostly needs company, because a person may do any one of these on purpose.
+
+**C1. Forced triads.** Items arriving in threes because three sounds complete:
+*innovation, inspiration and insight*; three parallel examples; three short
+facts and a lesson. Check each item adds a distinct idea. Keep three real
+items; merge or develop where they are one idea said three ways.
+
+> Before: *talks, panels and networking opportunities; innovation, inspiration and insight*
+> After: *talks and panels, with time to talk between sessions*
+
+**C2. Repeated openings.** Consecutive sentences or paragraphs that start the
+same way (*She noted... She noted... She filed...*). Merge, change the subject,
+or lead with the action. Deliberate repetition for rhythm stays.
+
+**C3. Uniform structure.** Sections of near-identical length, every list three
+items long, a recap closing every section, and paragraphs that restate one idea
+in progressively different words. The reshuffle test: swap two paragraphs. If
+nothing breaks, the piece is a stack of blocks rather than a line of argument.
+Let each section be as long as its content, cut the recap, and merge
+paragraphs that add nothing but volume, keeping every claim.
+
+**C4. Connective pile-up.** *Moreover, Furthermore, Additionally, That said,
+Consequently, Ultimately*, opening several sentences in one paragraph. One
+*however* proves nothing; three connectives in a paragraph are doing the work
+the sentence order should do. Delete them or reorder.
+
+**C5. Em dashes.** On sight. Also a spaced en dash or ` -- ` used as one.
+Replace with a comma, a full stop, a colon, a semicolon or brackets, choosing
+the relation the dash avoided choosing. Two exceptions: where the author's own
+writing sample uses dashes, match its rate; and dashes inside code, commands,
+paths and URLs are not punctuation. An en dash in a number range is a range,
+not a connector.
+
+**C6. Stacked qualifiers.** *could potentially possibly be argued that it might
+have some effect*. On sight when stacked in one clause; one hedge is precision,
+and in academic prose often required. Keep a qualifier the source supports and
+the meaning needs, and every scope statement, safety notice and real
+correction.
+
+> Before: *It could potentially be argued that the policy might have some effect.*
+> After: *The policy may have some effect.*
+
+**C7. Wh- openers.** *What makes this hard is... Why this matters is... How
+teams solve this is...*. Two or more in a passage: restructure so the subject
+leads.
+
+**C8. False agency.** On sight. An abstraction given a human verb: *the data
+tells us, the decision emerges, the market rewards, the culture shifts, the
+conversation moves towards*. It hides who acted. Name the actor the source
+names; failing that, address the reader as *you* where the tone allows, or
+state it as a plain fact. Never invent an actor to fill the slot.
+
+**C9. Narrator from a distance.** *Nobody designed this. People tend to. This
+is why.* Floating above the scene instead of standing in it. A tell in essays
+and posts, normal in academic register.
+
+**C10. Passive voice and subjectless fragments.** *No configuration needed.
+Results are preserved automatically.* Name the actor where the source names
+one and it helps. Keep the passive where the actor is unknown or does not
+matter, and in academic register; inventing an actor breaks constraint 3.
+
+---
+
+## D. Formatting by rule
+
+Templates and editors produce clean formatting too. The tell is decoration on
+every item.
+
+**D1. Bold as decoration, and bold-label lists.** On sight. Terms bolded for no
+reason; lists shaped `- **Label:** sentence repeating the label`. Remove the
+bold. Turn a labelled list into prose where the labels carry nothing of their
+own. Keep bold that marks UI labels or defined terms.
+
+**D2. Title Case Headings.** On sight, unless the document's own style is
+title case. Use sentence case.
+
+**D3. Emoji, arrows and rules as decoration.** On sight. 🚀 and 💡 in headings
+or bullets, → as a bullet, a horizontal rule between every section, a
+top-level heading that repeats the title. Remove them unless the source is
+genuinely a medium that uses them.
+
+**D4. A heading restated.** On sight. A heading followed by a one-line
+paragraph saying the heading again (*## Performance* / *Speed matters.*). Cut
+the restatement.
+
+**D5. Curly quotes.** Needs company, because most editors curl quotes
+automatically. Use straight quotes unless the source is typeset prose.
+
+---
+
+## E. Leftovers from the chat and the draft
+
+On sight. Remove the wrapper and keep the content inside it.
+
+**E1. Chatbot wrapper.** *Great question! Certainly! Of course! You're
+absolutely right! I hope this helps! Would you like me to...? Want me to
+expand on...? Here is an overview of...*, and the engagement closer (*What do
+you think? Let me know in the comments!*). The easiest tell to miss when it
+wraps real content. A letter's own sign-off and a genuine request to reply are
+not residue; salutations and sign-offs predate chatbots.
+
+**E2. Knowledge-limit disclaimers and guesses.** *As of my last update, while
+specific details are limited, based on available information, it is believed
+that*, and the guess that follows an admission of no source (*she likely grew
+up*). State what the source does not show, or cut the sentence. Never present
+a guess as a fact.
+
+**E3. Reasoning scaffolding.** *Let me think, Let me break this down, First,
+I'll look at, Step 1:, Now that we have established*: the model narrating its
+own procedure as if the procedure were the content. Delete it and keep the
+conclusion.
+
+**E4. Vendor residue, placeholders and hidden characters.** Citation tokens
+(`oaicite`, `[cite: 3]`, `citeturn0search0`), tracking parameters
+(`utm_source=chatgpt.com`), placeholders (`[Your Name]`, `[Client name]`, a date
+left as `YYYY-MM-DD`), and invisible or look-alike characters: zero-width
+spaces and joiners, soft hyphens, and Cyrillic or Greek letters standing in
+for Latin ones. Delete residue and hidden characters, then check the sentence
+still says something: a citation token often marks where a real citation was
+meant to go, and deleting it does not supply one, so flag the gap. Two
+exceptions. A placeholder that is the point of a template stays. A URL is a
+citation (constraint 1): do not rewrite it to drop a tracking parameter, flag
+it and propose the stripped form.
+
+**E5. Writing about the previous version.** In documentation and code
+comments, text that narrates the change instead of describing the thing: *This
+function was added to replace the old approach, which...*. Describe what it
+does now, keeping any fact about the old behaviour the reader still needs.
+Changelogs, release notes and migration guides are about change and are
+exempt.
+
+---
+
+## Wordiness, not a tell
+
+Corpus work finds wordy phrasing and intensifiers *more* often in human writing
+than in model output, so these are editorial preferences, not evidence. Cut
+them where they pad, and leave tight prose alone: stripping them mechanically
+pushes text towards the generated register, not away from it.
+
+**W1. Filler phrases.** *in order to* for *to*, *due to the fact that* for
+*because*, *has the ability to* for *can*, *it is important to note that*
+(delete). Table in `wordlist.md`.
+
+**W2. Dead adverbs.** *really, just, literally, genuinely, simply, actually,
+truly, deeply, fundamentally, interestingly, importantly*. Cut where they
+decorate; keep where they work (*just* meaning "only", *arguably* marking a
+contested claim). The casual preset keeps *honestly* and *look* as discourse
+markers that shift stance.
 
 ---
 
 ## F. Condescension, overreach and curtness
 
-These are tells about the reader rather than about the writing. They only
-resolve once you know who is going to read the result, so `audience.md` carries
-the register model and this group carries the patterns. Where no audience is
-known, assume competence.
+Tells about the reader rather than the writing. They resolve only once you know
+who will read the result, so `audience.md` carries the register model and this
+group carries the patterns. Where no reader is known, assume competence.
 
 F1 to F10 point one way, at talking down to somebody. F11 points the other, at
-the coldness a guard built only against the first will produce. Both are
-register failures, and the exit gate fails on either.
+the coldness a guard built only against the first will produce. The audience
+fit gate fails on either.
 
-**F1. Explaining a term the reader uses daily.** A gloss on a word the recipient
-works with every day. The gloss is not wrong; it is the assumption behind it
-that gives offence.
+**F1. Explaining a term the reader uses daily.** The gloss is not wrong; the
+assumption behind it gives offence.
 
 > Before: *We should look at the CAC, or customer acquisition cost, which is what it costs to win one new customer.* (to the head of growth)
 > After: *CAC is up 40% since the channel mix changed.*
 
-**F2. Restating the ask.** Opening by repeating what the reader just asked for,
+Cutting a gloss never takes a name with it. Where the term appears only in the
+explanation being cut, move it into the sentence that needs it: *the ingest
+queue* becomes *the Kafka ingest queue* when the sentence explaining Kafka
+goes.
+
+**F2. Restating the ask.** Opening by repeating what the reader just asked,
 which tells them only that you can read.
 
 > Before: *You asked whether we should move the deploy to Thursday. To answer your question about moving the deploy to Thursday: yes.*
 > After: *Yes, move it to Thursday.*
 
-**F3. Reasons before the answer.** Making somebody read the working before they
-get the result. In a reply to a question, the answer is the first thing.
+**F3. Reasons before the answer.** In a reply to a question, the answer is the
+first thing.
 
 > Before: *Because the pool never refills and every request holds its own connection, and given the 20-connection ceiling, the gateway will fail again under the same load.*
 > After: *It will fail again under the same load. The pool never refills, and each request holds its own connection against a ceiling of 20.*
 
-**F4. Unrequested caveats.** Qualifications nobody asked for, added to protect
-the writer rather than to inform the reader.
+**F4. Unrequested caveats.** Qualifications that protect the writer rather
+than inform the reader.
 
 > Before: *Roll back `dep-4471`. Of course, every environment differs, and you should verify this in staging first, and results may vary depending on your configuration.*
 > After: *Roll back `dep-4471`, and verify it in staging first.*
 
 The staging step names an action, so it stays; *every environment differs* and
-*results may vary* name nothing the reader can act on, so they go. Distinct
-from E2: hedging weakens a claim, F4 keeps the claim and bolts a disclaimer to
-it.
+*results may vary* name nothing to act on, so they go. Distinct from C6:
+hedging weakens a claim, F4 keeps the claim and bolts a disclaimer to it.
 
-**F5. Instructing upwards.** Directing somebody who has more standing on the
-subject than the writer does. Soften the delivery - own the judgement - and
-keep the requirement, the deadline and who must act. Seniority does not make
-an instruction wrong; delivering it as a bare command does, and a consultancy
-can legitimately tell a client what has to happen and by when.
+**F5. Instructing upwards.** Directing somebody with more standing on the
+subject. Recast the command as the writer's recommendation, or as the
+dependency it really is, and keep the requirement, the deadline and who must
+act. *I think you need to...* is the same command with a hedge in front, not a
+fix. Seniority never makes an instruction wrong, and a consultant can properly
+tell a client what has to happen and by when.
 
 > Before: *You need to escalate this to the board before Friday.*
-> After: *I think you need to escalate this to the board before Friday.*
+> After: *I'd take this to the board before Friday.* Or, as the dependency: *This needs to reach the board before Friday.*
 
-**F6. Telling them what they told you.** Feeding a person's own information back
-as though it were news.
+**F6. Telling them what they told you.** Feeding a person's own information
+back as news.
 
 > Before: *As you mentioned, the outage started at 02:14. Given that it started at 02:14, the window is just under two hours.*
 > After: *So the window is just under two hours.*
 
-The 02:14 goes because the recipient supplied it - restating it is the
-pattern. The window is the writer's contribution, and it stays.
+The 02:14 goes because the reader supplied it. The window is the writer's
+contribution, and it stays.
 
-**F7. Performed empathy.** Stated feeling standing in for action. The reader
-wanted the problem dealt with, not acknowledged.
+**F7. Performed empathy.** Stated feeling standing in for action, often
+stacked: *I completely understand how frustrating this must be, and I want you
+to know we hear you.* Replace it with the one plain acknowledgement it was
+standing in for, then the action. Where the writer is at fault, that
+acknowledgement is an apology. Cutting the line and leaving nothing is F11, not
+a fix.
 
-> Before: *I completely understand how frustrating this must be, and I want you to know we hear you.*
-> After: *Your invoice was wrong. We have refunded the £240 and it should reach you by Thursday.*
+> Before: *I completely understand how frustrating this must be, and I want you to know we hear you. We have refunded the £240.*
+> After: *I'm sorry we got this wrong. We have refunded the £240.*
 
-**F8. Grovelling.** Apology stacked past the point of usefulness, which leaves
-the reader managing the writer's feelings on top of their own problem.
+**F8. Grovelling.** Apology stacked past usefulness, leaving the reader to
+manage the writer's feelings as well as their own problem. One apology, then
+the fix; the second apology is for the writer.
 
 > Before: *I'm so sorry, this is entirely my fault, I should have caught it much earlier and I completely understand if you've lost confidence in us.*
 > After: *Sorry, I missed this. It is fixed, and the check that would have caught it now runs on every deploy.*
 
-One apology, then the fix. The second apology is for the writer.
+**F9. Overreach.** Committing on somebody else's behalf, or setting deadlines
+for people who do not report to the writer. Report the same content as a plan
+rather than a promise, and never invent a status to soften it. Where the writer
+plainly owns the undertaking (*"I'll get Finance to sign off"*), it is theirs
+and stays. Where you cannot tell, constraint 6: ask rather than weaken it.
 
-**F9. Overreach.** Committing on somebody's behalf, assuming authority the
-writer does not have, or setting deadlines for people who do not report to
-them. The fix reports the same content as a plan rather than a promise, and it
-never invents a status report to soften the landing. Where the writer plainly
-owns the undertaking - *"I'll get Finance to sign off"* - it is their
-commitment and it stays. If you cannot tell whether the writer has the
-standing, constraint 6 applies: ask rather than weaken it.
-
-> Before, in a draft where nothing confirms Design or Legal agreed: *Design will have the mocks to you by Wednesday and Legal will sign off the same week.*
+> Before, where nothing confirms Design or Legal agreed: *Design will have the mocks to you by Wednesday and Legal will sign off the same week.*
 > After: *The plan is mocks from Design to you by Wednesday, with Legal sign-off the same week.*
 
-Where the source shows the commitment is real - Design confirmed Wednesday in
-the thread - the *will* stays, because then it is a fact, not overreach.
+Where the source shows the commitment is real, the *will* stays.
 
 **F10. Length as an imposition.** A long message where a short one would do,
-sent to somebody with no time to read it. Every word is a cost the writer has
-chosen to pass to the reader.
-
-This one is measured against the audience rather than against a word count. Two
-thousand words to a reviewer who asked for detail is right; two hundred to a
-director who asked one question is not.
+sent to somebody with no time. Measured against the reader, not a word count:
+two thousand words to a reviewer who asked for detail is right; two hundred to
+a director who asked one question is not. Where the detail is real, point to
+where it lives rather than delete it.
 
 > Before: eleven paragraphs and three headings, in reply to *"which deploy do I roll back?"*
 > After: *`dep-4471`, gateway, deployed 01:52 by `a.novak`. Full timeline in `INCIDENT-2026-03-14.md`.*
 
-**F11. Warmth stripped.** The greeting, the thanks, or the one apology that was
-owed, removed in the name of concision. This is the failure the other ten
-patterns produce when they are applied without a stop, and it is the one this
-catalogue is structurally biased towards creating, so it is checked by name.
-
-The example runs differently from the rest of the group, because the fault is
-in the rewrite rather than in the source:
+**F11. Warmth stripped.** The greeting, the thanks, or the one owed apology,
+removed in the name of concision. The other ten patterns produce this when
+they are applied without a stop, so it is checked by name. The fault is in the
+rewrite, not the source:
 
 > Source: *Thanks for flagging this, and sorry. We have refunded the £240 and it should reach you by Thursday.*
-> After an over-aggressive sweep: *Refunded. £240, Thursday.*
+> Over-swept: *Refunded. £240, Thursday.*
 > Correct: the source line, restored.
 
-**F11 restores warmth the rewrite removed. It never adds warmth the source did
-not have** - that would be inventing content, which constraint 3 forbids
-without exception. A blunt source stays blunt. F11 is a fidelity check wearing
-a register hat, and it is the only pattern here that puts something back rather
-than taking it away.
-
-F8 is its neighbour and its opposite: F8 cuts the second and third apology,
-F11 keeps the first. Where they appear to disagree, they do not - between them
-they specify exactly one.
+F11 restores warmth the rewrite removed. It never adds warmth the source did
+not have, which would be invention: a blunt source stays blunt. Turning F7's
+performed empathy into one plain acknowledgement is not adding warmth; the
+source had it, badly expressed. F7, F8 and F11 between them specify exactly one
+apology where one is owed.
 
 ---
 
 ## G. Overshare
 
-Where group F asks whether this reader needs something explained, group G asks
-whether the writer should be handing it over at all. Respecting the reader and
-protecting the writer are different judgements, which is why they are different
-groups.
+Group F asks whether this reader needs something explained. Group G asks
+whether the writer should be handing it over at all. Read `overshare.md` before
+applying any of these: nothing fires unless the reader neither asked for it
+nor needs it to act, **and** saying it costs the writer or somebody not in the
+room. The floor there overrides every pattern here.
 
-`overshare.md` carries the two tests, the floor and the rule about which
-patterns need a reader. Read it before applying any of these. In short: nothing
-fires unless the reader neither asked for it nor needs it to act, **and**
-saying it costs the writer or somebody not in the room. The floor overrides
-every pattern below - anything the reader needs in order to decide or act is
-information, and information is never an overshare.
+**This group flags; it does not cut.** An overshare is a fact or a claim, so
+removing one is the user's call. Each *After* below is what an explicitly
+requested cut produces. On a default run the *Before* ships, with a note.
 
-**This group flags, it does not cut.** An overshare is a fact (constraint 1) or
-a claim (constraint 4), and removing one is the user's call, not verve's. So
-every *After* line below shows what an explicitly requested cut produces. On a
-default run the *Before* text is what ships, and the *After* is what the note
-describes. The catalogue is not a licence.
-
-### Fires on sight, for any reader
+### On sight, for any reader
 
 **G1. Third-party disclosure.** Another client named, a colleague's private
 remark, what somebody else is paying.
@@ -477,46 +502,40 @@ remark, what somebody else is paying.
 > Before: *I can start on the 6th, once the Northwind engagement wraps up.*
 > After: *I can start on the 6th.*
 
-The date is what the reader needs. Who else is buying the writer's time is not
-theirs to receive.
-
 **G2. Personal circumstances.** Health, money, family, mood, where the writer
 was.
 
 > Before: *Sorry for the slow reply, I have been dealing with a family illness.*
 > After: *Sorry for the slow reply.*
 
-The apology is owed and stays; cutting it would be F11. The reason is not the
-reader's business. Note where test 1 draws the line: *"I am away next week"* is
+The apology stays (cutting it would be F11). *"I am away next week"* is
 operational and stays, because the reader plans around it.
 
-### Fire only where the reader is known, or the text is plainly outward-facing
+### Only where the reader is known, or the text is plainly outward-facing
 
-**G3. Unasked-for reasons and excuses.** The apology is owed; the reason behind
-it is the writer's problem.
+**G3. Unasked-for reasons and excuses.**
 
 > Before: *Sorry, I missed Friday - the spec landed late and I had two other deadlines that week.*
 > After: *Sorry, I missed Friday.*
 
-**G4. Internal detail.** How the sausage was made: who was off sick, which
-system fell over, that the writer forgot.
+**G4. Internal detail.** Who was off sick, which system fell over, that the
+writer forgot.
 
 > Before: *The report is late - the build server died on Tuesday and Sam was on leave.*
 > After: *The report is late.*
 
-The floor governs the exception, and it is a common one. Where the cause tells
-the reader it will happen again, the cause is a risk they are carrying and it
-stays. Telling a colleague on your own team which server fell over is how work
-gets done; telling the client is G4.
+Where the cause tells the reader it will happen again, it is a risk they carry
+and it stays. Telling your own team which server fell over is how work gets
+done; telling the client is G4.
 
 **G5. Position leakage.** Thin availability, needing the work, a fallback
-price, how much a deadline is hurting.
+price, how much a deadline hurts.
 
 > Before: *I have capacity from next week and the pipeline is quiet, so I can be flexible on rate.*
 > After: *I have capacity from next week.*
 
 **G6. Over-answering.** Answering the question they did not ask alongside the
-one they did. Scope, a figure, or a capability nobody costed, volunteered.
+one they did.
 
 > Before, replying to *"can you take the Azure piece?"*: *Yes. I could also take the identity workstream and the reporting if that helps.*
 > After: *Yes.*
@@ -527,19 +546,69 @@ and that the writer can still absorb.
 > Before: *This should be fine, though I have had weeks where things slip.*
 > After: *This should be fine.*
 
-The floor governs this one hardest, and it is the pattern most likely to be
-applied wrongly. Where the slip is real and dated, the reader needs it and it
-stays. G7 covers anxiety, not risk.
+The floor governs this one hardest. A real, dated slip is information the
+reader needs, and it stays. G7 covers anxiety, not risk.
 
 ---
 
-## Rhythm (applies throughout)
+## S. Across a set of pieces
 
-- Mix short sentences (3-7 words) with long ones (20-30). Aim for high variance,
-  measured across the passage rather than within a single paragraph.
-- Vary paragraph length. Some one sentence, some five.
-- One deliberate fragment now and then. Not three in a row (see C7).
-- Do not start consecutive paragraphs the same way.
-- Do not end every paragraph on a punchy one-liner. That rhythm is itself a tell.
-- Turn list-shaped prose into flowing sentences unless a list is genuinely
-  clearer.
+Several messages to several readers can each pass on their own and still be one
+template: the same opening move, the same paragraph order, the same closing
+formula. Read one at a time they feel different; the reader who compares notes
+with another recipient, or has seen the shape before, reads the template
+straight through the wording. So a set is judged against a table, never by
+feel.
+
+**Write the table before rewriting any piece.** One row per piece:
+
+| Piece | Opens on | Order | Closes on |
+|---|---|---|---|
+| Kate | intro | intro · studied · built · status · disclaimer | disclaimer |
+
+*Opens on* and *Closes on* label what the first and last paragraphs **do**,
+never their words. *Order* is one label per paragraph. Give the same job the
+same label in every row, so shared shapes show. Below the table, list every
+run of four or more words that appears in more than one piece.
+
+The set is right when no two rows share an *Opens on*, no two share an *Order*,
+no two share a *Closes on*, and every recurring run is a fact - a name, a
+number, a title, a product, a link - or stays in one piece only.
+
+**The fix is a reorder, and a reorder changes no content.** Open one piece on
+what is now its second paragraph. End another on its strongest point and move
+the disclaimer up. Every paragraph and claim survives, so nobody needs to be
+asked. Then mend only the joins the move broke. Rewording a closing paragraph,
+swapping connectives, or varying the greeting is not a fix: the table reads the
+same afterwards. Facts recur across a set, and should. Length is not part of
+this check.
+
+---
+
+## What is not a tell
+
+A careful human writer hits several patterns above without any model involved.
+Before rewriting, check you are not gutting legitimate prose.
+
+- **Polish.** Perfect grammar, a consistent style and correct complex
+  formatting come from professionals, editors and templates.
+- **Formal vocabulary outside the list.** *ostensibly* and *constituent* are
+  words, not tells.
+- **One of anything that needs company**: one dash in a writer's own style, one
+  *however*, one short sentence, three real items, curly quotes from an editor.
+- **Letter conventions.** The salutation, the sign-off, and *please let me
+  know if you have questions* in a real letter. The line stays, but jargon
+  inside it is still swapped: *do reach out* becomes *do get in touch*. The
+  stock pleasantry between the salutation and the point is not a convention
+  at all (A4).
+- **Useful limits.** Scope statements, legal and safety notices, real
+  corrections, named objections and their answers, real alternatives in a
+  design document.
+- **Unsourced claims.** Most writing is unsourced.
+- **Secondhand text.** Quotations, titles, proper names and phrases being
+  discussed rather than used (constraint 7).
+- **Old text.** Anything written before 30 November 2022 is not model output.
+
+People judging by feel do little better than chance, and human writing keeps
+absorbing model habits. Clusters of tells are the safeguard, not any one of
+them.
