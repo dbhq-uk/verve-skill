@@ -9,17 +9,27 @@ Usage:
     python3 evals/run.py               # run the corpus, costs money
     python3 evals/run.py --only triage
     python3 evals/run.py --runs 3      # repeat each case, report worst result
+    python3 evals/run.py --via cli --runs 3 --save evals/runs/NAME
 
-Needs ANTHROPIC_API_KEY unless --dry-run. Needs Python 3.11 or newer.
+--via api (the default) needs ANTHROPIC_API_KEY and the anthropic package.
+--via cli drives the Claude Code CLI instead, one fresh `claude -p` per case,
+with the skill as the whole system prompt, no tools, no settings files and no
+CLAUDE.md. It runs on whatever the CLI is logged in as, so a run needs no key.
+Needs Python 3.11 or newer.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
 import tomllib
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -85,6 +95,7 @@ class Case:
     must_survive_any_case: list[str] = field(default_factory=list)
     must_go: list[str] = field(default_factory=list)
     must_match: list[str] = field(default_factory=list)
+    must_not_match: list[str] = field(default_factory=list)
     max_loss: float | None = None
     max_gain: float | None = None
 
@@ -105,10 +116,10 @@ def load_cases() -> list[Case]:
         seen.add(case.id)
         asserts = (case.unchanged or case.must_survive
                    or case.must_survive_any_case or case.must_go
-                   or case.must_match)
+                   or case.must_match or case.must_not_match)
         if not asserts:
             sys.exit(f"Case {case.id} asserts nothing")
-        for pattern in case.must_match:
+        for pattern in case.must_match + case.must_not_match:
             try:
                 re.compile(pattern)
             except re.error as exc:
@@ -225,6 +236,13 @@ def check(case: Case, output: str) -> list[str]:
         if not re.search(pattern, output, flags=re.I):
             failures.append(f"no match: {pattern!r}")
 
+    for pattern in case.must_not_match:
+        # The mirror of must_match, for shapes that must be absent in any
+        # wording: a probability score, an invented first person.
+        found = re.search(pattern, output, flags=re.I)
+        if found:
+            failures.append(f"matched: {pattern!r} at {found.group(0)!r}")
+
     if case.max_loss is not None:
         before, after = words(case.text), words(output)
         if before and after < before * (1 - case.max_loss):
@@ -265,13 +283,52 @@ def call_model(client, model: str, system: str, prompt: str) -> str:
     return "".join(block.text for block in message.content if block.type == "text")
 
 
+def call_cli(model: str, system_file: Path, prompt: str) -> str:
+    """One fresh Claude Code session per call, isolated from the machine.
+
+    --setting-sources "" and --strict-mcp-config keep the user's settings,
+    hooks, MCP servers and CLAUDE.md out of the context, and running in an
+    empty directory keeps a project's out too. --tools "" means the model can
+    only answer, which is what the API path does. What remains is the CLI's
+    own short preamble, which the API path does not have: a known difference,
+    and small against a skill of this size.
+    """
+    command = ["claude", "-p", "--model", model,
+               "--system-prompt-file", str(system_file),
+               "--tools", "", "--setting-sources", "", "--strict-mcp-config",
+               "--no-session-persistence"]
+    # One retry on a timeout, because a CLI call occasionally stalls on the
+    # network and a stall is the harness failing, not the skill.
+    for attempt in (1, 2):
+        try:
+            with tempfile.TemporaryDirectory() as cwd:
+                done = subprocess.run(command, input=prompt, capture_output=True,
+                                      text=True, cwd=cwd, timeout=300)
+            break
+        except subprocess.TimeoutExpired:
+            if attempt == 2:
+                raise
+    if done.returncode != 0:
+        # The CLI reports some failures (a usage limit, an auth lapse) on
+        # stdout with an empty stderr, so say whichever has something in it.
+        detail = (done.stderr.strip() or done.stdout.strip())[:300]
+        raise RuntimeError(f"claude -p exited {done.returncode}: {detail}")
+    return done.stdout
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dry-run", action="store_true", help="no API calls")
     parser.add_argument("--model", default=DEFAULT_MODEL)
-    parser.add_argument("--only", help="run one kind: triage, fidelity, variety, audience, overshare")
+    parser.add_argument("--only", help="run one kind: triage, fidelity, variety, audience, "
+                                       "overshare, tells, voice, detect, contact")
     parser.add_argument("--runs", type=int, default=1, help="repeats per case")
     parser.add_argument("--verbose", action="store_true", help="print every output")
+    parser.add_argument("--via", choices=("api", "cli"), default="api",
+                        help="api: the Anthropic SDK; cli: the claude CLI, no key needed")
+    parser.add_argument("--jobs", type=int, default=4, help="parallel calls, --via cli only")
+    parser.add_argument("--save", help="write each run's outputs as JSON for grade.py: "
+                                       "PATH.json, or PATH-runN.json when --runs > 1")
     args = parser.parse_args()
 
     # Without this, --runs 0 makes no calls and reports every case as passing,
@@ -296,29 +353,62 @@ def main() -> int:
             loss = "" if case.max_loss is None else f", max_loss={case.max_loss:.0%}"
             gain = "" if case.max_gain is None else f", max_gain={case.max_gain:.0%}"
             match = "" if not case.must_match else f", {len(case.must_match)} match"
+            match += "" if not case.must_not_match else f", {len(case.must_not_match)} must not match"
             print(f"            asserts: {survive} survive, {len(case.must_go)} go{match}, "
                   f"unchanged={case.unchanged}{loss}{gain}")
         print("\nDry run. Nothing was sent anywhere and nothing was measured.")
         return 0
 
-    try:
-        import anthropic
-    except ImportError:
-        sys.exit("pip install anthropic")
+    if args.via == "api":
+        try:
+            import anthropic
+        except ImportError:
+            sys.exit("pip install anthropic")
+        if not os.environ.get("ANTHROPIC_API_KEY"):
+            sys.exit("ANTHROPIC_API_KEY is not set")
+        client = anthropic.Anthropic()
+        workers = 1
 
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        sys.exit("ANTHROPIC_API_KEY is not set")
+        def call(prompt: str) -> str:
+            return call_model(client, args.model, system, prompt)
+    else:
+        if not shutil.which("claude"):
+            sys.exit("claude is not on PATH")
+        system_file = Path(tempfile.mkstemp(prefix="verve-system-", suffix=".md")[1])
+        system_file.write_text(system, encoding="utf-8")
+        workers = max(1, args.jobs)
 
-    client = anthropic.Anthropic()
+        def call(prompt: str) -> str:
+            return call_cli(args.model, system_file, prompt)
+
+    # Every (case, run) pair is independent, so they run together and are
+    # graded afterwards in corpus order.
+    jobs = [(case, run) for run in range(args.runs) for case in cases]
+    outputs: dict[tuple[str, int], str] = {}
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = [(case, run, pool.submit(call, case.prompt())) for case, run in jobs]
+        for done, (case, run, future) in enumerate(futures, 1):
+            try:
+                outputs[(case.id, run)] = future.result()
+            except Exception as exc:  # a call that failed is a failed case, loudly
+                outputs[(case.id, run)] = f"[harness error: {exc}]"
+            print(f"  [{done}/{len(jobs)}] {case.id} run {run + 1}", file=sys.stderr, flush=True)
+
+    if args.save:
+        for run in range(args.runs):
+            path = Path(f"{args.save}-run{run + 1}.json" if args.runs > 1 else f"{args.save}.json")
+            path.write_text(json.dumps({c.id: outputs[(c.id, run)] for c in cases},
+                                       indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+            print(f"saved {path}")
+
     results: list[tuple[Case, list[str]]] = []
-
     for case in cases:
         # Union the failures across runs rather than keeping whichever run
         # failed most. Two runs that each break one different rule are two
         # separate problems, and picking one by count hides the other.
         seen: list[str] = []
         for run in range(args.runs):
-            output = call_model(client, args.model, system, case.prompt())
+            output = outputs[(case.id, run)]
             if args.verbose:
                 print(f"--- {case.id} run {run + 1} ---\n{output}\n")
             for reason in check(case, output):
@@ -332,7 +422,7 @@ def main() -> int:
             print(f"          {reason}")
 
     failed = [c for c, f in results if f]
-    print(f"\n{len(results) - len(failed)}/{len(results)} passed on {args.model}")
+    print(f"\n{len(results) - len(failed)}/{len(results)} passed on {args.model} via {args.via}")
 
     if failed:
         print("\nWhat each failure was protecting:\n")
