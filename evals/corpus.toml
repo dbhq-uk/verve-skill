@@ -25,6 +25,16 @@
 #                          deadline). Matching proves a shape is present, not
 #                          that the meaning is right - keep the semantic
 #                          criterion in the why, and read the output
+#   claims                 the atomic claims the rewrite must keep, for the
+#                          fidelity judge (evals/judge.py). Who did what, with
+#                          what polarity, modality and condition. Content the
+#                          case is meant to cut is left out on purpose, and a
+#                          claim is written at the strength of its plain
+#                          content, without the inflation, the empty contrast
+#                          or the jargon verve exists to remove, saying in
+#                          brackets what latitude a rewrite has. A claim that
+#                          encodes the tell makes the judge fail verve for
+#                          doing its job - six did on the first judged run
 #   max_loss               largest share of the words a rewrite may cut, 0 to 1
 #   why                    what this case protects, printed on failure
 #
@@ -71,6 +81,15 @@ not fixed that.
 id = "fidelity-figures-and-names"
 kind = "fidelity"
 request = "verve this:"
+claims = [
+  "The Instituto Vasco de Estadística was founded in 1989.",
+  "The institute is known as Eustat.",
+  "The institute is evidence of the Basque Country's commitment to independent data. This is something it demonstrates, not a purpose it was founded for.",
+  "It serves a population of 2.19 million.",
+  "It employs 1,438 people.",
+  "Its staff work across three offices.",
+  "Its work shows that regional statistical bodies play a vital role in policy.",
+]
 must_survive = [
   "1989",
   "Instituto Vasco de Estadística",
@@ -95,6 +114,15 @@ play in today's evolving policy landscape.
 id = "fidelity-dense-technical"
 kind = "fidelity"
 request = "verve this:"
+claims = [
+  "The root cause was traced to the configuration flag gateway.pool.perRequest.",
+  "That flag had been set to true.",
+  "Because of the flag, every request acquired its own connection from the pool. (The source's 'would acquire' reports what happened, not a hypothetical; 'acquired' keeps it.)",
+  "The pool had a ceiling of 20 connections.",
+  "The pool was exhausted from 02:14.",
+  "After the pool was exhausted, 83% of requests failed.",
+  "The deployment involved was dep-4471.",
+]
 must_survive = [
   "gateway.pool.perRequest",
   "dep-4471",
@@ -118,6 +146,13 @@ a pool with a ceiling of 20. Beginning at 02:14, the pool was exhausted, and \
 id = "fidelity-rank-and-simultaneity"
 kind = "fidelity"
 request = "verve this:"
+claims = [
+  "Harlow Water is the only utility in the region that publishes its leak data weekly.",
+  "Harlow Water was the first utility in the region to publish its leak data weekly.",
+  "It began doing so in 2019.",
+  "It releases the raw meter readings and the cleaned series at the same time.",
+  "Releasing them this way is evidence of its commitment to transparency.",
+]
 must_survive = ["Harlow Water", "2019"]
 must_survive_any_case = ["only", "first", "weekly"]
 must_match = [
@@ -144,6 +179,11 @@ simultaneously, a testament to its commitment to transparency.
 id = "variety-keeps-american-source"
 kind = "variety"
 request = "verve this:"
+claims = [
+  "The color system was designed to organize the tokens.",
+  "That organization is meant to reflect how the product behaves.",
+  "Looking at how each component behaves shows that a more holistic approach is needed. (Holistic may become broader, joined-up or whole-system; the source's 'going forward' is jargon a rewrite may cut.)",
+]
 must_survive_any_case = ["color", "organize"]
 must_match = [
   # "the behavior of each component" may legitimately become "how each
@@ -163,6 +203,12 @@ it becomes clear that a more holistic approach is needed going forward.
 id = "variety-never-converts-code"
 kind = "variety"
 request = "verve this in British English:"
+claims = [
+  "To use the theming system, you must first call initialize().",
+  "After calling initialize(), you pass the --optimize flag.",
+  "The background-color property is set at build time.",
+  "Setting it at build time is a key part of what makes the pipeline robust.",
+]
 must_survive = ["background-color", "initialize(", "--optimize"]
 must_go = ["background-colour", "initialise(", "--optimise", "In order to", "leverage"]
 why = "The worst thing this feature could do. A CSS property is an identifier, not a spelling, and converting one breaks the code."
@@ -176,6 +222,11 @@ time, which is a key part of what makes the pipeline so robust.
 id = "variety-never-converts-proper-nouns"
 kind = "variety"
 request = "verve this in British English:"
+claims = [
+  "The World Health Organization published its findings.",
+  "The findings show that occupational data plays an important role. (The source's 'pivotal' is inflation: important, central or key all keep this.)",
+  "Afterwards, the Department of Labor faced a series of challenges in reconciling the two datasets.",
+]
 must_survive = ["World Health Organization", "Department of Labor"]
 must_go = ["World Health Organisation", "Department of Labour"]
 why = "Names are names in every variety. Constraint 1 protects them and the conversion tables must not reach them."
@@ -189,6 +240,12 @@ navigated a series of challenges in reconciling the two datasets.
 id = "variety-explicit-conversion-of-clean-prose"
 kind = "variety"
 request = "verve this in US English:"
+claims = [
+  "Settling the colour palette took three weekends.",
+  "The writer ended up organising the tokens by hue rather than by component.",
+  "The writer still thinks that was the right decision.",
+  "Grouping by component fell apart as soon as two components shared a shade.",
+]
 must_survive_any_case = ["color", "organized"]
 must_go = ["colour", "organised"]
 why = "The ordering defect: triage must not return clean prose unchanged when the request is an explicit conversion. This text is plainly human and needs nothing except the variety it was asked for."
@@ -206,6 +263,13 @@ the component grouping fell apart the moment two components shared a shade.
 id = "audience-drops-the-gloss-keeps-the-facts"
 kind = "audience"
 request = "verve this for our VP of Engineering, who ran the platform team for six years:"
+claims = [
+  "The primary Redis cluster is at 87% memory.",
+  "They are running out of memory.",
+  "Three additional nodes are being asked for.",
+  "The nodes need approval, which has to come by Friday; the reader is the one being asked. (Recast as the writer's recommendation or as the dependency - 'I'd approve it', 'if it is approved by Friday' - this is kept: the source's 'you need to approve' already carries the writer's view.)",
+  "If the approval comes by Friday, Infrastructure can provision the nodes next week. The approval is the condition; provisioning is what follows from it.",
+]
 must_survive = ["87%", "Redis", "Friday", "Infrastructure"]
 must_survive_any_case = ["three additional nodes", "next week"]
 must_match = [
@@ -239,6 +303,13 @@ I hope this makes sense! Let me know if you have any questions.
 id = "audience-keeps-the-warmth"
 kind = "audience"
 request = "verve this for a customer whose invoice we got wrong:"
+claims = [
+  "The letter is addressed to Ms Achebe.",
+  "The company found an error in her most recent invoice. The error is the company's, not hers.",
+  "A refund of £240 has been processed for her.",
+  "The refund should reach her account by Thursday. This is an expectation, not a guarantee.",
+  "She can get in touch if she has questions.",
+]
 must_survive = ["£240", "Thursday", "Ms Achebe"]
 must_go = ["I completely understand how frustrating", "at this point in time"]
 must_match = [
@@ -286,6 +357,13 @@ Billing
 id = "overshare-flags-without-cutting"
 kind = "overshare"
 request = "verve this:"
+claims = [
+  "The writer can start on the 6th.",
+  "The start date follows the end of the Northwind engagement.",
+  "The writer apologises again for missing Friday.",
+  "The spec landed late.",
+  "The writer had two other deadlines that week.",
+]
 must_survive = ["Northwind", "6th", "two other deadlines"]
 must_match = [
   # The note fired. Heading wording is fixed by SKILL.md's Output section.
@@ -314,6 +392,14 @@ Do reach out if you need anything further.
 id = "overshare-floor-holds"
 kind = "overshare"
 request = "verve this for the client:"
+claims = [
+  "The integration work will slip.",
+  "The vendor has not returned the credentials.",
+  "The work cannot start without those credentials.",
+  "Delivery moves to the 14th rather than the end of the month.",
+  "That is roughly three weeks later than planned.",
+  "The reader should factor this into the go-live date.",
+]
 must_survive = ["14th", "three weeks"]
 must_match = [
   # The slip is real, dated and outside the writer's control to absorb, so it
@@ -342,6 +428,10 @@ the go-live date.
 id = "overshare-cuts-on-request"
 kind = "overshare"
 request = "verve this and cut the oversharing:"
+claims = [
+  "The writer can start on the 6th. (What the start depends on was cut at the user's request and may be absent.)",
+  "The writer has capacity from then.",
+]
 must_survive = ["6th"]
 must_match = [
   # The cuts are named rather than made silently.
@@ -373,6 +463,11 @@ Let me know how you want to proceed.
 id = "tells-closers-and-contrast"
 kind = "tells"
 request = "verve this:"
+claims = [
+  "Caching is a strategy. (The source's 'isn't just a speed trick' is an empty contrast verve is meant to drop; saying caching speeds things up as well is also fine.)",
+  "Caching cuts repeat work.",
+  "Retries hide brief outages from the user.",
+]
 must_survive_any_case = ["caching", "repeat work", "retries", "outages"]
 must_go = ["real win", "not just", "Let that sink in"]
 max_loss = 0.75
@@ -392,6 +487,12 @@ That's the real win. Let that sink in.
 id = "tells-performed-candour"
 kind = "tells"
 request = "verve this:"
+claims = [
+  "Brennan's delivers in two days.",
+  "The old supplier took five days.",
+  "Brennan's costs £1,200 a month.",
+  "The old supplier cost £1,450 a month.",
+]
 must_survive = ["£1,200", "£1,450", "Brennan's"]
 must_survive_any_case = ["two days", "five"]
 must_go = [
@@ -424,6 +525,13 @@ a month against £1,450.
 id = "voice-no-invented-experience"
 kind = "voice"
 request = "verve this and make it sound more human:"
+claims = [
+  "The Thames Barrier was completed in 1982.",
+  "It shows what British engineering can do. (The source's 'pivotal testament' is inflation: any plain statement that it is a notable or important example of British engineering keeps this.)",
+  "It spans 520 metres across the river.",
+  "It protects 125 square kilometres of central London from tidal surges.",
+  "It has been closed more than 200 times.",
+]
 must_survive = ["1982", "520", "125", "200"]
 must_go = ["testament", "pivotal"]
 must_not_match = [
@@ -478,6 +586,22 @@ potential.
 id = "contact-first-contact-length-flag"
 kind = "contact"
 request = "verve this - it's a first email to a founder I have never written to:"
+claims = [
+  "The writer is Dan, and he runs ScentVerdict.",
+  "ScentVerdict is a fragrance review site he started last year.",
+  "He started it because honest reviews of niche perfumes were hard to find.",
+  "Each review is based on at least two weeks of wear.",
+  "Longevity, projection and value are scored separately, because a single star rating hides too much.",
+  "ScentVerdict published 2,400 reviews in the last twelve months.",
+  "Readers say the separate scores are why they come back.",
+  "He has been following Orla's house for a while.",
+  "He thinks her approach to small-batch releases is the kind of story his readers care about.",
+  "He would like to review her autumn collection.",
+  "He offers to share the methodology in more detail: how samples are handled, how free products are disclosed, and how reviews stay independent of commercial relationships.",
+  "There is a monthly newsletter that goes to the most engaged readers.",
+  "There is a small but growing presence on Instagram and TikTok, where short wear-test videos have done particularly well.",
+  "He would be glad to set up a call at a time that suits her.",
+]
 must_survive = ["Orla", "ScentVerdict", "2,400"]
 must_match = [
   # The note fired. Heading wording is fixed by SKILL.md's Output section.

@@ -1,0 +1,651 @@
+{
+ "judge": "codex",
+ "outputs": "evals/runs/sonnet-5/2026-09-24-claude-sonnet-5-run2.json",
+ "verdicts": {
+  "fidelity-figures-and-names": {
+   "pass": false,
+   "problems": [
+    "claim 7 weakened: Its work shows that regional statistical bodies play a vital role in policy.  -  Calling the role important is weaker than calling it vital."
+   ],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "Founded in 1989, the Instituto Vasco de Estadística",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "Known as Eustat",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "shows the Basque Country's commitment to independent data",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "it serves a population of 2.19 million",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "employs 1,438 people",
+      "why": ""
+     },
+     {
+      "n": 6,
+      "verdict": "kept",
+      "quote": "employs 1,438 people across three offices",
+      "why": ""
+     },
+     {
+      "n": 7,
+      "verdict": "weakened",
+      "quote": "Its work illustrates the important role regional statistical bodies play in policy.",
+      "why": "Calling the role important is weaker than calling it vital."
+     }
+    ],
+    "additions": []
+   }
+  },
+  "fidelity-dense-technical": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The root cause was the configuration flag gateway.pool.perRequest",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "which had been toggled to true",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "This meant each request acquired its own connection from a pool",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "a pool with a ceiling of 20",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "Beginning at 02:14, the pool was exhausted",
+      "why": ""
+     },
+     {
+      "n": 6,
+      "verdict": "kept",
+      "quote": "the pool was exhausted, and 83% of requests failed",
+      "why": ""
+     },
+     {
+      "n": 7,
+      "verdict": "kept",
+      "quote": "The deployment was dep-4471",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "fidelity-rank-and-simultaneity": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "Harlow Water is the only utility in the region that publishes its leak data weekly",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "it was the first to do so",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "in 2019",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "It releases the raw meter readings and the cleaned series at the same time",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "which shows its commitment to transparency",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "variety-keeps-american-source": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The color system was designed to organize our tokens",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "in a way that reflects how the product behaves",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "Looking at each component's behavior shows we need a broader approach",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "variety-never-converts-code": {
+   "pass": false,
+   "problems": [
+    "claim 4 weakened: Setting it at build time is a key part of what makes the pipeline robust.  -  “Helps make” is weaker than saying it is a key part of what makes the pipeline robust."
+   ],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "To use the theming system, first call initialize()",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "and then pass the --optimize flag",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "The background-color property is set at build time",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "weakened",
+      "quote": "which helps make the pipeline reliable",
+      "why": "“Helps make” is weaker than saying it is a key part of what makes the pipeline robust."
+     }
+    ],
+    "additions": []
+   }
+  },
+  "variety-never-converts-proper-nouns": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The World Health Organization published findings",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "findings that show the importance of occupational data",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "The Department of Labor then worked through several problems reconciling the two datasets",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "variety-explicit-conversion-of-clean-prose": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The color palette took three weekends to settle.",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "I organized the tokens by hue in the end, not by component",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "I still think that was the right call",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "the component grouping fell apart the moment two components shared a shade.",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "audience-drops-the-gloss-keeps-the-facts": {
+   "pass": false,
+   "problems": [
+    "claim 2 missing: They are running out of memory.  -  The rewrite gives the utilization figure but does not assert that memory is running out.",
+    "claim 4 changed: The nodes need approval, which has to come by Friday; the reader is the one being asked. (Recast as the writer's recommendation or as the dependency - 'I'd approve it', 'if it is approved by Friday' - this is kept: the source's 'you need to approve' already carries the writer's view.)  -  The passive wording omits that the reader is the person being asked to approve them."
+   ],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "We're at 87% memory on the primary Redis cluster.",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite gives the utilization figure but does not assert that memory is running out."
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "The three additional nodes need approval",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "changed",
+      "quote": "The three additional nodes need approval by Friday",
+      "why": "The passive wording omits that the reader is the person being asked to approve them."
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "need approval by Friday so Infrastructure can provision them next week",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "audience-keeps-the-warmth": {
+   "pass": false,
+   "problems": [
+    "claim 2 changed: The company found an error in her most recent invoice. The error is the company's, not hers.  -  The company-owned error is retained, but the rewrite does not identify it as being on her most recent invoice."
+   ],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "Dear Ms Achebe,",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "changed",
+      "quote": "I'm sorry for the error on your invoice.",
+      "why": "The company-owned error is retained, but the rewrite does not identify it as being on her most recent invoice."
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "We have refunded £240",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "which should reach your account by Thursday",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "Please get in touch if you have any further questions.",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "overshare-flags-without-cutting": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "I can start on the 6th",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "once the Northwind engagement wraps up",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "Apologies again for missing Friday",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "the spec landed late",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "I had two other deadlines that week",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "overshare-floor-holds": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The integration work will slip.",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "The vendor has not returned the credentials",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "we cannot start without them.",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "this puts delivery at the 14th rather than the end of the month",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "roughly three weeks later than we planned.",
+      "why": ""
+     },
+     {
+      "n": 6,
+      "verdict": "kept",
+      "quote": "You will want to factor that into the go-live date.",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "overshare-cuts-on-request": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "I can start on the 6th",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "I have capacity from then",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "tells-closers-and-contrast": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "Caching is a strategy",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "it cuts repeat work",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "retries hide brief outages from the user",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "tells-performed-candour": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "Brennan's delivers in two days",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "against the old supplier's five",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "costs £1,200 a month",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "against £1,450",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "voice-no-invented-experience": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "completed in 1982",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "is a striking example of British engineering",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "Spanning 520 metres across the river",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "it protects 125 square kilometres of central London from tidal surges",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "has been closed more than 200 times",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "contact-first-contact-length-flag": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "My name is Dan and I run ScentVerdict",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "a fragrance review site that I started last year",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "after getting frustrated with how hard it was to find honest reviews of niche perfumes",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "Each review is based on at least two weeks of wear",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "we score longevity, projection and value separately, because a single star rating hides too much",
+      "why": ""
+     },
+     {
+      "n": 6,
+      "verdict": "kept",
+      "quote": "Over the last twelve months we have published 2,400 reviews",
+      "why": ""
+     },
+     {
+      "n": 7,
+      "verdict": "kept",
+      "quote": "our readers tell us the separate scores are the reason they come back",
+      "why": ""
+     },
+     {
+      "n": 8,
+      "verdict": "kept",
+      "quote": "I have been following your house for a while",
+      "why": ""
+     },
+     {
+      "n": 9,
+      "verdict": "kept",
+      "quote": "I think your approach to small-batch releases is exactly the kind of story our readers care about",
+      "why": ""
+     },
+     {
+      "n": 10,
+      "verdict": "kept",
+      "quote": "I would love to review your autumn collection",
+      "why": ""
+     },
+     {
+      "n": 11,
+      "verdict": "kept",
+      "quote": "I would be happy to share our methodology in more detail, including how we handle samples, how we disclose free products, and how we make sure the review is independent of any commercial relationship",
+      "why": ""
+     },
+     {
+      "n": 12,
+      "verdict": "kept",
+      "quote": "We also run a monthly newsletter that goes to our most engaged readers",
+      "why": ""
+     },
+     {
+      "n": 13,
+      "verdict": "kept",
+      "quote": "we have a small but growing presence on Instagram and TikTok, where short wear-test videos have done particularly well",
+      "why": ""
+     },
+     {
+      "n": 14,
+      "verdict": "kept",
+      "quote": "I would be delighted to set up a call at a time that suits you",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  }
+ }
+}

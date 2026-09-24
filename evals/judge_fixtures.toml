@@ -1,0 +1,200 @@
+# The judge's own test set.
+#
+# evals/judge.py is only worth running if it passes rewrites that kept their
+# meaning and fails rewrites that did not. This file is that check:
+# `python3 evals/judge.py --selftest` judges every fixture and fails if any
+# verdict disagrees with `expect`.
+#
+# Fields:
+#   id        unique, kebab-case
+#   case      the corpus case whose source and claims are used
+#   expect    "pass" or "fail"
+#   run       for a pass fixture: a recorded run to take the output from
+#   output    for a fail fixture: the distorted rewrite, written out
+#   catches   for a fail fixture: what the judge must notice, for the reader
+#
+# The fail fixtures are the semantic mutations mutations.toml has listed since
+# 10 Sep 2026 as invisible to substring checks, plus the real distortion the
+# 8 Sep run shipped. Every one of them passes the substring grader.
+
+# ---------------------------------------------------------------------------
+# Rewrites that kept their meaning. Read by hand on 24 Sep 2026.
+# ---------------------------------------------------------------------------
+
+[[fixture]]
+id = "good-eustat"
+case = "fidelity-figures-and-names"
+expect = "pass"
+run = "runs/2026-09-24-claude-opus-5-5-run1.json"
+
+[[fixture]]
+id = "good-pool"
+case = "fidelity-dense-technical"
+expect = "pass"
+run = "runs/2026-09-24-claude-opus-5-5-run1.json"
+
+[[fixture]]
+id = "good-harlow"
+case = "fidelity-rank-and-simultaneity"
+expect = "pass"
+run = "runs/2026-09-24-claude-opus-5-5-run1.json"
+
+[[fixture]]
+id = "good-redis"
+case = "audience-drops-the-gloss-keeps-the-facts"
+expect = "pass"
+run = "runs/2026-09-24-claude-opus-5-5-run1.json"
+
+[[fixture]]
+id = "good-achebe"
+case = "audience-keeps-the-warmth"
+expect = "pass"
+run = "runs/2026-09-24-claude-opus-5-5-run1.json"
+
+[[fixture]]
+id = "good-slip"
+case = "overshare-floor-holds"
+expect = "pass"
+run = "runs/2026-09-24-claude-opus-5-5-run1.json"
+
+[[fixture]]
+id = "good-barrier"
+case = "voice-no-invented-experience"
+expect = "pass"
+run = "runs/2026-09-24-claude-opus-5-5-run1.json"
+
+[[fixture]]
+id = "good-brennans"
+case = "tells-performed-candour"
+expect = "pass"
+run = "runs/2026-09-24-claude-opus-5-5-run1.json"
+
+# ---------------------------------------------------------------------------
+# Rewrites that changed their meaning. Each passes the substring grader.
+# ---------------------------------------------------------------------------
+
+[[fixture]]
+id = "bad-eustat-shipped-8-sep"
+case = "fidelity-figures-and-names"
+expect = "fail"
+catches = "The distortion the 8 Sep run actually shipped: evidence of a commitment became a founding purpose, and an opinion the source never offered was added."
+output = """
+The Instituto Vasco de Estadística, known as Eustat, was founded in 1989 to \
+produce data on the Basque Country independently. It serves a population of \
+2.19 million and employs 1,438 people across three offices. Its figures are \
+used in policy, which is the main argument for having regional statistical \
+bodies at all.
+"""
+
+[[fixture]]
+id = "bad-eustat-figures-swapped"
+case = "fidelity-figures-and-names"
+expect = "fail"
+catches = "Population and headcount swapped between subjects. Both strings survive."
+output = """
+The Instituto Vasco de Estadística, known as Eustat, was founded in 1989 and is \
+evidence of the Basque Country's commitment to independent data. It serves a \
+population of 1,438 and employs 2.19 million people across three offices. Its \
+work shows the part regional statistical bodies play in policy.
+"""
+
+[[fixture]]
+id = "bad-pool-order-inverted"
+case = "fidelity-dense-technical"
+expect = "fail"
+catches = "The failures now come before the exhaustion, so the pool no longer explains them."
+output = """
+The root cause was the configuration flag gateway.pool.perRequest, set to true, \
+which gave every request its own connection from a pool with a ceiling of 20. \
+83% of requests had already failed by 02:14, when the pool was finally \
+exhausted. The deployment was dep-4471.
+"""
+
+[[fixture]]
+id = "bad-harlow-rank-and-timing"
+case = "fidelity-rank-and-simultaneity"
+expect = "fail"
+catches = "'The only' became 'one of several', 'the first' went, and the two series are no longer released together."
+output = """
+Harlow Water is one of several utilities in the region that publish their leak \
+data weekly, and it has done so since 2019. It releases the raw meter readings \
+first and the cleaned series later, which shows its commitment to transparency.
+"""
+
+[[fixture]]
+id = "bad-redis-condition-becomes-consequence"
+case = "audience-drops-the-gloss-keeps-the-facts"
+expect = "fail"
+catches = "Provisioning was conditional on a Friday decision; here the decision follows from provisioning."
+output = """
+Redis is at 87% memory on the primary cluster, so we are running out.
+
+Three additional nodes would fix it, and Infrastructure can provision them next \
+week so the decision can land by Friday.
+"""
+
+[[fixture]]
+id = "bad-redis-deadline-reversed"
+case = "audience-drops-the-gloss-keeps-the-facts"
+expect = "fail"
+catches = "'By Friday' became 'after Friday'. Every asserted token survives."
+output = """
+Redis is at 87% memory on the primary cluster, so we are running out. I'd \
+approve the three additional nodes after Friday, and Infrastructure can \
+provision them next week.
+"""
+
+[[fixture]]
+id = "bad-achebe-apology-demanded"
+case = "audience-keeps-the-warmth"
+expect = "fail"
+catches = "The customer is told to apologise, and the Thursday estimate is gone. An apology-shaped word and a 'should' near Thursday are both present."
+output = """
+Dear Ms Achebe,
+
+We found an error in your most recent invoice. You should apologise by \
+Thursday. We have processed your £240 refund.
+
+Please get in touch if you have any further questions.
+
+Kind regards,
+Billing
+"""
+
+[[fixture]]
+id = "bad-achebe-should-hardened"
+case = "audience-keeps-the-warmth"
+expect = "fail"
+catches = "'Should reach' hardened to 'will reach', with an unrelated 'should' left to satisfy the modality pattern."
+output = """
+Dear Ms Achebe,
+
+I'm sorry: we found an error in your most recent invoice. Your £240 refund will \
+reach your account by Thursday. You should contact us on Thursday if you have \
+any questions.
+
+Kind regards,
+Billing
+"""
+
+[[fixture]]
+id = "bad-barrier-invented-witness"
+case = "voice-no-invented-experience"
+expect = "fail"
+catches = "An invented narrator and an invented experience, added to make reference prose sound human."
+output = """
+The first time I saw the Thames Barrier, I understood why people call it one \
+of the great pieces of British engineering. Completed in 1982, it spans 520 \
+metres across the river, protects 125 square kilometres of central London \
+from tidal surges, and has been closed more than 200 times.
+"""
+
+[[fixture]]
+id = "bad-brennans-prices-swapped"
+case = "tells-performed-candour"
+expect = "fail"
+catches = "The two monthly costs attached to the wrong suppliers."
+output = """
+Brennan's delivers in two days where the old supplier took five, though it \
+costs £1,450 a month against the old supplier's £1,200.
+"""

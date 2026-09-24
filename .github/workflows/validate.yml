@@ -94,6 +94,12 @@ jobs:
       - name: The eval corpus loads
         run: python3 evals/run.py --dry-run
 
+      # The fidelity judge needs a model, so only its inputs are checked here:
+      # every fixture names a case with claims, every recorded output it
+      # points at exists, and every prompt builds.
+      - name: The judge's claims and fixtures load
+        run: python3 evals/judge.py --dry-run
+
       # AND THE GRADER STILL GRADES, which the dry run does not check. Every
       # recorded run in evals/runs/ is graded against the current corpus here:
       # 9/9, 9/9, 13/13 and three runs of 19/19 as of 24 Sep 2026. The
