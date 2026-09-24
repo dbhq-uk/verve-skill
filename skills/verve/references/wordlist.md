@@ -51,7 +51,7 @@ Replace with plain equivalents.
 | vibrant | busy, lively |
 | showcase | show |
 | interplay | relationship |
-| key (adjective) | main, or name the thing |
+| key (adjective) | important, main, or name the thing - at the same force: *a key part* is *an important part*, not *the main reason* |
 | valuable | useful, or say why |
 | crucial | important, or say why |
 | enhance | improve |
@@ -213,6 +213,7 @@ work is not dead: *just* meaning "only", *literally* meaning literally,
 | is able to | can |
 | in spite of the fact that | although |
 | a large number of | many |
+| subsequently | then, after that (never delete: it carries the order) |
 | it is important to note that | (delete) |
 | it's worth mentioning that | (delete) |
 | it's worth noting | (delete) |

@@ -103,7 +103,7 @@ jobs:
       # AND THE GRADER STILL GRADES, which the dry run does not check. Every
       # recorded run in evals/runs/ is graded against the current corpus here:
       # 9/9, 9/9, 13/13 and three runs of 19/19 as of 24 Sep 2026. The
-      # runs in evals/runs/baseline/ and evals/runs/sonnet-5/ are not graded:
+      # runs in evals/runs/baseline/, sonnet-5/ and superseded/ are not graded:
       # the glob below does not recurse, deliberately, because they record
       # failures rather than runs that should pass.
       # No API key, no spend, no model

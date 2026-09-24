@@ -1,0 +1,688 @@
+{
+ "judge": "codex",
+ "outputs": "evals/runs/sonnet-5/2026-09-24-claude-sonnet-5-one-word-claims-run3.json",
+ "verdicts": {
+  "fidelity-figures-and-names": {
+   "pass": false,
+   "problems": [
+    "claim 3 changed: The institute is evidence of the Basque Country's commitment to independent data. This is something it demonstrates, not a purpose it was founded for.  -  The rewrite turns evidence of a commitment into the institute's founding purpose.",
+    "added: 'was founded in 1989 to give the Basque Country independent statistics'  -  The source does not state or imply that providing independent statistics was the purpose for which the institute was founded."
+   ],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "was founded in 1989",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "Known as Eustat",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "changed",
+      "quote": "was founded in 1989 to give the Basque Country independent statistics",
+      "why": "The rewrite turns evidence of a commitment into the institute's founding purpose."
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "serves a population of 2.19 million",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "employs 1,438 people",
+      "why": ""
+     },
+     {
+      "n": 6,
+      "verdict": "kept",
+      "quote": "employs 1,438 people across three offices",
+      "why": ""
+     },
+     {
+      "n": 7,
+      "verdict": "kept",
+      "quote": "Its work shows the vital role regional statistical bodies play in policy",
+      "why": ""
+     }
+    ],
+    "additions": [
+     {
+      "quote": "was founded in 1989 to give the Basque Country independent statistics",
+      "why": "The source does not state or imply that providing independent statistics was the purpose for which the institute was founded."
+     }
+    ]
+   }
+  },
+  "fidelity-dense-technical": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The root cause was the configuration flag gateway.pool.perRequest",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "toggled to true",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "This meant each request would acquire its own connection from a pool",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "a pool with a ceiling of 20",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "The pool was exhausted from 02:14",
+      "why": ""
+     },
+     {
+      "n": 6,
+      "verdict": "kept",
+      "quote": "and 83% of requests then failed",
+      "why": ""
+     },
+     {
+      "n": 7,
+      "verdict": "kept",
+      "quote": "The deployment was dep-4471",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "fidelity-rank-and-simultaneity": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "Harlow Water is the only utility in the region that publishes its leak data weekly",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "it was the first to do so",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "in 2019",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "It releases the raw meter readings and the cleaned series simultaneously",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "showing its commitment to transparency",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "variety-keeps-american-source": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The color system was designed to organize our tokens",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "around how the product actually behaves",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "Looking at each component's behavior, we need a broader, more joined-up approach",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "variety-never-converts-code": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "To use the theming system, you must first call initialize()",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "and then pass the --optimize flag",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "The background-color property is set at build time",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "which is an important part of what makes the pipeline reliable",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "variety-never-converts-proper-nouns": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The World Health Organization published its findings",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "which show the important role of occupational data",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "The Department of Labor then worked through a series of challenges to reconcile the two datasets",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "variety-explicit-conversion-of-clean-prose": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The color palette took three weekends to settle.",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "I organized the tokens by hue in the end, not by component",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "I still think that was the right call",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "the component grouping fell apart the moment two components shared a shade.",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "audience-drops-the-gloss-keeps-the-facts": {
+   "pass": false,
+   "problems": [
+    "claim 2 missing: They are running out of memory.  -  The rewrite gives the current usage but does not assert that memory is running out."
+   ],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "We're at 87% memory on the primary Redis cluster.",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite gives the current usage but does not assert that memory is running out."
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "approving the three additional nodes",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "Recommend approving the three additional nodes, so Infrastructure has the go-ahead by Friday",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "so Infrastructure has the go-ahead by Friday to provision them next week",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "audience-keeps-the-warmth": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "Dear Ms Achebe,",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "I'm sorry we got this wrong. We have identified an error in your most recent invoice",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "processed a refund of £240",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "which should reach your account by Thursday",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "Please do get in touch if you have any questions.",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "overshare-flags-without-cutting": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "I can start on the 6th",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "once the Northwind engagement wraps up",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "Apologies again for missing Friday",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "the spec landed late",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "I had two other deadlines that week",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "overshare-floor-holds": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The integration work will slip.",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "The vendor has not returned the credentials",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "we cannot start without them.",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "Realistically this puts delivery at the 14th rather than the end of the month",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "roughly three weeks later than we planned.",
+      "why": ""
+     },
+     {
+      "n": 6,
+      "verdict": "kept",
+      "quote": "You will want to factor that into the go-live date.",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "overshare-cuts-on-request": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "I can start on the 6th",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "I have capacity from then",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "tells-closers-and-contrast": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "Caching is a strategy, not just a speed trick",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "it cuts repeat work",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "Retries hide brief outages from the user",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "tells-performed-candour": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "Brennan's delivers in two days",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "against five for the old supplier",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "The cost is £1,200 a month",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "against £1,450",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "voice-no-invented-experience": {
+   "pass": true,
+   "problems": [],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "kept",
+      "quote": "The Thames Barrier, completed in 1982",
+      "why": ""
+     },
+     {
+      "n": 2,
+      "verdict": "kept",
+      "quote": "is a major achievement of British engineering",
+      "why": ""
+     },
+     {
+      "n": 3,
+      "verdict": "kept",
+      "quote": "It spans 520 metres across the Thames",
+      "why": ""
+     },
+     {
+      "n": 4,
+      "verdict": "kept",
+      "quote": "protects 125 square kilometres of central London from tidal surges",
+      "why": ""
+     },
+     {
+      "n": 5,
+      "verdict": "kept",
+      "quote": "It has been closed more than 200 times",
+      "why": ""
+     }
+    ],
+    "additions": []
+   }
+  },
+  "contact-first-contact-length-flag": {
+   "pass": false,
+   "problems": [
+    "claim 1 missing: The writer is Dan, and he runs ScentVerdict.  -  The rewrite does not identify Dan or say that he runs ScentVerdict.",
+    "claim 2 missing: ScentVerdict is a fragrance review site he started last year.  -  The rewrite does not describe ScentVerdict or when it was started.",
+    "claim 3 missing: He started it because honest reviews of niche perfumes were hard to find.  -  The rewrite does not state why ScentVerdict was started.",
+    "claim 4 missing: Each review is based on at least two weeks of wear.  -  The rewrite says nothing about the wear period behind each review.",
+    "claim 5 missing: Longevity, projection and value are scored separately, because a single star rating hides too much.  -  The rewrite does not mention separate scores or the problem with a single star rating.",
+    "claim 6 missing: ScentVerdict published 2,400 reviews in the last twelve months.  -  The rewrite does not mention the publication of 2,400 reviews.",
+    "claim 7 missing: Readers say the separate scores are why they come back.  -  The rewrite does not report what readers say about the separate scores.",
+    "claim 8 missing: He has been following Orla's house for a while.  -  The rewrite does not say that Dan has followed Orla's house.",
+    "claim 9 missing: He thinks her approach to small-batch releases is the kind of story his readers care about.  -  The rewrite does not discuss small-batch releases or readers' interest in them.",
+    "claim 10 missing: He would like to review her autumn collection.  -  The rewrite does not request a review of the autumn collection.",
+    "claim 11 missing: He offers to share the methodology in more detail: how samples are handled, how free products are disclosed, and how reviews stay independent of commercial relationships.  -  The rewrite does not offer methodology details about samples, disclosures, or independence.",
+    "claim 12 missing: There is a monthly newsletter that goes to the most engaged readers.  -  The rewrite does not mention the monthly newsletter or its recipients.",
+    "claim 13 missing: There is a small but growing presence on Instagram and TikTok, where short wear-test videos have done particularly well.  -  The rewrite does not mention Instagram, TikTok, or wear-test video performance.",
+    "claim 14 missing: He would be glad to set up a call at a time that suits her.  -  The rewrite does not offer to arrange a call.",
+    "added: 'Task: Verve rewrite request - first email to a founder, no file specified'  -  This labels and characterizes the task rather than conveying anything stated or implied by the source email.",
+    "added: 'Let me check for saved preferences before proceeding.'  -  This introduces a new narrator and an intention to inspect saved preferences.",
+    "added: 'Tool: bash'  -  The source does not mention using a shell tool.",
+    "added: 'ls -la /tmp/tmpdnj1pekw/.verve.md /tmp/tmpdnj1pekw/CLAUDE.md /tmp/tmpdnj1pekw/AGENTS.md ~/.verve.md ~/.claude/CLAUDE.md ~/.AGENTS.md 2>&1 | head -20'  -  This adds an instruction to inspect local preference and instruction files."
+   ],
+   "raw": {
+    "claims": [
+     {
+      "n": 1,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not identify Dan or say that he runs ScentVerdict."
+     },
+     {
+      "n": 2,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not describe ScentVerdict or when it was started."
+     },
+     {
+      "n": 3,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not state why ScentVerdict was started."
+     },
+     {
+      "n": 4,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite says nothing about the wear period behind each review."
+     },
+     {
+      "n": 5,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not mention separate scores or the problem with a single star rating."
+     },
+     {
+      "n": 6,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not mention the publication of 2,400 reviews."
+     },
+     {
+      "n": 7,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not report what readers say about the separate scores."
+     },
+     {
+      "n": 8,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not say that Dan has followed Orla's house."
+     },
+     {
+      "n": 9,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not discuss small-batch releases or readers' interest in them."
+     },
+     {
+      "n": 10,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not request a review of the autumn collection."
+     },
+     {
+      "n": 11,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not offer methodology details about samples, disclosures, or independence."
+     },
+     {
+      "n": 12,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not mention the monthly newsletter or its recipients."
+     },
+     {
+      "n": 13,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not mention Instagram, TikTok, or wear-test video performance."
+     },
+     {
+      "n": 14,
+      "verdict": "missing",
+      "quote": "",
+      "why": "The rewrite does not offer to arrange a call."
+     }
+    ],
+    "additions": [
+     {
+      "quote": "Task: Verve rewrite request - first email to a founder, no file specified",
+      "why": "This labels and characterizes the task rather than conveying anything stated or implied by the source email."
+     },
+     {
+      "quote": "Let me check for saved preferences before proceeding.",
+      "why": "This introduces a new narrator and an intention to inspect saved preferences."
+     },
+     {
+      "quote": "Tool: bash",
+      "why": "The source does not mention using a shell tool."
+     },
+     {
+      "quote": "ls -la /tmp/tmpdnj1pekw/.verve.md /tmp/tmpdnj1pekw/CLAUDE.md /tmp/tmpdnj1pekw/AGENTS.md ~/.verve.md ~/.claude/CLAUDE.md ~/.AGENTS.md 2>&1 | head -20",
+      "why": "This adds an instruction to inspect local preference and instruction files."
+     }
+    ]
+   }
+  }
+ }
+}
