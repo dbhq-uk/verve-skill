@@ -11,7 +11,7 @@ The **verve** skill for AI coding agents - strip AI tells from prose and put a h
 ```
 .claude-plugin/plugin.json      # plugin manifest
 skills/verve/SKILL.md           # the skill (agent-facing instructions)
-skills/verve/references/        # the tell catalogue, wordlists, tone presets, varieties, audience, overshare, worked examples
+skills/verve/references/        # the tell catalogue, wordlists, tone presets and over-correction, varieties, audience, overshare, preferences, worked examples
 install.sh / install-codex.sh   # local symlink installers (Claude / Codex)
 prompts/                        # paste-in messages: install, and a repo prose audit
 evals/                          # the corpus, its runner, and committed runs - not shipped, not installed
@@ -44,7 +44,9 @@ Everything else here is a preference. These are not.
 ## Conventions
 
 - Any path a `SKILL.md` names is relative to the skill's own directory (`references/patterns.md`), which every host resolves for personal, project and plugin installs alike. `install.sh` symlinks the whole skill directory into `~/.claude/skills/`; `install-codex.sh` copies `SKILL.md` and symlinks `references/`. **Never hardcode a `~/.claude/skills/verve` path or an absolute path of any kind** - it is wrong under a Codex install, wrong under a plugin install, and CI rejects it. `${CLAUDE_SKILL_DIR}` was only ever used by the commercial engine removed in July 2026 and appears nowhere in the skill now.
-- `SKILL.md` is the short half on purpose. Workflow, constraints, checks and the exit gates live there; the catalogue, wordlists, tone presets and worked examples live in `references/` and are read on demand.
+- `SKILL.md` is the short half on purpose. Modes, constraints, workflow, gates and output live there; the catalogue, wordlists, tone presets and worked examples live in `references/` and are read on demand. Say a rule once, in the file that owns it, and point to it from elsewhere: the F7 contradiction found on 24 Sep 2026 (its example cut an acknowledgement `audience.md` said to keep) came from a rule written in two places.
+- The catalogue in `references/patterns.md` is ordered strongest first and every tell is marked *on sight* or *needs company*. A new tell goes in the family whose reason it shares (staging, inflation, rhythm by rule, formatting by rule, leftovers), with its marking, a false-positive guard inside it, and a before/after whose after uses only what its before contains. Group F and G identifiers are referenced across the repo and the evals; keep them stable.
+- The skill's own history belongs in `docs/design/`, not in `SKILL.md` or `references/`. An agent reading the skill needs the rule, not the story of how it was reached.
 - Shell scripts use `set -e`; errors go to stderr, output to stdout.
 - No secrets in the repo, and nothing that would need one.
 - House style for this repository: British English, plain hyphens, no em dashes. The skill removes em dashes from other people's writing; shipping them in its own source is not a good look. Note the distinction: the *skill* writes British or American depending on the source and the request, but the *repository's own prose* is British throughout, and that is not up for negotiation on a variety argument.
@@ -62,10 +64,11 @@ claude plugin validate .
 Those are static checks. The behaviour that matters lives in prose, and `evals/` is where it is asserted:
 
 ```bash
-python3 evals/run.py --dry-run    # corpus loads, references resolve, no spend
-python3 evals/run.py              # the real thing, needs ANTHROPIC_API_KEY
+python3 evals/run.py --dry-run                 # corpus loads, references resolve, no spend
+python3 evals/run.py --via cli --runs 3        # the real thing, through the claude CLI, no key
+python3 evals/run.py --runs 3                  # the same through the API, needs ANTHROPIC_API_KEY
 ```
 
-The dry run is in CI. The real run is not, because it costs money and needs a credential, so **after editing `references/` or `SKILL.md`, run it yourself**. What each case asserts, what the substring checks cannot see, and how to grade a run done without an API key are in [`evals/README.md`](evals/README.md). Five kinds of case: triage returns human text unchanged, fidelity keeps every figure and identifier, variety never converts code or proper nouns, audience cuts the gloss while keeping both the facts and the warmth that is owed, and overshare flags without cutting while the floor holds.
+The dry run is in CI. The real run is not, because it needs a model, so **after editing `references/` or `SKILL.md`, run it yourself, three runs, and compare against the last recorded run**. One run can get lucky: on 24 Sep 2026 the version recorded as 13/13 failed four of those cases in at least one of three runs, three of them real faults in the instructions. What each case asserts, what the substring checks cannot see, and how to grade outputs produced elsewhere are in [`evals/README.md`](evals/README.md). Nine kinds of case: triage returns human text unchanged, fidelity keeps every figure, identifier and one-word claim, variety never converts code or proper nouns, audience cuts the gloss while keeping the facts and the warmth that is owed, overshare flags without cutting while the floor holds, tells removes the strongest tells, voice invents no narrator, detect quotes without scoring, and contact flags a long first email without cutting it.
 
 Ten cases is a floor, not a benchmark. Passing does not mean an edit was good; failing means it was wrong. Skipping the run because the static checks are green is how the constraints get broken. `python3 evals/mutate.py` checks the checker itself - run it after touching `corpus.toml` or `run.py`; it is offline and free.
