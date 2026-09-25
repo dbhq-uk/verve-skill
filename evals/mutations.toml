@@ -47,7 +47,7 @@ case = "audience-drops-the-gloss-keeps-the-facts"
 run = "runs/2026-09-08-claude-opus-5.json"
 kind = "automated"
 replace = ["Three additional nodes would fix it, and ", ""]
-expect_failure = "three additional nodes"
+expect_failure = "nodes"
 
 [[mutation]]
 id = "redis-provisioning-week-dropped"

@@ -129,7 +129,9 @@ makes in plain words, and remove only the dressing.
 
 **B1. Inflated significance.** On sight. *stands as, is a testament to, marks
 a pivotal moment, plays a key role, shaping the, reflects a broader, enduring
-legacy, indelible mark, evolving landscape, setting the stage for*. It works at
+legacy, indelible mark, evolving landscape, setting the stage for, has
+generated debate about, prompted broader reflection on, raising questions
+about*. It works at
 three scales: the phrase; the stock section (*Despite these challenges... it
 continues to thrive*); and the send-off (*The future looks bright*, *exciting
 times lie ahead*). Take out the inflation and keep the claim. Where the
@@ -174,8 +176,11 @@ invent a figure, a customer or a testimonial to make it land.
 > After: *Stow is a market town in the Cotswolds.*
 
 **B5. Borrowed authority.** On sight. *experts argue, observers have noted,
-industry reports, some critics, several sources*; a list of outlets someone was
-*cited in*; a follower count standing in for a view. Where the source names
+industry reports, some critics*; *several sources* or *reviewers* when one or
+two are cited; *such as* in front of a list the source gives as complete; the
+general weasel forms *it is widely regarded, it is believed, research has
+shown*; a list of outlets someone was *cited in*; a follower count standing in
+for a view. Where the source names
 the authority and what it said, use that. Where it does not, **keep the
 attribution and the claim** and flag the attribution as unresolved: deleting
 *experts believe* turns their opinion into the writer's assertion, and dropping
@@ -190,12 +195,19 @@ funded it. Name the relationship the source gives; where it gives none, keep
 the vague wording rather than invent a role.
 
 **B7. Avoiding is, are and has.** On sight. *serves as, stands as, functions
-as, features, boasts, offers, represents*, in place of the plain verb.
+as, features, boasts, offers, represents, refers to*, in place of the plain
+verb. The same move opens a piece by defining its own title as if it were a
+thing: *Catchment area refers to...*, *The list of songs about Mexico is a
+curated compilation of...*. Start with the subject itself: *A catchment area is
+the area a hospital draws its patients from.*
 
 > Before: *Gallery 825 serves as LAAA's exhibition space and boasts over 3,000 sq ft.*
 > After: *Gallery 825 is LAAA's exhibition space. It has over 3,000 sq ft.*
 
-**B8. AI vocabulary and business jargon.** AI vocabulary needs company:
+**B8. AI vocabulary and business jargon.** AI vocabulary needs company, and
+`wordlist.md` says which model era overuses which word, because the words
+change with each release and the current set is the stronger evidence in new
+text (for detect mode; in a rewrite, a clustered word goes whatever its era):
 *delve, tapestry, testament, pivotal, landscape (figurative), intricate, robust
 (figurative), showcase, underscore, foster, garner, interplay, meticulous,
 seamless* and the rest in `wordlist.md`. The tell is density and reflexive use;
@@ -301,6 +313,17 @@ the restatement.
 
 **D5. Curly quotes.** Needs company, because most editors curl quotes
 automatically. Use straight quotes unless the source is typeset prose.
+
+**D6. Stock and paired headings.** Needs company. *Awards and recognition*,
+*Legacy and impact*, *Challenges and future outlook*, and any *X and Y*
+heading built to sound complete rather than to name what the section holds.
+Keep a heading the section needs, in plain words; where the heading has
+nothing of its own, fold the section into the one before.
+
+**D7. Tables too small to be tables.** Needs company. Two or three rows that
+would read better as a sentence. Turn them into one, keeping every value in
+every cell (constraint 1): *Mara Quill won in 2024*, not an empty sentence and
+not a dropped row.
 
 ---
 

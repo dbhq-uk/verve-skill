@@ -271,11 +271,15 @@ claims = [
   "If the approval comes by Friday, Infrastructure can provision the nodes next week. The approval is the condition; provisioning is what follows from it.",
 ]
 must_survive = ["87%", "Redis", "Friday", "Infrastructure"]
-must_survive_any_case = ["three additional nodes", "next week"]
+must_survive_any_case = ["next week"]
 must_match = [
   # "primary cluster" may legitimately be recast as "primary Redis cluster";
   # the fact that it is the primary cluster must survive in some wording.
   '\bprimary\b[^.!?]{0,40}\bcluster\b',
+  # The node count must survive. "Add three nodes" says the same as "three
+  # additional nodes"; the exact phrase failed that rewrite on 25 Sep 2026,
+  # and the judge checks the meaning.
+  '\bthree\s+(?:additional\s+|more\s+|extra\s+|new\s+)?(?:Redis\s+)?nodes\b',
 ]
 must_go = [
   "in-memory data store",
@@ -515,6 +519,43 @@ It's worth being precise here, because this gets repeated a lot. To be clear, \
 the honest answer is that Brennan's delivers in two days and the old supplier \
 took five. Let me break this down: delivery is faster, and the cost is £1,200 \
 a month against £1,450.
+"""
+
+[[case]]
+id = "tells-wikipedia-2026"
+kind = "tells"
+request = "verve this:"
+claims = [
+  "The Harbour Prize is an annual award for coastal photography.",
+  "It was founded in 2011.",
+  "Since it was founded, people have argued about the ethics of drone shots in it. (The source's 'generated debate' is the claim; a plain statement that it has been argued over keeps it.)",
+  "The Tidewater Trust wrote the rules.",
+  "The Tidewater Trust moved the ceremony to Plymouth in 2019.",
+  "Mara Quill won the prize in 2024.",
+]
+must_survive = ["2011", "Tidewater Trust", "Plymouth", "2019", "Mara Quill", "2024"]
+must_go = [
+  "refers to",
+  "generated debate",
+  "Awards and recognition",
+  "|---",
+  "authored",
+  "relocated",
+]
+max_loss = 0.6
+max_gain = 0.6
+why = "Signs from Wikipedia's Signs of AI writing (August 2026) verve did not carry until 25 Sep: a lead that defines its own title, a stock 'X and Y' heading, a table too small to be one, 'generated debate', and the stiff synonyms the guide lists among signs of human writing done the other way round. Every fact survives, including the single table row, which has to become a sentence rather than vanish."
+text = """
+## Awards and recognition
+
+The Harbour Prize refers to an annual award for coastal photography. It has \
+generated debate about the ethics of drone shots since it was founded in \
+2011. The rules were authored by the Tidewater Trust, which relocated the \
+ceremony to Plymouth in 2019.
+
+| Year | Winner |
+|---|---|
+| 2024 | Mara Quill |
 """
 
 # ---------------------------------------------------------------------------
