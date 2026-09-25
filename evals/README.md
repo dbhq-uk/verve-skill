@@ -132,6 +132,20 @@ not have. The outputs are in `runs/` and `runs/sonnet-5/` with
 Opus run holding the fake tool call is in `runs/superseded/`, which CI does
 not grade, because the grader now fails it.
 
+### Wikipedia's August 2026 signs, 25 Sep
+
+A case for the signs verve did not yet carry - a lead defining its own title,
+an *Awards and recognition* heading, a one-row table, *generated debate*,
+*authored* and *relocated* - failed on every run of both models before the
+change and passed on every run after it (`tells-wikipedia-2026`). Nothing
+else moved outside the known residuals: judged by Codex, Opus kept its
+meaning in 51 of 51 outputs and Sonnet in 46 of 51. One draft of the change
+made things worse, which is why it did not ship: the new model-era column
+read as licence to keep an older word, and Sonnet kept *delve*. The table now
+says the era weighs evidence for detect mode and never decides what a rewrite
+keeps. `runs/superseded/` holds recorded runs the current grader fails,
+including one Opus run from this change that printed a tool call.
+
 The judge is strict, and it varies a little between calls: one flag on a
 *would acquire* the source meant as a report, since pinned in the claim. Read
 what it flags. Like the grader, it is a reason to look, not a substitute for
@@ -254,7 +268,7 @@ the skill. `--save` writes one JSON per run in the shape `grade.py` reads.
 
 Always run three. One run can get lucky: see below.
 
-Nineteen cases is not a benchmark. It is a floor: the things that must not
+Twenty cases is not a benchmark. It is a floor: the things that must not
 break.
 
 ## The nine kinds

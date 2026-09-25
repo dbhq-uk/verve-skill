@@ -17,52 +17,67 @@ W2): cut them where they pad and leave tight prose alone.
 
 ## AI vocabulary
 
-Replace with plain equivalents.
+Replace with plain equivalents. The era column follows Wikipedia's *Signs of
+AI writing* (updated August 2026), which tracks the words ChatGPT overused in
+each period: **GPT-4** (2023 to mid-2024), **GPT-4o** (mid-2024 to mid-2025)
+and **GPT-5** (mid-2025 on). A word in the current set is stronger evidence
+in new text than one from 2023, which is thinning out; *delve* dropped off
+sharply in 2025. The era is for weighing evidence - how strongly a piece reads
+as machine-made, which is what detect mode reports. It never decides what a
+rewrite keeps: in a passage where the tells cluster, every word in this table
+goes, whatever its era. **General** marks a word verve lists from other sources. Other
+model families lean differently: Grok overuses *causal, empirical, correlate*
+and still *underscore* as of 2026. A word overused by a model does not make
+its synonyms suspect, and a literal use is not the tell (*underscore* the
+character, a *landscape* painting).
 
-| Avoid | Use |
-|---|---|
-| delve into | look at, examine |
-| tapestry | mix, range |
-| leverage (verb) | use |
-| utilise | use |
-| realm | area, field |
-| landscape (figurative) | situation, field |
-| pivotal | important, decisive |
-| intricate | complex, detailed |
-| elucidate | explain |
-| harness (verb) | use |
-| groundbreaking, cutting-edge | new, recent |
-| navigate (challenges) | handle, deal with |
-| testament to | evidence of, shows |
-| ever-evolving | changing |
-| treasure trove | collection, source |
-| shed light on | explain, show |
-| dive deep, deep dive | examine, analysis |
-| skyrocket | rise sharply |
-| revolutionise | change |
-| disruptive | new, competing |
-| robust | reliable, strong |
-| comprehensive | full, complete |
-| holistic | whole, overall |
-| paradigm | model, approach |
-| foster | encourage, support |
-| garner | get, attract |
-| underscore | show, stress |
-| vibrant | busy, lively |
-| showcase | show |
-| interplay | relationship |
-| key (adjective) | important, main, or name the thing - at the same force: *a key part* is *an important part*, not *the main reason* |
-| valuable | useful, or say why |
-| crucial | important, or say why |
-| enhance | improve |
-| bolster | support, strengthen |
-| align with | match, fit |
-| highlight (verb) | show, point out |
-| meticulous(ly) | careful(ly) |
-| seamless(ly) | smooth, without a break |
-| enduring | lasting, long |
-| quietly (as praise) | cut, or say what it does |
-| gate, gated (figurative) | limit, depend on (keep technical uses) |
+| Avoid | Use | Era |
+|---|---|---|
+| emphasising | stressing, or cut | GPT-4, GPT-4o, GPT-5 |
+| enhance | improve | GPT-4o, GPT-5 |
+| highlight (verb) | show, point out | GPT-4o, GPT-5 |
+| showcase | show | GPT-4o, GPT-5 |
+| crucial | important, or say why | GPT-4, GPT-4o |
+| pivotal | important, decisive | GPT-4, GPT-4o |
+| underscore | show, stress | GPT-4, GPT-4o |
+| vibrant | busy, lively | GPT-4, GPT-4o |
+| enduring | lasting, long | GPT-4, GPT-4o |
+| bolster | support, strengthen | GPT-4, GPT-4o |
+| foster | encourage, support | GPT-4o |
+| align with | match, fit | GPT-4o |
+| additionally (opening a sentence) | also, or start without it | GPT-4 |
+| delve into | look at, examine | GPT-4 |
+| tapestry | mix, range | GPT-4 |
+| testament to | evidence of, shows | GPT-4 |
+| landscape (figurative) | situation, field | GPT-4 |
+| intricate | complex, detailed | GPT-4 |
+| interplay | relationship | GPT-4 |
+| garner | get, attract | GPT-4 |
+| meticulous(ly) | careful(ly) | GPT-4 |
+| key (adjective) | important, main, or name the thing - at the same force: *a key part* is *an important part*, not *the main reason* | GPT-4 |
+| valuable | useful, or say why | GPT-4 |
+| boasts | has | GPT-4 |
+| robust | reliable, strong | General |
+| dive deep, deep dive | examine, analysis | General |
+| leverage (verb) | use | General |
+| utilise | use | General |
+| realm | area, field | General |
+| elucidate | explain | General |
+| harness (verb) | use | General |
+| groundbreaking, cutting-edge | new, recent | General |
+| navigate (challenges) | handle, deal with | General |
+| ever-evolving | changing | General |
+| treasure trove | collection, source | General |
+| shed light on | explain, show | General |
+| skyrocket | rise sharply | General |
+| revolutionise | change | General |
+| disruptive | new, competing | General |
+| comprehensive | full, complete | General |
+| holistic | whole, overall | General |
+| paradigm | model, approach | General |
+| seamless(ly) | smooth, without a break | General |
+| quietly (as praise) | cut, or say what it does | General |
+| gate, gated (figurative) | limit, depend on (keep technical uses) | General |
 
 ## Business jargon
 
@@ -188,6 +203,22 @@ reader has expertise in the subject, and they stay where the reader is new to
 it.
 
 - basically, essentially, in layman's terms, to put it simply
+
+## Stiff synonyms (wordiness)
+
+Wikipedia's *Signs of AI writing* lists the plain word as a sign of a person
+writing, which makes the stiff one worth swapping where it pads.
+
+| Avoid | Use |
+|---|---|
+| authored | wrote |
+| relocated | moved |
+| utilised | used |
+| attempted | tried |
+| passed away | died |
+
+One exception: keep *passed away* where the writer chose it for a grieving
+reader. That is courtesy, and cutting it is F11.
 
 ## Dead adverbs (wordiness)
 
