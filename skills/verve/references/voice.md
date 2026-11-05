@@ -117,6 +117,39 @@ as the originals. Check the draft for each one before it goes.
 - **Stacked fragments** for punch (A2).
 - **Sentences padded long** to raise the variance. Tense or fast passages are
   meant to run short.
+- **A coined saying to end a paragraph.** *Hope isn't a strategy.* *That's a
+  feature, not a bug.* Rewriters asked to sound like someone reach for these,
+  and readers quote them back as the giveaway. It is A3 arriving from the
+  other side. End on the last fact or the writer's own words.
+- **Sincerity added as voice.** *Quite a lot, honestly.* *I genuinely think.*
+  In one measured set of 2026 rewrites *honestly* was in a third of them,
+  against a few per cent of human posts. Keep one only where the source has
+  it.
+- **A rule pushed to zero.** Whatever a rule names gets overshot: every
+  connective opener cut, every passive made active, every bracketed aside
+  removed, every sentence a different length. People open some sentences with
+  *but* or *so*, use the passive, and put asides in brackets; a passage with
+  none of them reads as scrubbed. Fix the cluster, not every instance. The
+  habit nobody names does not move by itself: models write a wider vocabulary
+  than people, so check for rotated synonyms by name (above).
 - **Precision traded for tone.** *Latency* does not become *slowness*.
 - **Three points compressed into one punchy line.** Punchiness that costs
   content is a failed rewrite (constraint 4).
+
+## Fiction
+
+Stories run the other way on rhythm. Model-written stories already have
+shorter, choppier paragraphs and more dashes than human ones, so the varied
+rhythm advice above pushes a story further towards the model. In a story:
+
+- Add no fragments and no one-line paragraphs. Merge a run of them.
+- Cut the sentence that explains an image just shown (*..., a reminder
+  that...*, *It was clear she cared*), and the line that states the moral.
+- Thin the similes to the ones that carry something, not one a paragraph.
+- A character's name is a fact (constraint 1). Stock names (*Elara*, *Kael*,
+  *Marcus*) are evidence in detect mode, and never renamed.
+
+What happens in the story - the plot, the ending, which details recur - is its
+content. A bookended ending, a moral spelled out in the action and escalation
+in even steps are tells to name in detect mode and under *explain*, but
+changing them changes the story, so do it only when asked.

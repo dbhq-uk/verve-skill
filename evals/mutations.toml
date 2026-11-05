@@ -133,3 +133,19 @@ case = "audience-drops-the-gloss-keeps-the-facts"
 run = "runs/2026-09-08-claude-opus-5.json"
 kind = "semantic"
 violated_claim = "'Approve three additional nodes after Friday' keeps every asserted token and reverses the deadline. 'Friday is the review day' keeps 'Friday' while deleting the approval deadline altogether. 'Provision them next week' directed at the VP keeps 'Infrastructure' as a noun while losing its undertaking. Actor, action and deadline relationships need a reader."
+
+[[mutation]]
+id = "invented-figure-appended"
+case = "fidelity-figures-and-names"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+append = " Uptime held at 99.9% throughout."
+expect_failure = "invented: '99.9'"
+
+[[mutation]]
+id = "invented-link-appended"
+case = "audience-keeps-the-warmth"
+run = "runs/2026-09-08-claude-opus-5.json"
+kind = "automated"
+append = " The full write-up is at https://status.example.com/incident."
+expect_failure = "invented: 'https://status.example.com/incident'"
