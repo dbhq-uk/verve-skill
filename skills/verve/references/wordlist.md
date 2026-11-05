@@ -38,7 +38,7 @@ character, a *landscape* painting).
 | highlight (verb) | show, point out | GPT-4o, GPT-5 |
 | showcase | show | GPT-4o, GPT-5 |
 | crucial | important, or say why | GPT-4, GPT-4o |
-| pivotal | important, decisive | GPT-4, GPT-4o |
+| pivotal | important, central (not *decisive*, which claims more) | GPT-4, GPT-4o |
 | underscore | show, stress | GPT-4, GPT-4o |
 | vibrant | busy, lively | GPT-4, GPT-4o |
 | enduring | lasting, long | GPT-4, GPT-4o |
@@ -78,6 +78,27 @@ character, a *landscape* painting).
 | seamless(ly) | smooth, without a break | General |
 | quietly (as praise) | cut, or say what it does | General |
 | gate, gated (figurative) | limit, depend on (keep technical uses) | General |
+
+## Ordinary words at a machine rate
+
+Needs company, and stronger as evidence in detect mode than as a reason to
+edit. In 2026 output the old marker words are rare; what stands out is
+ordinary words used at several times the human rate. A 2026 count of human
+and model blog posts on the same titles kept only words found in at most 4% of
+the human posts and at least 10% of the model ones (Quirón, building on the
+LexA index, Juzek 2026, and Kobak et al. 2025):
+
+- increasingly, significantly, consistently, meaningful, merely, surprisingly
+- in Claude's output also substantially, and the sincerity markers in
+  *Dead adverbs* below (*genuinely*, *honestly*)
+
+Replace with the plain word at the same force, or cut where it adds nothing.
+In research text *significantly* claims a statistical test, and stays.
+
+The other half of the signal is what is missing. Models under-use plain words
+people reach for all the time: *very, get, able, lot, because, something*.
+Their absence is weak evidence in detect mode. Never add them to a rewrite to
+look human; that is the overshoot in `voice.md`.
 
 ## Business jargon
 

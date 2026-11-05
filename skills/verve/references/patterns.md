@@ -86,7 +86,10 @@ comes to*, and in a letter the stock pleasantry after the greeting (*I hope
 this email finds you well*, *I hope you are keeping well*). Hinges between sentences: *Where we are is that, What this means
 is, The upshot is, Which brings us to*. Meta-commentary: *In this section we'll,
 As we'll see, Let me walk you through*. The staged reveal: *The best part: it
-learns.* The setup question: *What if...? Think about it:*. The hedged
+learns.* The setup question: *What if...? Think about it:*, and the question
+asked only to be answered in the next breath (*Why does this matter? Because
+the cache is shared.*), where the answer could simply be said; a question the
+reader would really ask, in a FAQ or a reply, is not one. The hedged
 enumeration that opens an answer: *There are several factors to consider*. Cut
 the run-up, not just its tone, and let the point lead. *Honestly* inside a
 casual sentence is ordinary; the tell is the standalone opener before a routine
@@ -250,7 +253,10 @@ paragraphs that add nothing but volume, keeping every claim.
 **C4. Connective pile-up.** *Moreover, Furthermore, Additionally, That said,
 Consequently, Ultimately*, opening several sentences in one paragraph. One
 *however* proves nothing; three connectives in a paragraph are doing the work
-the sentence order should do. Delete them or reorder.
+the sentence order should do. Delete them or reorder. Do not take them to
+zero: people open some sentences with *but*, *so* or *however*, and a piece
+with none reads as scrubbed. A connective that carries a cause or a sequence
+keeps a plain word of the same force (constraint 4).
 
 **C5. Em dashes.** On sight. Also a spaced en dash or ` -- ` used as one.
 Replace with a comma, a full stop, a colon, a semicolon or brackets, choosing
@@ -286,6 +292,24 @@ and posts, normal in academic register.
 Results are preserved automatically.* Name the actor where the source names
 one and it helps. Keep the passive where the actor is unknown or does not
 matter, and in academic register; inventing an actor breaks constraint 3.
+Models use the agentless passive at about half the human rate (Reinhart et al.
+2025), so a passive is weak evidence of a model, and turning every one active
+is over-correction. The subjectless fragment is the tell; the passive alone is
+not.
+
+**C11. Process nouns as subjects.** Needs company. *The implementation of the
+policy resulted in a reduction of complaints.* A verb turned into a noun and
+put first, often several sentences running. Models write nominalisations at
+about twice the human rate (Reinhart et al. 2025). Give the verb back, with the
+actor where the source names one. A nominalisation that is the field's term
+stays (*deployment*, *authentication*, *throughput*), and so does the passive
+where no actor is named (constraint 3).
+
+> Before: *The implementation of the policy resulted in a reduction of complaints.*
+> After: *The policy cut complaints.*
+
+*Complaints fell after the policy came in* would be a failed fix: *resulted in*
+claims a cause, and *after* claims only an order (constraint 4).
 
 ---
 
@@ -324,6 +348,16 @@ nothing of its own, fold the section into the one before.
 would read better as a sentence. Turn them into one, keeping every value in
 every cell (constraint 1): *Mara Quill won in 2024*, not an empty sentence and
 not a dropped row.
+
+**D8. A heading for every idea, and the summary section.** Needs company.
+Model-written posts carry about twice the headings of human ones, and far more
+often end on a section called *Conclusion*, *Final thoughts* or *Key
+takeaways*. Rewrites that fix every word tend to leave both in place. Merge
+sections that make one point; an idea two paragraphs long needs no heading of
+its own. Cut a closing summary that only repeats, and keep anything new in it -
+a decision, a caveat, a next step (constraint 4). Merging moves text and
+changes none of it. Documentation that readers navigate by heading keeps its
+headings.
 
 ---
 

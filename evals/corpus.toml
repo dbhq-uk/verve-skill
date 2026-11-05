@@ -7,7 +7,7 @@
 # Fields:
 #   id                     unique, kebab-case
 #   kind                   triage | fidelity | variety | audience | overshare |
-#                          tells | voice | detect | contact
+#                          tells | voice | material | detect | contact
 #   request                what the user asks, minus the text itself
 #   text                   the input passage
 #   unchanged              true if the output must match the input
@@ -580,6 +580,10 @@ must_not_match = [
   # witness, which is the commonest way humanising goes wrong: it makes text
   # sound more human by making it less true.
   '(?-i:\bI\b)|\bmy\b|\bme\b|\bwe\b|\bour\b',
+  # Reference text with its facts in it: the Material note is for a post with
+  # nothing of the writer's own, and firing here would be a check that speaks
+  # on every run.
+  'Material \(not added\)',
 ]
 max_loss = 0.5
 max_gain = 0.6
@@ -589,6 +593,37 @@ The Thames Barrier, completed in 1982, stands as a pivotal testament to \
 British engineering. Spanning 520 metres across the river, it protects 125 \
 square kilometres of central London from tidal surges, and it has been \
 closed more than 200 times.
+"""
+
+[[case]]
+id = "material-generic-post-asks"
+kind = "material"
+request = "verve this, it's going on my blog:"
+claims = [
+  "Remote work has become more important. (Pace-of-the-world framing is a tell and may go.)",
+  "Teams that use asynchronous communication can gain a lot of productivity. (Degree is a claim: a plain word of the same force as 'significant' keeps it; dropping it or hardening 'can' fails.)",
+  "Culture matters at least as much as tools. (The source's 'not just about tools; it's about culture' ranks culture level with or above tools; the staging may go, and any wording that keeps culture at least level keeps this. The source's 'It' follows the productivity sentence, so reading the gains as depending on culture as well as tools is the source's own claim, not an addition.)",
+  "Building trust lets organisations help employees do their best work.",
+  "The future of work is flexible. (A statement about where work is going; softening it to a trend or a possibility weakens it.)",
+]
+must_survive_any_case = ["asynchronous", "trust"]
+must_match = ['Material \(not added\)']
+must_not_match = [
+  # The note asks for the writer's specifics; the rewrite must not supply
+  # them. An invented team, figure or first-person story here is the exact
+  # failure the note exists to prevent.
+  '\\b(I|we) (remember|once|saw|found|learned|switched|moved)\\b',
+  '\\bmy team\\b|\\bour team\\b',
+]
+max_loss = 0.6
+max_gain = 0.8
+why = "Specifics, not style, are what make a post read as somebody's: in blind tests readers still called a fully de-telled rewrite machine-made until the writer's own events, names and views went in. A post with none should come back with its tells gone and the Material note asking for them, and with nothing invented to fill the gap (constraint 3)."
+text = """
+In today's fast-paced world, remote work has become increasingly important. \
+Teams that embrace asynchronous communication can unlock significant \
+productivity gains. It's not just about tools; it's about culture. By \
+fostering a culture of trust, organisations can empower employees to do \
+their best work. Ultimately, the future of work is flexible.
 """
 
 # ---------------------------------------------------------------------------

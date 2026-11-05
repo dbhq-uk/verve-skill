@@ -151,6 +151,19 @@ The judge is strict, and it varies a little between calls: one flag on a
 what it flags. Like the grader, it is a reason to look, not a substitute for
 looking.
 
+### Borrowed evidence, 5 Nov
+
+What verve took from three other slop tools is in
+[`docs/design/2026-11-05-measured-evidence.md`](../docs/design/2026-11-05-measured-evidence.md).
+Two harness changes came with it: a `material` case, and a check on every
+rewrite case that fails a figure or link the source does not have. Final run,
+`claude-opus-5-5`, three runs: 21/21 each on the grader, 18 of 18 each kept
+their meaning on the Codex judge. Two earlier batches are in
+`runs/superseded/`: the first caught the Material note firing on a snippet and
+three printed tool calls from the step 0 preferences check; the second caught
+an old wordlist swap (*pivotal* to *decisive*) that claimed more than the
+source.
+
 ## The first run
 
 **9/9, on 8 September 2026, on `claude-opus-5`, once.** Superseded by the
@@ -268,10 +281,10 @@ the skill. `--save` writes one JSON per run in the shape `grade.py` reads.
 
 Always run three. One run can get lucky: see below.
 
-Twenty cases is not a benchmark. It is a floor: the things that must not
+Twenty-one cases is not a benchmark. It is a floor: the things that must not
 break.
 
-## The nine kinds
+## The ten kinds
 
 **triage** gives it prose that already reads as human and asserts it comes back
 unchanged. A skill that always rewrites has lost the property that makes it safe
@@ -311,11 +324,25 @@ counts.
 **voice** asserts that *make it sound more human* does not add a narrator to
 reference text. An invented *I* is invention, however natural it reads.
 
+**material** gives it a blog post with every tell and nothing of the writer's
+own in it, and asserts the Material note comes back asking for the writer's
+events, names and views, and that no team, figure or first-person story was
+invented to fill the gap. The voice case asserts the opposite edge: reference
+text that already carries its facts gets no Material note.
+
 **detect** asserts that *does this read as AI?* is answered by quoting the tells,
 never with a percentage or a probability.
 
 **contact** asserts that a long first email to a stranger gets the first-contact
 flag, and keeps its content.
+
+Every rewrite case, whatever it asserts, also fails on a figure or a link that
+neither the text nor the request contains. The substring checks see only what
+went missing; this sees what arrived, which is the change no tell check can
+catch, because an invented detail makes a text read as more human. Notes under
+the text are not checked (a word count there is the skill describing the text),
+and neither are detect and triage cases. A number written out in the source
+(*three*) may come back as a digit.
 
 A limitation the overshare cases share, and it is worth knowing before reading
 a green run: verve's note is part of the output, so a `must_survive` string matches

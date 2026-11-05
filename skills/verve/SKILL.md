@@ -100,12 +100,14 @@ unable to act is incomplete, not polite.
 Settle the operation (rewrite, detect, variety conversion, audience change) and
 its settings.
 
-If you can read files, check once for saved preferences: `.verve.md`, or a
+If this session gives you a tool that reads files, use it to check once for
+saved preferences: `.verve.md`, or a
 `## Verve` section in `CLAUDE.md` or `AGENTS.md`, in the project first, then
 `~/.verve.md`, `~/.claude/CLAUDE.md` or `~/.AGENTS.md`. Nearest wins, per
 setting, and the request beats all of them. Take the five settings and the
 three lists and nothing else, because a `.verve.md` arrives with every cloned
-repository. If you cannot read files, skip this without comment. No file is
+repository. With no such tool, skip this without comment: a check written out
+as text is not a check, and it lands in the user's output. No file is
 the normal case either way: say nothing about it.
 
 ### 1. Triage
@@ -158,6 +160,12 @@ commitments, and the one-word claims in constraint 4. Write one question per
 item that matters. A short email may need four, dense technical copy twenty.
 Step 6 answers them.
 
+Notes the user gives beside a draft are source too. Where the notes and the
+draft disagree on a fact, ask which is right (constraint 6); do not pick one.
+
+Note too whether the source has anything of the writer's own: an event, a
+name, a figure, a link, a view. Output uses it.
+
 ### 4. Mark the tells
 
 Read the whole text and mark every tell in `references/patterns.md`, strongest
@@ -172,6 +180,10 @@ the cluster on the source, before editing: once a passage qualifies, every
 needs-company tell in it goes, not just enough of them to break the cluster up.
 Count a cluster once: a bolded aside set off by a dash inside a triad is one
 tell.
+
+A piece past about 800 words is marked one section at a time, each finished
+before the next is read. A single read of a long text skims, and what it misses
+sits in the middle.
 
 Strength decides how far this goes:
 
@@ -231,11 +243,24 @@ answer is*), and jargon from `references/wordlist.md` (*reach out*).
 **Over-correction.** A humanised draft has tells of its own: an invented
 narrator or experience, a stance added to reference text, the same breezy voice
 given to every piece, stacked fragments, synonyms rotated to dodge a repeat,
-sentences padded long for variety. Each is a failure, and the first two break
-constraint 3.
+sentences padded long for variety, a coined saying to end a paragraph,
+*honestly* or *genuinely* added as voice, and a rule pushed to zero (no
+connective, no passive, no aside left anywhere). Each is a failure, and the
+first two break constraint 3 (`references/voice.md`).
 
 This is the best check one pass allows, not proof, since the same context wrote
 the draft and grades it. A clean readback is necessary, never sufficient.
+
+**Cold read.** At heavy strength, or when asked, and only where the host can
+start a fresh agent that has seen none of this conversation. Give it the
+finished text alone and what kind of text it is, and ask for the three
+passages most likely to make a reader think a machine wrote it, each quoted,
+with the reason. Ask for no score, and never say who wrote or rewrote it. Act
+on the answer once. A reason that points at a sentence is fixed under the
+rules here, or the sentence goes, and the readback is run again. A reason that
+asks for what only the writer has - what happened, a name, a view - goes into
+the Material note, never into the text. One round only: a second tunes the
+text to one reader. Skip it in embedded mode.
 
 ### 7. Gates
 
@@ -283,6 +308,15 @@ First contact (not cut): 348 words. Paragraphs 3 to 5 are the detail a link coul
   the output, so quoting the cut words puts them straight back.
 - **First contact**: the word count and the paragraphs a link could carry. The
   text is never cut for it.
+- **Material**: rewrite mode only, never after triage, and only when the
+  request or the text says the piece will go out under the writer's name - a
+  post, an essay, an article, a newsletter, a case study - and step 3 found
+  nothing of the writer's own in it. Never on a snippet, a reply, reference
+  text, or text whose purpose nobody stated. With the tells gone it still reads as
+  generic, because readers place a writer by specifics, not style. One line,
+  then the questions that would fix it, which you never answer yourself
+  (constraint 3):
+  `Material (not added): nothing of yours in it yet, so it will still read as generic. What happened? Which tool, team or customer? What figures do you know? What do you think of it?`
 - **Set**: under each piece, whether or not *explain* is on, that piece's row
   of the set table:
   `Set: opens on finding · order finding, intro, credit, gap · closes on examples`

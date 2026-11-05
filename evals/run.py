@@ -177,6 +177,55 @@ TOOL_MARKUP = re.compile(
     re.M)
 
 
+# The notes SKILL.md allows under the text. A figure in a note is the skill
+# describing the text (a word count, a paragraph number), not the text, so the
+# invented-figure check reads only what comes before the first of them.
+NOTE_START = re.compile(
+    r"^\s*[*_]*(?:Overshare \((?:not cut|cut)\):|First contact \(not cut\):|Set:"
+    r"|Source mixed|Changes made|Material \(not added\):)",
+    re.M)
+
+# A figure is a run of digits, with any decimal or thousands separators inside
+# it. A link is anything that starts with a scheme or www.
+FIGURE = re.compile(r"\d+(?:[.,]\d+)*")
+LINK = re.compile(r"(?:https?://|www\.)[^\s)>\]\"']+")
+
+NUMBER_WORDS = ("zero one two three four five six seven eight nine ten eleven "
+                "twelve thirteen fourteen fifteen sixteen seventeen eighteen "
+                "nineteen twenty").split()
+
+
+def invented_specifics(case: Case, output: str) -> list[str]:
+    """Figures and links in the rewrite that neither the text nor the request
+    contains.
+
+    Constraint 3 forbids inventing a statistic or a source, and an invented
+    detail is the one change no tell check can see, because it makes the text
+    read as more human, not less. A substring corpus only notices a figure
+    that went missing; this notices one that arrived. A digit written out in
+    words in the source ("three" becoming "3") is not an invention.
+    """
+    source = case.request + "\n" + case.text
+    match = NOTE_START.search(output)
+    body = output[: match.start()] if match else output
+
+    source_figures = {f.replace(",", "") for f in FIGURE.findall(source)}
+    source_lower = source.lower()
+    for i, word in enumerate(NUMBER_WORDS):
+        if re.search(rf"\b{word}\b", source_lower):
+            source_figures.add(str(i))
+
+    found: list[str] = []
+    for fig in FIGURE.findall(body):
+        if fig.replace(",", "") not in source_figures and fig not in found:
+            found.append(fig)
+    for link in LINK.findall(body):
+        link = link.rstrip(".,;:")
+        if link not in source and link not in found:
+            found.append(link)
+    return [f"invented: {item!r} is in no source" for item in found]
+
+
 def strip_triage_line(text: str) -> str:
     for line in TRIAGE_LINES:
         pattern = r"[*_]*" + re.escape(line) + r"[*_]*"
@@ -227,6 +276,13 @@ def check(case: Case, output: str) -> list[str]:
         # asserting only must_survive passes on a verbatim no-op, because
         # every fact trivially survives text that was never touched.
         failures.append("no-op: the input came back whole, nothing was rewritten")
+
+    # Every rewrite: nothing the source does not have. The substring checks
+    # below only see what went missing; this sees what arrived. Detect mode
+    # numbers its list of tells, and a triage case is held to the exact text
+    # above, so neither is a rewrite to check.
+    if case.kind not in ("detect", "triage"):
+        failures.extend(invented_specifics(case, output))
 
     for fact in case.must_survive:
         if fact not in output:
@@ -334,7 +390,7 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true", help="no API calls")
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--only", help="run one kind: triage, fidelity, variety, audience, "
-                                       "overshare, tells, voice, detect, contact")
+                                       "overshare, tells, voice, material, detect, contact")
     parser.add_argument("--runs", type=int, default=1, help="repeats per case")
     parser.add_argument("--verbose", action="store_true", help="print every output")
     parser.add_argument("--via", choices=("api", "cli"), default="api",

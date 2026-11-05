@@ -86,7 +86,8 @@ kept"}], "additions": [{"quote": "...", "why": "..."}]}
 # Notes verve prints under the text. They are written for the writer, and a
 # claim found only in a note has not survived in the text.
 NOTE_LINE = re.compile(
-    r"^\s*[*_`]*\s*(?:Overshare \((?:not )?cut\)|First contact \(not cut\)|Set:)")
+    r"^\s*[*_`]*\s*(?:Overshare \((?:not )?cut\)|First contact \(not cut\)|Set:"
+    r"|Material \(not added\))")
 
 
 def strip_notes(output: str) -> str:
